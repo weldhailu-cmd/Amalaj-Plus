@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
@@ -8,7 +8,8 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/auth/google")
 def google_auth_placeholder():
-    return {"message": "Google Authentication integration will be connected here."}
+    # ለጊዜው ከጉግል ጋር ሙሉ በሙሉ እስኪገናኝ ወደ መነሻው ገጽ ይመልሳል
+    return RedirectResponse(url="/")
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -210,7 +211,7 @@ def read_root():
             </div>
         </div>
 
-        <!-- JavaScript Logic with Strict Validation -->
+        <!-- JavaScript Logic -->
         <script>
             let currentMode = 'signup';
 
