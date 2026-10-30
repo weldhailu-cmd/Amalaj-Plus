@@ -66,7 +66,7 @@ def read_root():
                             <a href="/docs" class="block px-4 py-2.5 text-sm font-semibold hover:bg-slate-100 transition">Join now</a>
                             <a href="/docs" class="block px-4 py-2.5 text-sm font-semibold hover:bg-slate-100 transition">Log In</a>
                             <div class="border-t border-slate-200 my-1"></div>
-                            <a href="#help" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-100 transition">Help center</a>
+                            <a href="#help" onclick="openHelpCenter()" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-100 transition">Help center</a>
                             <a href="#blog" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-100 transition">Blog</a>
                         </div>
                     </div>
@@ -75,7 +75,7 @@ def read_root():
         </header>
 
         <!-- Hero Section -->
-        <section class="max-w-7xl mx-auto px-6 py-16 md:py-24">
+        <section id="mainHero" class="max-w-7xl mx-auto px-6 py-16 md:py-24">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
                 
                 <!-- Left Column: Text & CTA -->
@@ -162,14 +162,54 @@ def read_root():
             </div>
         </section>
 
-        <!-- Scripts for Menu & Language Toggle -->
+        <!-- Help Center Modal / Section -->
+        <section id="helpCenterSection" class="hidden max-w-5xl mx-auto px-6 py-16">
+            <div class="text-center space-y-4 mb-12">
+                <button onclick="closeHelpCenter()" class="text-xs px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 mb-4">&larr; Back to Home</button>
+                <h1 class="text-4xl font-extrabold text-white">How can we help?</h1>
+                <p class="text-slate-400">የሚፈልጉትን እርዳታ ወይም ጥያቄ እዚህ ይፈልጉ</p>
+                
+                <!-- Search Bar -->
+                <div class="max-w-2xl mx-auto mt-6">
+                    <div class="relative">
+                        <input type="text" placeholder="Search for answers (e.g., buying escrow, account transfer)..." class="w-full px-5 py-4 bg-[#1c2541] border border-slate-700 rounded-2xl text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 shadow-xl">
+                        <span class="absolute right-4 top-4 text-slate-400 text-xl">🔍</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="grid md:grid-cols-2 gap-6 mt-12">
+                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500/50 transition shadow-lg space-y-2">
+                    <div class="text-amber-400 text-2xl mb-2">💰</div>
+                    <h3 class="text-xl font-bold text-white">Buying</h3>
+                    <p class="text-slate-400 text-sm">ንብረት ሲገዙ የሚደረግ እርዳታ እና የእስክሮው አጠቃቀም ስርዓት።</p>
+                </div>
+                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500/50 transition shadow-lg space-y-2">
+                    <div class="text-amber-400 text-2xl mb-2">🏷️</div>
+                    <h3 class="text-xl font-bold text-white">Selling</h3>
+                    <p class="text-slate-400 text-sm">ንብረት ሲሸጡ እና ቻናሎችን/አካውንቶችን በሰላም ሲያዛውሩ የሚደረግ እርዳታ።</p>
+                </div>
+                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500/50 transition shadow-lg space-y-2">
+                    <div class="text-amber-400 text-2xl mb-2">⚙️</div>
+                    <h3 class="text-xl font-bold text-white">Account</h3>
+                    <p class="text-slate-400 text-sm">አካውንት አስተዳደር፣ የደህንነት ቅንብሮች እና የመግቢያ መረጃዎች።</p>
+                </div>
+                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500/50 transition shadow-lg space-y-2">
+                    <div class="text-amber-400 text-2xl mb-2">📊</div>
+                    <h3 class="text-xl font-bold text-white">Resources</h3>
+                    <p class="text-slate-400 text-sm">ነፃ አጋዥ ዳታዎች፣ ቼክሊስቶች እና የግብይት መመሪያዎች።</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scripts for Menu, Language Toggle & Help Center -->
         <script>
             function toggleMenu() {
                 const menu = document.getElementById('dropdownMenu');
                 menu.classList.toggle('hidden');
             }
 
-            // Close dropdown when clicking outside
             window.addEventListener('click', function(e) {
                 const menu = document.getElementById('dropdownMenu');
                 const btn = e.target.closest('button');
@@ -177,6 +217,17 @@ def read_root():
                     menu.classList.add('hidden');
                 }
             });
+
+            function openHelpCenter() {
+                document.getElementById('mainHero').classList.add('hidden');
+                document.getElementById('helpCenterSection').classList.remove('hidden');
+                document.getElementById('dropdownMenu').classList.add('hidden');
+            }
+
+            function closeHelpCenter() {
+                document.getElementById('helpCenterSection').classList.add('hidden');
+                document.getElementById('mainHero').classList.remove('hidden');
+            }
 
             let currentLang = 'en';
             const translations = {
