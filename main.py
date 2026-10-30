@@ -63,7 +63,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero Section with Dynamic Switching Post Form Box -->
+            <!-- Hero Section with Universal Switching Post Box -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-start">
                     <div class="lg:col-span-7 space-y-6">
@@ -164,15 +164,15 @@ def read_root():
                                 </button>
                             </form>
 
-                            <!-- 2. Post Repair Tool Form (Swaps with Asset Form) -->
+                            <!-- 2. Post Repair Tool Form -->
                             <form id="formPostTool" onsubmit="handlePostTool(event)" class="hidden space-y-3 text-xs">
                                 <div>
                                     <label class="block text-slate-300 font-semibold mb-1">Tool Name *</label>
-                                    <input type="text" id="toolNameInput" required placeholder="e.g., DFT Pro / Chimera Tool / Miracle" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    <input type="text" id="toolNameInput" required placeholder="e.g., DFT Pro / Chimera Tool" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Tool Description / Supported Models *</label>
-                                    <input type="text" id="toolDescInput" required placeholder="e.g., Samsung FRP Bypass, Xiaomi Flashing & IMEI Repairs" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    <label class="block text-slate-300 font-semibold mb-1">Tool Description / Supported Services *</label>
+                                    <input type="text" id="toolDescInput" required placeholder="e.g., FRP Bypass, Flashing & Mi Account removal." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
@@ -184,12 +184,8 @@ def read_root():
                                         <input type="text" id="toolDurationInput" value="3 Hours Active" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                     </div>
                                 </div>
-                                <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Tool Session Access Link / Credential Details *</label>
-                                    <input type="text" id="toolAccessInput" required placeholder="Hidden access details sent to renter via Escrow" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
-                                </div>
                                 <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer shadow-md">
-                                    Publish Repair Tool for Rental &rarr;
+                                    Publish Rental Tool &rarr;
                                 </button>
                             </form>
                         </div>
@@ -382,7 +378,6 @@ def read_root():
                 document.getElementById('mainPostBoxContainer').scrollIntoView({ behavior: 'smooth' });
             }
 
-            // Dynamic Asset Types based on Platform Selection
             function updateAssetTypes() {
                 const platform = document.getElementById('listingPlatform').value;
                 const assetTypeSelect = document.getElementById('listingAssetType');
@@ -403,7 +398,6 @@ def read_root():
                 assetTypeSelect.innerHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
             }
 
-            // Simulate AI OCR Auto-Scan from Screenshot Upload
             function handleProofUpload(e) {
                 const file = e.target.files[0];
                 if (file) {
