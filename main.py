@@ -58,7 +58,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero / About Section -->
+            <!-- Hero / About Section with Post Ad Form on Right -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-center">
                     <div class="lg:col-span-7 space-y-6">
@@ -83,7 +83,7 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Quick Listing Card -->
+                    <!-- Post New Asset or Tool Form (Restored properly on right side) -->
                     <div class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
@@ -157,7 +157,7 @@ def read_root():
                     </div>
                 </div>
 
-                <!-- Dynamic Browse Listings Container (Appears when clicking Browse Listings) -->
+                <!-- Dynamic Browse Listings Container -->
                 <div id="browseListingsSection" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-2xl space-y-4">
                     <div class="flex justify-between items-center pb-3 border-b border-slate-800">
                         <h3 id="browseTitle" class="font-bold text-white text-base">Browse Listings & Categories</h3>
@@ -328,10 +328,9 @@ def read_root():
 
                 if (filtered.length === 0) {
                     container.innerHTML = `
-                        <div class="p-6 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center space-y-2">
-                            <i class="fa-solid fa-folder-open text-amber-400 text-2xl"></i>
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center space-y-1">
                             <p>No active listings found for ${category === 'ALL' ? 'any category' : category}.</p>
-                            <p class="text-[10px]">Use the "Post New Asset or Tool" form on the top right to publish one!</p>
+                            <p class="text-[10px] text-amber-400">Use the form above to publish a new listing!</p>
                         </div>
                     `;
                     return;
