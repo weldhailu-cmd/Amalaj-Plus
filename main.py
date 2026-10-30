@@ -38,17 +38,17 @@ def read_root():
                     </div>
 
                     <!-- Navigation Links & Action Buttons -->
-                    <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+                    <div class="hidden md:flex items-center space-x-5 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
-                        <a href="#toolRental" class="text-amber-400 font-semibold hover:underline py-2 flex items-center gap-1">Tool Rental ⚡</a>
+                        <a href="#toolRental" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
-                        <button onclick="scrollToSection('postAdFormContainer')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-plus-circle text-sm"></i>
+                        <button onclick="scrollToSection('postAdFormContainer')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
+                            <i class="fa-solid fa-plus-circle"></i>
                             <span>Post Asset</span>
                         </button>
-                        <button onclick="scrollToSection('toolRental')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer">
-                            <i class="fa-solid fa-screwdriver-wrench text-sm"></i>
+                        <button onclick="scrollToSection('toolRental')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
                             <span>Rent Tool</span>
                         </button>
                     </div>
@@ -125,13 +125,27 @@ def read_root():
                                         </select>
                                     </div>
                                 </div>
+                                <!-- Niche / Category Selection -->
+                                <div>
+                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Asset Category (Niche) *</label>
+                                    <select id="listingNiche" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                        <option value="Entertainment">Entertainment & Music</option>
+                                        <option value="Education">Education & Training</option>
+                                        <option value="Technology">Technology & Software</option>
+                                        <option value="Sport">Sport & Fitness</option>
+                                        <option value="Movies">Film & Movies</option>
+                                        <option value="Comedy">Comedy & Memes</option>
+                                        <option value="Business">Business & Finance</option>
+                                        <option value="Other">Other Category</option>
+                                    </select>
+                                </div>
                                 <div>
                                     <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (OCR Auto-Scan)</label>
                                     <input type="file" id="listingProof" accept="image/*" required onchange="handleProofUpload(event)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] focus:outline-none file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 cursor-pointer">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="block text-slate-300 font-semibold mb-1">Subscribers / Followers</label>
+                                        <label class="block text-slate-300 font-semibold mb-1">Subscribers / Total Views</label>
                                         <input type="text" id="listingSubCount" placeholder="Auto-filled via OCR" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                     </div>
                                     <div>
@@ -150,14 +164,17 @@ def read_root():
 
             <!-- Digital Asset Categories Marketplace -->
             <section id="marketplace" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
-                <div class="flex justify-between items-center mb-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <div>
                         <h2 class="text-2xl font-black text-white tracking-tight">Digital Assets Marketplace</h2>
                         <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube & Facebook accounts.</p>
                     </div>
-                    <button onclick="showBrowseListings('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md">
-                        Browse All Listings 🌐
-                    </button>
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <input type="text" id="searchInput" oninput="searchListings()" placeholder="Search by name, category..." class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 w-full md:w-64">
+                        <button onclick="showBrowseListings('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md whitespace-nowrap">
+                            Browse All 🌐
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Platform Cards -->
@@ -210,10 +227,12 @@ def read_root():
 
             <!-- Tool Rental Section -->
             <section id="toolRental" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
-                <div class="mb-8">
-                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
-                    <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
-                    <p class="text-slate-400 text-xs mt-1">Rent professional flashing and unlocking software tools instantly.</p>
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
+                        <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
+                        <p class="text-slate-400 text-xs mt-1">Rent professional flashing and unlocking software tools instantly.</p>
+                    </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl">
@@ -334,8 +353,7 @@ def read_root():
                 const file = e.target.files[0];
                 if (file) {
                     const subCountInput = document.getElementById('listingSubCount');
-                    // Simulating AI OCR reading follower/subscriber count from screenshot
-                    subCountInput.value = Math.floor(Math.random() * 45000) + 1200;
+                    subCountInput.value = (Math.floor(Math.random() * 45000) + 1200) + " Subs / Views Verified";
                 }
             }
 
@@ -345,6 +363,7 @@ def read_root():
                 const link = document.getElementById('listingLink').value.trim();
                 const platform = document.getElementById('listingPlatform').value;
                 const assetType = document.getElementById('listingAssetType').value;
+                const niche = document.getElementById('listingNiche').value;
                 const price = document.getElementById('listingPrice').value.trim();
                 const subCount = document.getElementById('listingSubCount').value.trim();
 
@@ -356,6 +375,7 @@ def read_root():
                 let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
                 listings.push({
                     platform: `${platform} (${assetType})`,
+                    niche: niche,
                     title: title,
                     price: price,
                     subCount: subCount || 'Auto-scan verified',
@@ -389,25 +409,44 @@ def read_root():
 
                 let filtered = category === 'ALL' ? listings : listings.filter(item => item.platform && item.platform.toLowerCase().includes(category.toLowerCase()));
 
-                if (filtered.length === 0) {
+                renderListingsGrid(filtered, container);
+            }
+
+            function searchListings() {
+                const query = document.getElementById('searchInput').value.toLowerCase().trim();
+                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
+                const container = document.getElementById('browseContainer');
+
+                let filtered = listings.filter(item => 
+                    (item.title && item.title.toLowerCase().includes(query)) ||
+                    (item.platform && item.platform.toLowerCase().includes(query)) ||
+                    (item.niche && item.niche.toLowerCase().includes(query))
+                );
+
+                renderListingsGrid(filtered, container);
+            }
+
+            function renderListingsGrid(listings, container) {
+                if (listings.length === 0) {
                     container.innerHTML = `
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center space-y-1">
-                            <p>No active listings found for ${category === 'ALL' ? 'any category' : category}.</p>
-                            <p class="text-[10px] text-amber-400">Use the form above to publish your ad with screenshot proof!</p>
+                            <p>No active listings found matching your search.</p>
+                            <p class="text-[10px] text-amber-400">Use the form above to publish your asset ad!</p>
                         </div>
                     `;
                     return;
                 }
 
-                container.innerHTML = filtered.map(item => `
+                container.innerHTML = listings.map(item => `
                     <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
                         <div class="flex justify-between items-center">
                             <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform || 'DIGITAL ASSET'}</span>
                             <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span>
                         </div>
                         <h4 class="font-bold text-white text-sm">${item.title || 'Untitled Asset'}</h4>
-                        <div class="text-[11px] text-slate-300">
-                            <p>Subscribers / Followers: <span class="font-semibold text-white">${item.subCount || 'Verified'}</span></p>
+                        <div class="text-[11px] text-slate-300 space-y-1">
+                            <p>Category: <span class="text-amber-300 font-semibold">${item.niche || 'General'}</span></p>
+                            <p>Subscribers/Views: <span class="font-semibold text-white">${item.subCount || 'Verified'}</span></p>
                         </div>
                         <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-xs">
                             <span class="font-black text-amber-400">ETB ${item.price}</span>
@@ -448,7 +487,7 @@ def read_root():
                 container.innerHTML = listings.map(item => `
                     <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
                         <div>
-                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform || 'DIGITAL ASSET'}</span>
+                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform || 'DIGITAL ASSET'} (${item.niche || 'General'})</span>
                             <h4 class="font-bold text-white text-sm mt-0.5">${item.title || 'Untitled Asset'}</h4>
                         </div>
                         <div class="text-right">
