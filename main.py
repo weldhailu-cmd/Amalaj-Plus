@@ -58,7 +58,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero / About Section with Post Ad Form on Right -->
+            <!-- Hero Section with Complete Post Form -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-center">
                     <div class="lg:col-span-7 space-y-6">
@@ -69,7 +69,7 @@ def read_root():
                             Buy & Sell Digital Assets & <span class="text-amber-400">Rent Mobile Repair Tools</span> Securely.
                         </h1>
                         <p class="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed">
-                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, and rent professional mobile repair software tools backed by safe escrow protection.
+                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, YouTube channels, Instagram & Facebook pages, and rent professional mobile repair software tools backed by safe escrow protection.
                         </p>
                         <!-- Escrow Trust Badge Box -->
                         <div class="flex items-center gap-3 p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl max-w-lg">
@@ -83,33 +83,59 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Post New Asset or Tool Form (Restored properly on right side) -->
+                    <!-- Post Digital Asset Ad Form (With Screenshot Proof & All Fields) -->
                     <div class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                                <h3 class="text-base font-bold text-white">Post New Asset or Tool</h3>
-                                <button onclick="openConductModal()" class="text-xs text-amber-400 font-bold hover:underline cursor-pointer">Code of Conduct ⓘ</button>
+                                <h3 class="text-base font-bold text-white">Post Digital Asset Ad</h3>
+                                <span class="text-amber-400 font-bold text-xs">2% Escrow Protected</span>
                             </div>
                             <form onsubmit="handlePostListing(event)" class="space-y-3 text-xs">
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Listing Type</label>
-                                    <select id="listingType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
-                                        <option value="Telegram Channel">Telegram Channel</option>
-                                        <option value="TikTok Account">TikTok Account</option>
-                                        <option value="YouTube Channel">YouTube Channel</option>
-                                        <option value="Facebook Page">Facebook Page</option>
-                                    </select>
+                                    <label class="block text-slate-300 font-semibold mb-1">Asset Name / Title *</label>
+                                    <input type="text" id="listingTitle" required placeholder="e.g., Habesha Tech Channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Username</label>
-                                    <input type="text" id="listingTitle" required placeholder="e.g., @TechChannelEthiopia" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Page Link * (Hidden)</label>
+                                    <input type="url" id="listingLink" required placeholder="https://t.me/your_channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Platform *</label>
+                                        <select id="listingPlatform" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                            <option value="Telegram">Telegram</option>
+                                            <option value="TikTok">TikTok</option>
+                                            <option value="YouTube">YouTube</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Facebook">Facebook</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Asset Type *</label>
+                                        <select id="listingAssetType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                            <option value="Channel">Channel / Page</option>
+                                            <option value="Group">Group</option>
+                                            <option value="Bot">Bot</option>
+                                            <option value="Account">Account</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Price (ETB)</label>
-                                    <input type="number" id="listingPrice" required placeholder="e.g., 2500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (OCR Auto-Scan)</label>
+                                    <input type="file" id="listingProof" accept="image/*" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] focus:outline-none file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 cursor-pointer">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Subscribers / Followers</label>
+                                        <input type="number" id="listingSubCount" placeholder="Auto-filled via OCR" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Asking Price (ETB) *</label>
+                                        <input type="number" id="listingPrice" required placeholder="5000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    </div>
                                 </div>
                                 <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer">
-                                    Publish to Marketplace &rarr;
+                                    Publish Ad with Escrow Protection &rarr;
                                 </button>
                             </form>
                         </div>
@@ -122,50 +148,56 @@ def read_root():
                 <div class="flex justify-between items-center mb-8">
                     <div>
                         <h2 class="text-2xl font-black text-white tracking-tight">Digital Assets Marketplace</h2>
-                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube & Facebook accounts.</p>
+                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube, Instagram & Facebook accounts.</p>
                     </div>
                     <button onclick="showBrowseListings('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md">
                         Browse All Listings 🌐
                     </button>
                 </div>
                 
-                <!-- 4 Main Platform Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3">
+                <!-- 5 Platform Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Telegram')">
                         <div class="w-10 h-10 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-xl"><i class="fa-brands fa-telegram"></i></div>
                         <h3 class="font-bold text-white text-base">Telegram Channels</h3>
-                        <p class="text-xs text-slate-400">Verified members & high engagement groups.</p>
-                        <button onclick="showBrowseListings('Telegram Channel')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-xl text-xs border border-slate-700 transition cursor-pointer">Browse Listings</button>
+                        <p class="text-xs text-slate-400">Verified members & groups.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-3">
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('TikTok')">
                         <div class="w-10 h-10 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-xl"><i class="fa-brands fa-tiktok"></i></div>
                         <h3 class="font-bold text-white text-base">TikTok Accounts</h3>
-                        <p class="text-xs text-slate-400">Monetized & live-enabled creator accounts.</p>
-                        <button onclick="showBrowseListings('TikTok Account')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-xl text-xs border border-slate-700 transition cursor-pointer">Browse Listings</button>
+                        <p class="text-xs text-slate-400">Monetized creator accounts.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-3">
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('YouTube')">
                         <div class="w-10 h-10 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
                         <h3 class="font-bold text-white text-base">YouTube Channels</h3>
-                        <p class="text-xs text-slate-400">Ready monetization channels with subscribers.</p>
-                        <button onclick="showBrowseListings('YouTube Channel')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-xl text-xs border border-slate-700 transition cursor-pointer">Browse Listings</button>
+                        <p class="text-xs text-slate-400">Monetization ready channels.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-3">
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Instagram')">
+                        <div class="w-10 h-10 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-xl"><i class="fa-brands fa-instagram"></i></div>
+                        <h3 class="font-bold text-white text-base">Instagram Pages</h3>
+                        <p class="text-xs text-slate-400">Active community profiles.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Facebook')">
                         <div class="w-10 h-10 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-xl"><i class="fa-brands fa-facebook"></i></div>
                         <h3 class="font-bold text-white text-base">Facebook Pages</h3>
-                        <p class="text-xs text-slate-400">Active community pages and groups.</p>
-                        <button onclick="showBrowseListings('Facebook Page')" class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-amber-400 font-bold rounded-xl text-xs border border-slate-700 transition cursor-pointer">Browse Listings</button>
+                        <p class="text-xs text-slate-400">High reach pages & groups.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                 </div>
 
                 <!-- Dynamic Browse Listings Container -->
                 <div id="browseListingsSection" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-2xl space-y-4">
                     <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                        <h3 id="browseTitle" class="font-bold text-white text-base">Browse Listings & Categories</h3>
+                        <h3 id="browseTitle" class="font-bold text-white text-base">All Browse Listings & Categories</h3>
                         <span class="text-xs text-amber-400 font-bold">🛡️ Escrow Protected Market</span>
                     </div>
                     <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
-                            Click on any "Browse Listings" button above or "Browse All Listings" to view active digital assets.
+                            No listings found. Use the form above to publish your asset ad with screenshot proof!
                         </div>
                     </div>
                 </div>
@@ -249,57 +281,10 @@ def read_root():
             </section>
         </div>
 
-        <!-- Telegram Direct Support Floating Widget -->
+        <!-- Telegram Support Widget -->
         <a href="https://t.me/" target="_blank" class="fixed bottom-6 right-6 bg-[#229ED9] hover:bg-[#1d8ebf] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl z-50 transition transform hover:scale-105 cursor-pointer" title="Contact Support on Telegram">
             <i class="fa-brands fa-telegram text-2xl"></i>
         </a>
-
-        <!-- Code of Conduct Modal -->
-        <div id="conductModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-            <div class="bg-[#1c2541] border border-slate-700 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl space-y-6">
-                <button onclick="closeConductModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl cursor-pointer">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                <div class="text-center space-y-2">
-                    <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-xl font-bold">
-                        <i class="fa-solid fa-handshake"></i>
-                    </div>
-                    <h3 class="text-xl font-black text-white">Great relationships start here</h3>
-                    <p class="text-xs text-slate-300">Please commit to our Code of Conduct to help build a fair and trusted community.</p>
-                </div>
-                <button onclick="closeConductModal()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm cursor-pointer">
-                    OK, got it
-                </button>
-            </div>
-        </div>
-
-        <!-- Authentication Modal -->
-        <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-            <div class="bg-[#1c2541] border border-slate-700 rounded-3xl max-w-md w-full p-8 relative shadow-2xl space-y-6">
-                <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl cursor-pointer">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-                <div class="text-center space-y-1">
-                    <h3 id="modalTitle" class="text-2xl font-black text-white">Create Account</h3>
-                    <p id="modalSubtitle" class="text-xs text-slate-400">Join Amalaj Plus Universal Marketplace</p>
-                </div>
-                <button onclick="handleGoogleAuth()" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl flex items-center justify-center space-x-3 transition shadow-lg text-sm cursor-pointer">
-                    <i class="fa-brands fa-google text-red-500 text-lg"></i>
-                    <span>Sign in with Google</span>
-                </button>
-                <div class="relative flex py-1 items-center">
-                    <div class="flex-grow border-t border-slate-700"></div>
-                    <span class="flex-shrink mx-4 text-xs text-slate-500 uppercase">Or</span>
-                    <div class="flex-grow border-t border-slate-700"></div>
-                </div>
-                <form id="authForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                    <input type="email" id="emailInput" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-                    <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-md mt-2 cursor-pointer">
-                        Continue
-                    </button>
-                </form>
-            </div>
-        </div>
 
         <!-- JavaScript Logic -->
         <script>
@@ -313,6 +298,38 @@ def read_root():
                 showBrowseListings('ALL');
             };
 
+            function handlePostListing(e) {
+                e.preventDefault();
+                const title = document.getElementById('listingTitle').value.trim();
+                const link = document.getElementById('listingLink').value.trim();
+                const platform = document.getElementById('listingPlatform').value;
+                const assetType = document.getElementById('listingAssetType').value;
+                const price = document.getElementById('listingPrice').value.trim();
+                const subCount = document.getElementById('listingSubCount').value.trim();
+
+                if (!title || !link || !price) return;
+
+                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
+                listings.push({
+                    platform: `${platform} (${assetType})`,
+                    title,
+                    price,
+                    subCount: subCount || 'Auto-scan verified',
+                    link,
+                    date: new Date().toLocaleDateString()
+                });
+                localStorage.setItem('amalaj_listings', JSON.stringify(listings));
+
+                document.getElementById('listingTitle').value = '';
+                document.getElementById('listingLink').value = '';
+                document.getElementById('listingPrice').value = '';
+                document.getElementById('listingSubCount').value = '';
+                alert("Ad published successfully with Admin Escrow Protection! (2% fee applies)");
+                loadUserListings();
+                showBrowseListings('ALL');
+                switchDashboardTab('listings');
+            }
+
             function showBrowseListings(category) {
                 const container = document.getElementById('browseContainer');
                 const titleElem = document.getElementById('browseTitle');
@@ -324,28 +341,31 @@ def read_root():
                     titleElem.innerText = `Browse Listings: ${category}`;
                 }
 
-                let filtered = category === 'ALL' ? listings : listings.filter(item => item.type === category);
+                let filtered = category === 'ALL' ? listings : listings.filter(item => item.platform && item.platform.toLowerCase().includes(category.toLowerCase()));
 
                 if (filtered.length === 0) {
                     container.innerHTML = `
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center space-y-1">
                             <p>No active listings found for ${category === 'ALL' ? 'any category' : category}.</p>
-                            <p class="text-[10px] text-amber-400">Use the form above to publish a new listing!</p>
+                            <p class="text-[10px] text-amber-400">Use the form above to publish your ad with screenshot proof!</p>
                         </div>
                     `;
                     return;
                 }
 
                 container.innerHTML = filtered.map(item => `
-                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3">
+                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
                         <div class="flex justify-between items-center">
-                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.type}</span>
+                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span>
                             <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span>
                         </div>
                         <h4 class="font-bold text-white text-sm">${item.title}</h4>
+                        <div class="text-[11px] text-slate-300">
+                            <p>Subscribers: <span class="font-semibold text-white">${item.subCount}</span></p>
+                        </div>
                         <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-xs">
                             <span class="font-black text-amber-400">ETB ${item.price}</span>
-                            <button onclick="alert('Connecting to seller via secure Escrow Chat for ${item.title}...') " class="px-3 py-1.5 bg-amber-500 text-slate-950 font-bold rounded-lg hover:bg-amber-400 transition cursor-pointer">
+                            <button onclick="alert('Connecting to seller for ${item.title} via secure Escrow Chat...') " class="px-3 py-1.5 bg-amber-500 text-slate-950 font-bold rounded-lg hover:bg-amber-400 transition cursor-pointer">
                                 Buy / Chat
                             </button>
                         </div>
@@ -372,26 +392,6 @@ def read_root():
                 }
             }
 
-            function handlePostListing(e) {
-                e.preventDefault();
-                const type = document.getElementById('listingType').value;
-                const title = document.getElementById('listingTitle').value.trim();
-                const price = document.getElementById('listingPrice').value.trim();
-
-                if (!title || !price) return;
-
-                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
-                listings.push({ type, title, price, date: new Date().toLocaleDateString() });
-                localStorage.setItem('amalaj_listings', JSON.stringify(listings));
-
-                document.getElementById('listingTitle').value = '';
-                document.getElementById('listingPrice').value = '';
-                alert("Listing published successfully with Escrow protection!");
-                loadUserListings();
-                showBrowseListings('ALL');
-                switchDashboardTab('listings');
-            }
-
             function loadUserListings() {
                 const container = document.getElementById('userListingsContainer');
                 let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
@@ -402,7 +402,7 @@ def read_root():
                 container.innerHTML = listings.map(item => `
                     <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
                         <div>
-                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.type}</span>
+                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span>
                             <h4 class="font-bold text-white text-sm mt-0.5">${item.title}</h4>
                         </div>
                         <div class="text-right">
@@ -443,20 +443,6 @@ def read_root():
                 `).join('');
             }
 
-            function openConductModal() { document.getElementById('conductModal').classList.remove('hidden'); }
-            function closeConductModal() { document.getElementById('conductModal').classList.add('hidden'); }
-            function openAuthModal(mode) { document.getElementById('authModal').classList.remove('hidden'); }
-            function closeAuthModal() { document.getElementById('authModal').classList.add('hidden'); }
-            function handleGoogleAuth() { window.location.href = "/auth/google"; }
-            function handleFormSubmit(e) {
-                e.preventDefault();
-                const email = document.getElementById('emailInput').value.trim();
-                const userName = email.split('@')[0];
-                const capitalizedName = userName.charAt(0).toUpperCase() + userName.slice(1);
-                localStorage.setItem('amalaj_user', capitalizedName);
-                closeAuthModal();
-                updateNavbarUser(capitalizedName);
-            }
             function updateNavbarUser(name) {
                 const navActions = document.getElementById('navUserActions');
                 navActions.innerHTML = `
