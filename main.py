@@ -37,15 +37,19 @@ def read_root():
                         <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                     </div>
 
-                    <!-- Navigation Links & + Post Ad Button -->
+                    <!-- Navigation Links & Action Buttons -->
                     <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
                         <a href="#toolRental" class="text-amber-400 font-semibold hover:underline py-2 flex items-center gap-1">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
-                        <button onclick="scrollToPostForm()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer">
+                        <button onclick="scrollToSection('postAdFormContainer')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer">
                             <i class="fa-solid fa-plus-circle text-sm"></i>
-                            <span>Post Ad</span>
+                            <span>Post Asset</span>
+                        </button>
+                        <button onclick="scrollToSection('toolRental')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-screwdriver-wrench text-sm"></i>
+                            <span>Rent Tool</span>
                         </button>
                     </div>
 
@@ -59,7 +63,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero Section with Full Post Ad Form -->
+            <!-- Hero Section with Dynamic Post Ad Form -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-start">
                     <div class="lg:col-span-7 space-y-6">
@@ -106,7 +110,7 @@ def read_root():
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Platform *</label>
-                                        <select id="listingPlatform" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                        <select id="listingPlatform" onchange="updateAssetTypes()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
                                             <option value="Telegram">Telegram</option>
                                             <option value="TikTok">TikTok</option>
                                             <option value="YouTube">YouTube</option>
@@ -117,16 +121,13 @@ def read_root():
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Asset Type *</label>
                                         <select id="listingAssetType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
-                                            <option value="Channel / Page">Channel / Page</option>
-                                            <option value="Group">Group</option>
-                                            <option value="Bot">Bot</option>
-                                            <option value="Account">Account</option>
+                                            <!-- Dynamically populated -->
                                         </select>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (OCR Auto-Scan)</label>
-                                    <input type="file" id="listingProof" accept="image/*" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] focus:outline-none file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 cursor-pointer">
+                                    <input type="file" id="listingProof" accept="image/*" required onchange="handleProofUpload(event)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] focus:outline-none file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 cursor-pointer">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
@@ -159,7 +160,7 @@ def read_root():
                     </button>
                 </div>
                 
-                <!-- Main Platform Cards -->
+                <!-- Platform Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8">
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Telegram')">
                         <div class="w-10 h-10 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-xl"><i class="fa-brands fa-telegram"></i></div>
@@ -201,7 +202,7 @@ def read_root():
                     </div>
                     <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
-                            No listings found. Click "+ Post Ad" above to publish your asset!
+                            No listings found. Click "Post Asset" above to publish your asset!
                         </div>
                     </div>
                 </div>
@@ -297,13 +298,45 @@ def read_root():
                 if (savedUser) {
                     updateNavbarUser(savedUser);
                 }
+                updateAssetTypes();
                 loadUserListings();
                 loadUserRentals();
                 showBrowseListings('ALL');
             };
 
-            function scrollToPostForm() {
-                document.getElementById('postAdFormContainer').scrollIntoView({ behavior: 'smooth' });
+            function scrollToSection(id) {
+                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            }
+
+            // Dynamic Asset Types based on Platform Selection
+            function updateAssetTypes() {
+                const platform = document.getElementById('listingPlatform').value;
+                const assetTypeSelect = document.getElementById('listingAssetType');
+                
+                let options = [];
+                if (platform === 'Telegram') {
+                    options = ['Channel', 'Group', 'Bot'];
+                } else if (platform === 'TikTok') {
+                    options = ['Account (Live Enabled)', 'Monetized Account'];
+                } else if (platform === 'YouTube') {
+                    options = ['Monetized Channel', 'Subscriber Channel'];
+                } else if (platform === 'Instagram') {
+                    options = ['Page', 'Account'];
+                } else if (platform === 'Facebook') {
+                    options = ['Page', 'Group'];
+                }
+
+                assetTypeSelect.innerHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+            }
+
+            // Simulate AI OCR Auto-Scan from Screenshot Upload
+            function handleProofUpload(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const subCountInput = document.getElementById('listingSubCount');
+                    // Simulating AI OCR reading follower/subscriber count from screenshot
+                    subCountInput.value = Math.floor(Math.random() * 45000) + 1200;
+                }
             }
 
             function handlePostListing(e) {
@@ -335,6 +368,7 @@ def read_root():
                 document.getElementById('listingLink').value = '';
                 document.getElementById('listingPrice').value = '';
                 document.getElementById('listingSubCount').value = '';
+                document.getElementById('listingProof').value = '';
                 
                 alert("Ad published successfully with Admin Escrow Protection! (2% fee applies)");
                 loadUserListings();
