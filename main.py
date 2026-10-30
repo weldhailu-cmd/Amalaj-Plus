@@ -63,7 +63,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero Section with Universal Switching Post Box -->
+            <!-- Hero Section with Centralized Universal Post Box -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-start">
                     <div class="lg:col-span-7 space-y-6">
@@ -88,7 +88,7 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Single Universal Post Box (Switches between Asset & Tool) -->
+                    <!-- Single Centralized Universal Post Box -->
                     <div id="mainPostBoxContainer" class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
                             <!-- Toggle Tabs Header inside Box -->
