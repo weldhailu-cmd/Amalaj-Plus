@@ -176,20 +176,23 @@ def read_root():
                         <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                     </div>
 
-                    <div class="hidden md:flex items-center space-x-5 text-sm font-medium text-slate-300">
+                    <!-- Properly Aligned Navigation Links & Action Buttons -->
+                    <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
                         <a href="#toolRentalSection" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
                         
-                        <button onclick="switchPostFormTab('asset')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
-                            <i class="fa-solid fa-plus-circle"></i>
-                            <span>Post Asset</span>
-                        </button>
-                        <button onclick="switchPostFormTab('tool')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
-                            <i class="fa-solid fa-screwdriver-wrench"></i>
-                            <span>Rent Tool</span>
-                        </button>
+                        <div class="flex items-center space-x-2 pl-2 border-l border-slate-800">
+                            <button onclick="switchPostFormTab('asset')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
+                                <i class="fa-solid fa-plus-circle"></i>
+                                <span>Post Asset</span>
+                            </button>
+                            <button onclick="switchPostFormTab('tool')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+                                <span>Rent Tool</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div id="navUserActions" class="flex items-center space-x-3">
