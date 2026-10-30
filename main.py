@@ -1,4 +1,12 @@
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+
+app = FastAPI()
+
+# staticfiles ን ማገናኘት (የ jsx ፋይሎች የሚገኙበትን ፎልደር ለማሳየት)
+# ፋይሎቹ ያሉት በሩት directory ውስጥ ከሆነ ወይም static የሚባል ፎልደር ካለ
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -16,6 +24,7 @@ def read_root():
       </head>
       <body class="bg-slate-950 text-slate-100">
         <div id="root"></div>
+        <!-- እዚህ ጋር ስሙን ከፋይሉ ጋር ማመሳሰል -->
         <script type="text/babel" src="/static/AmalajPlus.jsx"></script>
       </body>
     </html>
