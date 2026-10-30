@@ -37,7 +37,7 @@ def read_root():
                         <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                     </div>
 
-                    <!-- Navigation Links & Header + Post Ad Button -->
+                    <!-- Navigation Links & + Post Ad Button -->
                     <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
@@ -84,7 +84,7 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Post Digital Asset Ad Form (Full Fields & Screenshot Input) -->
+                    <!-- Post Digital Asset Ad Form Container -->
                     <div id="postAdFormContainer" class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
@@ -100,7 +100,7 @@ def read_root():
                                     <input type="text" id="listingTitle" required placeholder="e.g., Habesha Tech Channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Page Link * (Hidden from Public)</label>
+                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Page Link * (Hidden)</label>
                                     <input type="url" id="listingLink" required placeholder="https://t.me/your_channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
@@ -117,7 +117,7 @@ def read_root():
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Asset Type *</label>
                                         <select id="listingAssetType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
-                                            <option value="Channel">Channel / Page</option>
+                                            <option value="Channel / Page">Channel / Page</option>
                                             <option value="Group">Group</option>
                                             <option value="Bot">Bot</option>
                                             <option value="Account">Account</option>
@@ -125,13 +125,13 @@ def read_root():
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (AI OCR Auto-Scan)</label>
+                                    <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (OCR Auto-Scan)</label>
                                     <input type="file" id="listingProof" accept="image/*" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] focus:outline-none file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 cursor-pointer">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Subscribers / Followers</label>
-                                        <input type="number" id="listingSubCount" placeholder="Auto-filled via OCR" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                        <input type="text" id="listingSubCount" placeholder="Auto-filled via OCR" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                     </div>
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Asking Price (ETB) *</label>
@@ -159,30 +159,36 @@ def read_root():
                     </button>
                 </div>
                 
-                <!-- 4 Main Platform Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                <!-- Main Platform Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8">
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Telegram')">
                         <div class="w-10 h-10 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-xl"><i class="fa-brands fa-telegram"></i></div>
                         <h3 class="font-bold text-white text-base">Telegram Channels</h3>
-                        <p class="text-xs text-slate-400">Verified members & high engagement groups.</p>
+                        <p class="text-xs text-slate-400">Verified members & groups.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('TikTok')">
                         <div class="w-10 h-10 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-xl"><i class="fa-brands fa-tiktok"></i></div>
                         <h3 class="font-bold text-white text-base">TikTok Accounts</h3>
-                        <p class="text-xs text-slate-400">Monetized & live-enabled creator accounts.</p>
+                        <p class="text-xs text-slate-400">Monetized creator accounts.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('YouTube')">
                         <div class="w-10 h-10 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
                         <h3 class="font-bold text-white text-base">YouTube Channels</h3>
-                        <p class="text-xs text-slate-400">Ready monetization channels with subscribers.</p>
+                        <p class="text-xs text-slate-400">Monetization ready channels.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Instagram')">
+                        <div class="w-10 h-10 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-xl"><i class="fa-brands fa-instagram"></i></div>
+                        <h3 class="font-bold text-white text-base">Instagram Pages</h3>
+                        <p class="text-xs text-slate-400">Active community profiles.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Facebook')">
                         <div class="w-10 h-10 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-xl"><i class="fa-brands fa-facebook"></i></div>
                         <h3 class="font-bold text-white text-base">Facebook Pages</h3>
-                        <p class="text-xs text-slate-400">Active community pages and groups.</p>
+                        <p class="text-xs text-slate-400">High reach pages & groups.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                 </div>
@@ -195,7 +201,7 @@ def read_root():
                     </div>
                     <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
-                            No listings found. Click "+ Post Ad" above to publish your asset with screenshot proof!
+                            No listings found. Click "+ Post Ad" above to publish your asset!
                         </div>
                     </div>
                 </div>
@@ -317,10 +323,10 @@ def read_root():
                 let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
                 listings.push({
                     platform: `${platform} (${assetType})`,
-                    title,
-                    price,
+                    title: title,
+                    price: price,
                     subCount: subCount || 'Auto-scan verified',
-                    link,
+                    link: link,
                     date: new Date().toLocaleDateString()
                 });
                 localStorage.setItem('amalaj_listings', JSON.stringify(listings));
@@ -362,12 +368,12 @@ def read_root():
                 container.innerHTML = filtered.map(item => `
                     <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
                         <div class="flex justify-between items-center">
-                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span>
+                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform || 'DIGITAL ASSET'}</span>
                             <span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span>
                         </div>
-                        <h4 class="font-bold text-white text-sm">${item.title}</h4>
+                        <h4 class="font-bold text-white text-sm">${item.title || 'Untitled Asset'}</h4>
                         <div class="text-[11px] text-slate-300">
-                            <p>Subscribers: <span class="font-semibold text-white">${item.subCount}</span></p>
+                            <p>Subscribers / Followers: <span class="font-semibold text-white">${item.subCount || 'Verified'}</span></p>
                         </div>
                         <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-xs">
                             <span class="font-black text-amber-400">ETB ${item.price}</span>
@@ -408,8 +414,8 @@ def read_root():
                 container.innerHTML = listings.map(item => `
                     <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
                         <div>
-                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span>
-                            <h4 class="font-bold text-white text-sm mt-0.5">${item.title}</h4>
+                            <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform || 'DIGITAL ASSET'}</span>
+                            <h4 class="font-bold text-white text-sm mt-0.5">${item.title || 'Untitled Asset'}</h4>
                         </div>
                         <div class="text-right">
                             <span class="font-extrabold text-emerald-400 text-sm">ETB ${item.price}</span>
@@ -463,6 +469,7 @@ def read_root():
                     </div>
                 `;
             }
+
             function logoutUser() {
                 localStorage.removeItem('amalaj_user');
                 location.reload();
