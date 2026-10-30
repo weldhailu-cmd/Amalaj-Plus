@@ -8,7 +8,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/auth/google")
 def google_auth_placeholder():
-    # ለጊዜው ከጉግል ጋር ሙሉ በሙሉ እስኪገናኝ ወደ መነሻው ገጽ ይመልሳል
     return RedirectResponse(url="/")
 
 @app.get("/", response_class=HTMLResponse)
@@ -39,9 +38,9 @@ def read_root():
 
                 <!-- Navigation Links -->
                 <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-                    <a href="#marketplace" class="hover:text-amber-400 transition py-2">Marketplace</a>
+                    <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Assets</a>
                     <a href="#toolRental" class="text-amber-400 font-semibold hover:underline py-2 flex items-center gap-1">Tool Rental ⚡</a>
-                    <a href="#help" class="hover:text-amber-400 transition py-2">Resources</a>
+                    <a href="#escrow" class="hover:text-amber-400 transition py-2">Secure Escrow</a>
                 </div>
 
                 <!-- Right Actions: Dynamic User Profile or Sign In/Sign Up -->
@@ -61,18 +60,21 @@ def read_root():
         <section class="max-w-7xl mx-auto px-6 py-16 md:py-20">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
+                        <span>✨ All-in-One Ethiopian Digital & Tool Marketplace</span>
+                    </div>
                     <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
-                        The premier <span class="text-amber-400">Ethiopian marketplace</span> to buy, sell & rent digital assets.
+                        Buy, Sell Digital Assets & <span class="text-amber-400">Rent Repair Tools</span> freely.
                     </h1>
                     <p class="text-lg text-slate-300 max-w-xl leading-relaxed">
-                        Join creators, developers & technicians across Ethiopia trading Telegram channels, TikTok, YouTube accounts, Facebook pages, and renting mobile repair software tools securely.
+                        No restrictions. Every member can buy, sell social media channels, or rent premium mobile repair software tools (UnlockTool, UMT, Pandora) instantly with secure escrow protection.
                     </p>
                     <div class="flex flex-wrap items-center gap-4 pt-2">
                         <a href="#marketplace" class="px-7 py-3.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition shadow-lg shadow-amber-500/20">
-                            View Listings &rarr;
+                            Explore Marketplace &rarr;
                         </a>
                         <a href="#toolRental" class="px-7 py-3.5 bg-slate-900 border border-slate-800 text-slate-200 font-semibold rounded-xl hover:bg-slate-800 transition">
-                            ⚡ Rent Repair Tools
+                            ⚡ Rent Software Tools
                         </a>
                     </div>
                 </div>
@@ -81,55 +83,98 @@ def read_root():
                     <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-5">
                         <div class="flex justify-between items-center pb-4 border-b border-slate-800">
                             <div>
-                                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Verified Listing</span>
-                                <h4 class="text-lg font-bold text-white mt-0.5">Ethiopian Tech & Media Channel</h4>
+                                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Universal Access</span>
+                                <h4 class="text-lg font-bold text-white mt-0.5">Trade & Rent with One Account</h4>
                             </div>
-                            <span class="text-xl font-extrabold text-amber-400">ETB 85,000</span>
+                            <span class="text-xl font-extrabold text-emerald-400">100% Secure</span>
                         </div>
                         <div class="space-y-3 text-xs text-slate-300">
                             <div class="flex justify-between p-2.5 bg-slate-900/60 rounded-xl border border-slate-800">
-                                <span class="text-slate-400">Platform:</span>
-                                <span class="font-bold text-white">Telegram & YouTube</span>
+                                <span class="text-slate-400">Digital Trading:</span>
+                                <span class="font-bold text-white">Buy & Sell Enabled</span>
                             </div>
                             <div class="flex justify-between p-2.5 bg-slate-900/60 rounded-xl border border-slate-800">
-                                <span class="text-slate-400">Escrow Status:</span>
-                                <span class="font-bold text-emerald-400">Secure & Protected</span>
+                                <span class="text-slate-400">Software Rentals:</span>
+                                <span class="font-bold text-amber-400">Instant Access Available</span>
                             </div>
                         </div>
-                        <div class="pt-2 flex gap-3">
-                            <button onclick="openAuthModal('signin')" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Approve Escrow Request</button>
+                        <div class="pt-2">
+                            <button onclick="openAuthModal('signup')" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Get Started Free</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Marketplace Section -->
+        <!-- Digital Asset Categories -->
         <section id="marketplace" class="max-w-7xl mx-auto px-6 py-16 border-t border-slate-800">
-            <div class="mb-12">
-                <h2 class="text-3xl font-black text-white tracking-tight">Digital Asset Categories</h2>
-                <p class="text-slate-400 mt-2 text-sm">Explore verified social media channels, groups, and accounts available for secure escrow exchange in Ethiopia.</p>
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-black text-white tracking-tight">Digital Assets Marketplace</h2>
+                    <p class="text-slate-400 mt-2 text-sm">Buy or list Telegram channels, TikTok accounts, YouTube channels & Facebook pages.</p>
+                </div>
+                <button onclick="alert('Listing feature enabled for all users!')" class="hidden sm:inline-flex px-4 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold rounded-xl text-xs border border-slate-700 transition cursor-pointer">
+                    + Post New Listing
+                </button>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition-all group shadow-xl">
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition-all shadow-xl">
                     <div class="w-12 h-12 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-telegram"></i></div>
                     <h3 class="font-bold text-white text-lg">Telegram</h3>
                     <p class="text-xs text-slate-400 mt-1">Channels, Groups & Bots</p>
                 </div>
-                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition-all group shadow-xl">
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition-all shadow-xl">
                     <div class="w-12 h-12 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-tiktok"></i></div>
                     <h3 class="font-bold text-white text-lg">TikTok</h3>
                     <p class="text-xs text-slate-400 mt-1">Accounts & Live Access</p>
                 </div>
-                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition-all group shadow-xl">
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition-all shadow-xl">
                     <div class="w-12 h-12 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-youtube"></i></div>
                     <h3 class="font-bold text-white text-lg">YouTube</h3>
                     <p class="text-xs text-slate-400 mt-1">Monetized Channels</p>
                 </div>
-                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition-all group shadow-xl">
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition-all shadow-xl">
                     <div class="w-12 h-12 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-facebook"></i></div>
                     <h3 class="font-bold text-white text-lg">Facebook</h3>
                     <p class="text-xs text-slate-400 mt-1">Pages & Community Groups</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Rental Section (New Addition) -->
+        <section id="toolRental" class="max-w-7xl mx-auto px-6 py-16 border-t border-slate-800">
+            <div class="mb-12">
+                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
+                <h2 class="text-3xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
+                <p class="text-slate-400 mt-2 text-sm">Rent professional flashing and unlocking tools instantly by the hour or day.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tool Card 1 -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-4 shadow-xl">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-white text-lg">UnlockTool Pro</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">ETB 150 / 3 Hrs</span>
+                    </div>
+                    <p class="text-xs text-slate-300">FRP bypass, flashing, and Mi Account removal for Samsung, Xiaomi, Oppo, Vivo.</p>
+                    <button onclick="alert('Tool rental booking requested successfully!')" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
+                </div>
+                <!-- Tool Card 2 -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-4 shadow-xl">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-white text-lg">UMT Pro / Ultimate</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">ETB 120 / 3 Hrs</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Advanced Qualcomm & MTK servicing, flashing, repair, and network unlocking.</p>
+                    <button onclick="alert('Tool rental booking requested successfully!')" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
+                </div>
+                <!-- Tool Card 3 -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-4 shadow-xl">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-white text-lg">Pandora Tool</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">ETB 130 / 3 Hrs</span>
+                    </div>
+                    <p class="text-xs text-slate-300">Powerful tool for MTK device operations, security backup, and bootloader management.</p>
+                    <button onclick="alert('Tool rental booking requested successfully!')" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
                 </div>
             </div>
         </section>
@@ -145,7 +190,7 @@ def read_root():
                 <!-- Header -->
                 <div class="text-center space-y-2">
                     <h3 id="modalTitle" class="text-2xl font-black text-white">Create Account</h3>
-                    <p id="modalSubtitle" class="text-xs text-slate-400">Join Amalaj Plus Ethiopian Marketplace</p>
+                    <p id="modalSubtitle" class="text-xs text-slate-400">Join Amalaj Plus Universal Marketplace</p>
                 </div>
 
                 <!-- Google Sign-In Button -->
@@ -215,6 +260,13 @@ def read_root():
         <script>
             let currentMode = 'signup';
 
+            window.onload = function() {
+                const savedUser = localStorage.getItem('amalaj_user');
+                if (savedUser) {
+                    updateNavbarUser(savedUser);
+                }
+            };
+
             function openAuthModal(mode) {
                 currentMode = mode;
                 const modal = document.getElementById('authModal');
@@ -244,7 +296,7 @@ def read_root():
 
                 if (currentMode === 'signup') {
                     title.innerText = 'Create Account';
-                    subtitle.innerText = 'Join Amalaj Plus Ethiopian Marketplace';
+                    subtitle.innerText = 'Join Amalaj Plus Universal Marketplace';
                     submitBtn.innerText = 'Create Account';
                     switchText.innerText = 'Already have an account?';
                     switchBtn.innerText = 'Sign In';
@@ -292,9 +344,8 @@ def read_root():
                 const errorBox = document.getElementById('formErrorBox');
                 errorBox.classList.add('hidden');
 
-                // Strict Validation Checks
                 if (!email || !email.includes('@') || !email.includes('.')) {
-                    showError("እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ (Please enter a valid email address)");
+                    showError("እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ");
                     return;
                 }
 
@@ -308,24 +359,27 @@ def read_root():
                     const confirmPass = document.getElementById('confirmPasswordInput').value;
 
                     if (!fullName) {
-                        showError("እባክዎ ሙሉ ስምዎን ያስገቡ (Full name is required)");
+                        showError("እባክዎ ሙሉ ስምዎን ያስገቡ");
                         return;
                     }
 
                     if (pass !== confirmPass) {
-                        showError("የሚስጥር ቃል ማረጋገጫው አልተመሳሰለም (Passwords do not match)");
+                        showError("የሚስጥር ቃል ማረጋገጫው አልተመሳሰለም");
                         return;
                     }
 
-                    // Success for Signup
-                    alert("አካውንትዎ በተሳካ ሁኔታ ተፈጥሯል! (Account created successfully)");
+                    localStorage.setItem('amalaj_user', fullName);
+                    alert("አካውንትዎ በተሳካ ሁኔታ ተፈጥሯል!");
                     closeAuthModal();
                     updateNavbarUser(fullName);
                 } else {
-                    // Success for Signin
-                    alert("እንኳን ደህና መጡ! በሰአቱ ገብተዋል (Logged in successfully)");
+                    const userName = email.split('@')[0];
+                    const capitalizedName = userName.charAt(0).toUpperCase() + userName.slice(1);
+                    
+                    localStorage.setItem('amalaj_user', capitalizedName);
+                    alert("እንኳን ደህና መጡ! በሰአቱ ገብተዋል");
                     closeAuthModal();
-                    updateNavbarUser("Hailewelde Kidan");
+                    updateNavbarUser(capitalizedName);
                 }
             }
 
@@ -337,8 +391,16 @@ def read_root():
                             ${name.charAt(0).toUpperCase()}
                         </div>
                         <span class="text-xs font-semibold text-white">${name}</span>
+                        <button onclick="logoutUser()" class="text-slate-400 hover:text-red-400 text-xs ml-2 cursor-pointer" title="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                        </button>
                     </div>
                 `;
+            }
+
+            function logoutUser() {
+                localStorage.removeItem('amalaj_user');
+                location.reload();
             }
         </script>
     </body>
