@@ -4,7 +4,6 @@ from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-# static ፎልደርን ማገናኘት
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
@@ -17,10 +16,12 @@ def read_root():
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Amalaj Plus - Digital Assets & Tool Rental Marketplace</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <!-- FontAwesome for Official Social Logos -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </head>
     <body class="bg-[#0b132b] text-slate-100 min-h-screen font-sans">
 
-        <!-- Header / Navigation -->
+        <!-- Header -->
         <header class="border-b border-slate-800 bg-[#0b132b]/95 backdrop-blur sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
@@ -37,7 +38,7 @@ def read_root():
         </header>
 
         <!-- Hero Section -->
-        <section class="max-w-7xl mx-auto px-6 py-16 text-center md:text-left">
+        <section class="max-w-7xl mx-auto px-6 py-16">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-6">
                     <h1 class="text-4xl md:text-6xl font-black text-white leading-tight">
@@ -46,56 +47,91 @@ def read_root():
                     <p class="text-lg text-slate-300">
                         Secure escrow platform for Telegram channels, TikTok, YouTube accounts, and hourly mobile repair tool rentals.
                     </p>
-                    <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                        <a href="#marketplace" class="px-7 py-3.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition shadow-lg">Explore Marketplace</a>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#marketplace" class="px-7 py-3.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition shadow-lg">Explore Marketplace &rarr;</a>
                         <a href="#toolRental" class="px-7 py-3.5 bg-slate-900 border border-slate-800 text-slate-200 font-semibold rounded-xl hover:bg-slate-800 transition">⚡ Rent Repair Tools</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Marketplace Categories -->
+        <!-- Digital Asset Categories with Branded Colors & Logos -->
         <section id="marketplace" class="max-w-7xl mx-auto px-6 py-16 border-t border-slate-800">
-            <h2 class="text-3xl font-extrabold text-white mb-8">Digital Asset Categories</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">✈️</div>
-                    <h3 class="font-bold text-white">Telegram</h3>
+            <div class="mb-10">
+                <h2 class="text-3xl font-black text-white">Digital Asset Categories</h2>
+                <p class="text-slate-400 text-sm mt-1">Explore verified social media channels, groups, and accounts available for secure escrow exchange.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Telegram -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-[#229ED9]/10 text-[#229ED9] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-[#229ED9] transition">Telegram</h3>
                     <p class="text-xs text-slate-400 mt-1">Channels, Groups & Bots</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">🎵</div>
-                    <h3 class="font-bold text-white">TikTok</h3>
+
+                <!-- TikTok -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-[#EE1D52]/10 text-[#EE1D52] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-[#EE1D52] transition">TikTok</h3>
                     <p class="text-xs text-slate-400 mt-1">Accounts & Live Access</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">▶️</div>
-                    <h3 class="font-bold text-white">YouTube</h3>
+
+                <!-- YouTube -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-[#FF0000]/10 text-[#FF0000] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-[#FF0000] transition">YouTube</h3>
                     <p class="text-xs text-slate-400 mt-1">Monetized Channels</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">📘</div>
-                    <h3 class="font-bold text-white">Facebook</h3>
-                    <p class="text-xs text-slate-400 mt-1">Pages & Groups</p>
+
+                <!-- Facebook -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-[#1877F2]/10 text-[#1877F2] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-facebook"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-[#1877F2] transition">Facebook</h3>
+                    <p class="text-xs text-slate-400 mt-1">Pages & Community Groups</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">📸</div>
-                    <h3 class="font-bold text-white">Instagram</h3>
+
+                <!-- Instagram -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E4405F] transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-[#E4405F]/10 text-[#E4405F] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-[#E4405F] transition">Instagram</h3>
                     <p class="text-xs text-slate-400 mt-1">Active Accounts</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">🅧</div>
-                    <h3 class="font-bold text-white">X (Twitter)</h3>
-                    <p class="text-xs text-slate-400 mt-1">Verified Profiles</p>
+
+                <!-- X (Twitter) -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-slate-300 transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-slate-800 text-white flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-slate-300 transition">X (Twitter)</h3>
+                    <p class="text-xs text-slate-400 mt-1">Verified & Aged Profiles</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">💼</div>
-                    <h3 class="font-bold text-white">LinkedIn</h3>
+
+                <!-- LinkedIn -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#0A66C2] transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-[#0A66C2]/10 text-[#0A66C2] flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-[#0A66C2] transition">LinkedIn</h3>
                     <p class="text-xs text-slate-400 mt-1">Company & Profiles</p>
                 </div>
-                <div class="p-6 bg-[#1c2541] border border-slate-700/60 rounded-2xl hover:border-amber-500 transition shadow-lg">
-                    <div class="text-3xl mb-3">🎮</div>
-                    <h3 class="font-bold text-white">Gaming & Misc</h3>
+
+                <!-- Gaming & Misc -->
+                <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-amber-400 transition-all group shadow-xl hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <h3 class="font-bold text-white text-lg group-hover:text-amber-400 transition">Gaming & Misc</h3>
                     <p class="text-xs text-slate-400 mt-1">PUBG, Discord & More</p>
                 </div>
             </div>
