@@ -37,12 +37,12 @@ def read_root():
                         <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                     </div>
 
-                    <!-- Navigation Links / Dashboard Tabs -->
+                    <!-- Navigation Links -->
                     <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
-                        <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Assets</a>
+                        <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
+                        <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
                         <a href="#toolRental" class="text-amber-400 font-semibold hover:underline py-2 flex items-center gap-1">Tool Rental ⚡</a>
-                        <a href="#dashboardSection" onclick="switchDashboardTab('listings')" class="hover:text-amber-400 transition py-2">My Listings</a>
-                        <a href="#dashboardSection" onclick="switchDashboardTab('rentals')" class="hover:text-amber-400 transition py-2">My Rentals</a>
+                        <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
                     </div>
 
                     <!-- Right Actions: Sign In / Sign Up -->
@@ -58,7 +58,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero Section -->
+            <!-- Hero / About Section (Home Page Main Intro) -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-center">
                     <div class="lg:col-span-7 space-y-6">
@@ -69,7 +69,7 @@ def read_root():
                             Trade Digital Assets & <span class="text-amber-400">Rent Repair Tools</span> with Complete Trust.
                         </h1>
                         <p class="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed">
-                            Universal access for everyone. Buy or sell Telegram channels, TikTok accounts, and rent professional software tools (UnlockTool, UMT, Pandora) backed by secure escrow funds holding.
+                            Amalaj Plus is a trusted platform for buying and selling verified Telegram channels, TikTok accounts, and renting professional mobile repair software tools backed by safe escrow protection.
                         </p>
                         <!-- Escrow Trust Badge Box -->
                         <div class="flex items-center gap-3 p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl max-w-lg">
@@ -83,12 +83,12 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Quick Listing Card (Clean & Proper Form) -->
+                    <!-- Quick Listing Card -->
                     <div class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
                                 <h3 class="text-base font-bold text-white">Post New Asset or Tool</h3>
-                                <span class="text-xs text-amber-400 font-bold">Instant Publish</span>
+                                <button onclick="openConductModal()" class="text-xs text-amber-400 font-bold hover:underline cursor-pointer">Code of Conduct ⓘ</button>
                             </div>
                             <form onsubmit="handlePostListing(event)" class="space-y-3 text-xs">
                                 <div>
@@ -112,48 +112,6 @@ def read_root():
                                     Publish to Marketplace &rarr;
                                 </button>
                             </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Dashboard Tabs Section (My Listings & My Rentals) -->
-            <section id="dashboardSection" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 class="text-2xl font-black text-white tracking-tight">User Dashboard</h2>
-                        <p class="text-slate-400 text-xs mt-1">Manage your active listings and software tool rentals.</p>
-                    </div>
-                    <div class="flex space-x-2 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
-                        <button id="tabBtnListings" onclick="switchDashboardTab('listings')" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer">My Listings</button>
-                        <button id="tabBtnRentals" onclick="switchDashboardTab('rentals')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer">My Rentals</button>
-                    </div>
-                </div>
-
-                <!-- Listings Tab Content -->
-                <div id="contentListings" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-white text-sm">Your Posted Digital Assets</h3>
-                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">🛡️ Escrow Secured</span>
-                    </div>
-                    <div id="userListingsContainer" class="space-y-3">
-                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
-                            <span>No active listings yet. Use the form above to add one!</span>
-                            <span class="text-emerald-400 font-semibold">Escrow Ready</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rentals Tab Content -->
-                <div id="contentRentals" class="hidden bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-white text-sm">Your Active Tool Rentals</h3>
-                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">⚡ Instant Access</span>
-                    </div>
-                    <div id="userRentalsContainer" class="space-y-3">
-                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
-                            <span>No active tool rentals. Choose a tool below to rent instantly.</span>
-                            <span class="text-amber-400 font-semibold">Available 24/7</span>
                         </div>
                     </div>
                 </div>
@@ -194,7 +152,7 @@ def read_root():
             </section>
 
             <!-- Tool Rental Section -->
-            <section id="toolRental" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800 mb-16">
+            <section id="toolRental" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
                 <div class="mb-8">
                     <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
                     <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
@@ -227,12 +185,87 @@ def read_root():
                     </div>
                 </div>
             </section>
+
+            <!-- User Dashboard Section (My Listings & Rentals) -->
+            <section id="dashboardSection" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800 mb-16">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-tight">User Dashboard</h2>
+                        <p class="text-slate-400 text-xs mt-1">Manage your active listings and software tool rentals.</p>
+                    </div>
+                    <div class="flex space-x-2 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+                        <button id="tabBtnListings" onclick="switchDashboardTab('listings')" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer">My Listings</button>
+                        <button id="tabBtnRentals" onclick="switchDashboardTab('rentals')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer">My Rentals</button>
+                    </div>
+                </div>
+
+                <!-- Listings Tab Content -->
+                <div id="contentListings" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-white text-sm">Your Posted Digital Assets</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">🛡️ Escrow Secured</span>
+                    </div>
+                    <div id="userListingsContainer" class="space-y-3">
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
+                            <span>No active listings yet. Use the form above to add one!</span>
+                            <span class="text-emerald-400 font-semibold">Escrow Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rentals Tab Content -->
+                <div id="contentRentals" class="hidden bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-white text-sm">Your Active Tool Rentals</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">⚡ Instant Access</span>
+                    </div>
+                    <div id="userRentalsContainer" class="space-y-3">
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
+                            <span>No active tool rentals. Choose a tool below to rent instantly.</span>
+                            <span class="text-amber-400 font-semibold">Available 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- Telegram Direct Support Floating Widget (Bottom Right) -->
         <a href="https://t.me/" target="_blank" class="fixed bottom-6 right-6 bg-[#229ED9] hover:bg-[#1d8ebf] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl z-50 transition transform hover:scale-105 cursor-pointer" title="Contact Support on Telegram">
             <i class="fa-brands fa-telegram text-2xl"></i>
         </a>
+
+        <!-- Code of Conduct Modal -->
+        <div id="conductModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-[#1c2541] border border-slate-700 rounded-3xl max-w-lg w-full p-8 relative shadow-2xl space-y-6">
+                <button onclick="closeConductModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl cursor-pointer">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <div class="text-center space-y-2">
+                    <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-xl font-bold">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3 class="text-xl font-black text-white">Great relationships start here</h3>
+                    <p class="text-xs text-slate-300">Please commit to our Code of Conduct to help build a fair and trusted community.</p>
+                </div>
+                <div class="grid grid-cols-3 gap-3 text-center text-xs">
+                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+                        <i class="fa-solid fa-briefcase text-amber-400 text-lg"></i>
+                        <h4 class="font-bold text-white">Be professional</h4>
+                    </div>
+                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+                        <i class="fa-solid fa-hand-holding-heart text-emerald-400 text-lg"></i>
+                        <h4 class="font-bold text-white">Stay honest</h4>
+                    </div>
+                    <div class="bg-slate-900/80 p-4 rounded-2xl border border-slate-800 space-y-2">
+                        <i class="fa-solid fa-shield-virus text-red-400 text-lg"></i>
+                        <h4 class="font-bold text-white">Don't spam</h4>
+                    </div>
+                </div>
+                <button onclick="closeConductModal()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm cursor-pointer">
+                    OK, got it
+                </button>
+            </div>
+        </div>
 
         <!-- Authentication Modal -->
         <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -322,6 +355,14 @@ def read_root():
                     contentRentals.classList.remove('hidden');
                     contentListings.classList.add('hidden');
                 }
+            }
+
+            function openConductModal() {
+                document.getElementById('conductModal').classList.remove('hidden');
+            }
+
+            function closeConductModal() {
+                document.getElementById('conductModal').classList.add('hidden');
             }
 
             function handlePostListing(e) {
@@ -471,11 +512,11 @@ def read_root():
                 errorBox.classList.add('hidden');
 
                 if (!email || !email.includes('@')) {
-                    showError("እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ");
+                    showError("Please enter a valid email address");
                     return;
                 }
                 if (pass.length < 6) {
-                    showError("የሚስጥር ቃል ቢያንስ 6 ቁጥሮች/ፊደላት መሆን አለበት");
+                    showError("Password must be at least 6 characters long");
                     return;
                 }
 
@@ -483,22 +524,22 @@ def read_root():
                     const fullName = document.getElementById('fullNameInput').value.trim();
                     const confirmPass = document.getElementById('confirmPasswordInput').value;
                     if (!fullName) {
-                        showError("እባክዎ ሙሉ ስምዎን ያስገቡ");
+                        showError("Please enter your full name");
                         return;
                     }
                     if (pass !== confirmPass) {
-                        showError("የሚስጥር ቃል ማረጋገጫው አልተመሳሰለም");
+                        showError("Passwords do not match");
                         return;
                     }
                     localStorage.setItem('amalaj_user', fullName);
-                    alert("አካውንትዎ በተሳካ ሁኔታ ተፈጥሯል!");
+                    alert("Account created successfully!");
                     closeAuthModal();
                     updateNavbarUser(fullName);
                 } else {
                     const userName = email.split('@')[0];
                     const capitalizedName = userName.charAt(0).toUpperCase() + userName.slice(1);
                     localStorage.setItem('amalaj_user', capitalizedName);
-                    alert("እንኳን ደህና መጡ!");
+                    alert("Welcome back!");
                     closeAuthModal();
                     updateNavbarUser(capitalizedName);
                 }
