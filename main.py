@@ -41,13 +41,13 @@ def read_root():
                     <div class="hidden md:flex items-center space-x-5 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
-                        <a href="#toolRental" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
+                        <a href="#toolRentalSection" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
-                        <button onclick="scrollToSection('postAdFormContainer')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
+                        <button onclick="switchPostFormTab('asset')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
                             <i class="fa-solid fa-plus-circle"></i>
                             <span>Post Asset</span>
                         </button>
-                        <button onclick="scrollToSection('toolRentalSection')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
+                        <button onclick="switchPostFormTab('tool')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
                             <i class="fa-solid fa-screwdriver-wrench"></i>
                             <span>Rent Tool</span>
                         </button>
@@ -63,7 +63,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero Section with Dynamic Post Ad Form -->
+            <!-- Hero Section with Dynamic Switching Post Form Box -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-start">
                     <div class="lg:col-span-7 space-y-6">
@@ -88,17 +88,24 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Post Digital Asset Ad Form Container -->
-                    <div id="postAdFormContainer" class="lg:col-span-5">
+                    <!-- Single Universal Post Box (Switches between Asset & Tool) -->
+                    <div id="mainPostBoxContainer" class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
+                            <!-- Toggle Tabs Header inside Box -->
                             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                                    <i class="fa-solid fa-pen-to-square text-amber-400"></i>
-                                    <span>Post Digital Asset Ad</span>
-                                </h3>
-                                <span class="text-amber-400 font-bold text-xs">2% Escrow Protected</span>
+                                <div class="flex space-x-2 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-bold">
+                                    <button id="postTabAssetBtn" onclick="switchPostFormTab('asset')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer">
+                                        Post Asset
+                                    </button>
+                                    <button id="postTabToolBtn" onclick="switchPostFormTab('tool')" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer">
+                                        Post Tool Rental
+                                    </button>
+                                </div>
+                                <span class="text-amber-400 font-bold text-xs">Escrow Protected</span>
                             </div>
-                            <form onsubmit="handlePostListing(event)" class="space-y-3 text-xs">
+
+                            <!-- 1. Post Digital Asset Form -->
+                            <form id="formPostAsset" onsubmit="handlePostListing(event)" class="space-y-3 text-xs">
                                 <div>
                                     <label class="block text-slate-300 font-semibold mb-1">Asset Name / Title *</label>
                                     <input type="text" id="listingTitle" required placeholder="e.g., Habesha Tech Channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
@@ -125,9 +132,8 @@ def read_root():
                                         </select>
                                     </div>
                                 </div>
-                                <!-- Niche / Category Selection -->
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Asset Category (Niche) *</label>
+                                    <label class="block text-slate-300 font-semibold mb-1">Category (Niche) *</label>
                                     <select id="listingNiche" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
                                         <option value="Entertainment">Entertainment & Music</option>
                                         <option value="Education">Education & Training</option>
@@ -145,7 +151,7 @@ def read_root():
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label class="block text-slate-300 font-semibold mb-1">Subscribers / Total Views</label>
+                                        <label class="block text-slate-300 font-semibold mb-1">Subscribers / Views</label>
                                         <input type="text" id="listingSubCount" placeholder="Auto-filled via OCR" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                     </div>
                                     <div>
@@ -154,7 +160,36 @@ def read_root():
                                     </div>
                                 </div>
                                 <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer shadow-md">
-                                    Publish Ad with Escrow Protection &rarr;
+                                    Publish Asset with Escrow Protection &rarr;
+                                </button>
+                            </form>
+
+                            <!-- 2. Post Repair Tool Form (Swaps with Asset Form) -->
+                            <form id="formPostTool" onsubmit="handlePostTool(event)" class="hidden space-y-3 text-xs">
+                                <div>
+                                    <label class="block text-slate-300 font-semibold mb-1">Tool Name *</label>
+                                    <input type="text" id="toolNameInput" required placeholder="e.g., DFT Pro / Chimera Tool / Miracle" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 font-semibold mb-1">Tool Description / Supported Models *</label>
+                                    <input type="text" id="toolDescInput" required placeholder="e.g., Samsung FRP Bypass, Xiaomi Flashing & IMEI Repairs" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Rental Price (ETB) *</label>
+                                        <input type="number" id="toolPriceInput" required placeholder="150" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    </div>
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Rental Duration *</label>
+                                        <input type="text" id="toolDurationInput" value="3 Hours Active" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 font-semibold mb-1">Tool Session Access Link / Credential Details *</label>
+                                    <input type="text" id="toolAccessInput" required placeholder="Hidden access details sent to renter via Escrow" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                                </div>
+                                <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer shadow-md">
+                                    Publish Repair Tool for Rental &rarr;
                                 </button>
                             </form>
                         </div>
@@ -219,51 +254,20 @@ def read_root():
                     </div>
                     <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
-                            No listings found. Click "Post Asset" above to publish your asset!
+                            No listings found. Use the form above to publish your asset ad!
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Tool Rental & Posting Section -->
+            <!-- Tool Rental Section -->
             <section id="toolRentalSection" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div class="flex justify-between items-center mb-8">
                     <div>
                         <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
-                        <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals & Post ⚡</h2>
-                        <p class="text-slate-400 text-xs mt-1">Rent professional flashing software or publish a new tool for rental.</p>
+                        <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
+                        <p class="text-slate-400 text-xs mt-1">Rent professional flashing software tools instantly.</p>
                     </div>
-                    <button onclick="toggleToolForm()" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md">
-                        + Post New Rental Tool 🛠️
-                    </button>
-                </div>
-
-                <!-- Hidden / Toggleable Post Tool Form -->
-                <div id="postToolFormContainer" class="hidden mb-8 bg-[#1c2541] border border-slate-700/60 rounded-2xl p-6 shadow-xl max-w-xl mx-auto">
-                    <h3 class="font-bold text-white text-sm mb-3">Publish New Repair Tool for Rental</h3>
-                    <form onsubmit="handlePostTool(event)" class="space-y-3 text-xs">
-                        <div>
-                            <label class="block text-slate-300 font-semibold mb-1">Tool Name *</label>
-                            <input type="text" id="toolNameInput" required placeholder="e.g., DFT Pro / Chimera Tool" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
-                        </div>
-                        <div>
-                            <label class="block text-slate-300 font-semibold mb-1">Tool Description *</label>
-                            <input type="text" id="toolDescInput" required placeholder="e.g., Latest Qualcomm, MTK & IMEI services." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <div>
-                                <label class="block text-slate-300 font-semibold mb-1">Rental Price (ETB) *</label>
-                                <input type="number" id="toolPriceInput" required placeholder="150" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
-                            </div>
-                            <div>
-                                <label class="block text-slate-300 font-semibold mb-1">Rental Duration *</label>
-                                <input type="text" id="toolDurationInput" value="3 Hours Active" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
-                            </div>
-                        </div>
-                        <button type="submit" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer">
-                            Publish Rental Tool &rarr;
-                        </button>
-                    </form>
                 </div>
 
                 <!-- Rental Tools Grid -->
@@ -357,13 +361,25 @@ def read_root():
                 showBrowseListings('ALL');
             };
 
-            function scrollToSection(id) {
-                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-            }
+            function switchPostFormTab(type) {
+                const formAsset = document.getElementById('formPostAsset');
+                const formTool = document.getElementById('formPostTool');
+                const tabAssetBtn = document.getElementById('postTabAssetBtn');
+                const tabToolBtn = document.getElementById('postTabToolBtn');
 
-            function toggleToolForm() {
-                const formElem = document.getElementById('postToolFormContainer');
-                formElem.classList.toggle('hidden');
+                if (type === 'asset') {
+                    formAsset.classList.remove('hidden');
+                    formTool.classList.add('hidden');
+                    tabAssetBtn.className = "px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
+                    tabToolBtn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer";
+                } else {
+                    formTool.classList.remove('hidden');
+                    formAsset.classList.add('hidden');
+                    tabToolBtn.className = "px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
+                    tabAssetBtn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer";
+                }
+                
+                document.getElementById('mainPostBoxContainer').scrollIntoView({ behavior: 'smooth' });
             }
 
             // Dynamic Asset Types based on Platform Selection
@@ -454,7 +470,7 @@ def read_root():
                 
                 alert("Repair tool published successfully for rental!");
                 loadCustomTools();
-                toggleToolForm();
+                switchPostFormTab('asset');
             }
 
             function loadCustomTools() {
