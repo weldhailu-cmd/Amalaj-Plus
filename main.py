@@ -6,6 +6,10 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.get("/auth/google")
+def google_auth_placeholder():
+    return {"message": "Google Authentication integration will be connected here."}
+
 @app.get("/", response_class=HTMLResponse)
 def read_root():
     return """
@@ -52,18 +56,16 @@ def read_root():
             </div>
         </header>
 
-        <!-- Hero Section (Ethiopian Market Focused) -->
+        <!-- Hero Section -->
         <section class="max-w-7xl mx-auto px-6 py-16 md:py-20">
             <div class="grid lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-8">
                     <h1 class="text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
                         The premier <span class="text-amber-400">Ethiopian marketplace</span> to buy, sell & rent digital assets.
                     </h1>
-
                     <p class="text-lg text-slate-300 max-w-xl leading-relaxed">
                         Join creators, developers & technicians across Ethiopia trading Telegram channels, TikTok, YouTube accounts, Facebook pages, and renting mobile repair software tools securely.
                     </p>
-
                     <div class="flex flex-wrap items-center gap-4 pt-2">
                         <a href="#marketplace" class="px-7 py-3.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition shadow-lg shadow-amber-500/20">
                             View Listings &rarr;
@@ -73,8 +75,7 @@ def read_root():
                         </a>
                     </div>
                 </div>
-
-                <!-- Right Side Hero Mockup Card -->
+                <!-- Hero Card -->
                 <div class="lg:col-span-5 relative">
                     <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-5">
                         <div class="flex justify-between items-center pb-4 border-b border-slate-800">
@@ -84,7 +85,6 @@ def read_root():
                             </div>
                             <span class="text-xl font-extrabold text-amber-400">ETB 85,000</span>
                         </div>
-
                         <div class="space-y-3 text-xs text-slate-300">
                             <div class="flex justify-between p-2.5 bg-slate-900/60 rounded-xl border border-slate-800">
                                 <span class="text-slate-400">Platform:</span>
@@ -95,7 +95,6 @@ def read_root():
                                 <span class="font-bold text-emerald-400">Secure & Protected</span>
                             </div>
                         </div>
-
                         <div class="pt-2 flex gap-3">
                             <button onclick="openAuthModal('signin')" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Approve Escrow Request</button>
                         </div>
@@ -110,62 +109,46 @@ def read_root():
                 <h2 class="text-3xl font-black text-white tracking-tight">Digital Asset Categories</h2>
                 <p class="text-slate-400 mt-2 text-sm">Explore verified social media channels, groups, and accounts available for secure escrow exchange in Ethiopia.</p>
             </div>
-
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Telegram -->
                 <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition-all group shadow-xl">
-                    <div class="w-12 h-12 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-brands fa-telegram"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-telegram"></i></div>
                     <h3 class="font-bold text-white text-lg">Telegram</h3>
                     <p class="text-xs text-slate-400 mt-1">Channels, Groups & Bots</p>
                 </div>
-
-                <!-- TikTok -->
                 <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition-all group shadow-xl">
-                    <div class="w-12 h-12 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-brands fa-tiktok"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-tiktok"></i></div>
                     <h3 class="font-bold text-white text-lg">TikTok</h3>
                     <p class="text-xs text-slate-400 mt-1">Accounts & Live Access</p>
                 </div>
-
-                <!-- YouTube -->
                 <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition-all group shadow-xl">
-                    <div class="w-12 h-12 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-brands fa-youtube"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-youtube"></i></div>
                     <h3 class="font-bold text-white text-lg">YouTube</h3>
                     <p class="text-xs text-slate-400 mt-1">Monetized Channels</p>
                 </div>
-
-                <!-- Facebook -->
                 <div class="p-6 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition-all group shadow-xl">
-                    <div class="w-12 h-12 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-2xl mb-4">
-                        <i class="fa-brands fa-facebook"></i>
-                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-2xl mb-4"><i class="fa-brands fa-facebook"></i></div>
                     <h3 class="font-bold text-white text-lg">Facebook</h3>
                     <p class="text-xs text-slate-400 mt-1">Pages & Community Groups</p>
                 </div>
             </div>
         </section>
 
-        <!-- Authentication Modal (Sign In / Sign Up Pop-up) -->
+        <!-- Authentication Modal -->
         <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
             <div class="bg-[#1c2541] border border-slate-700 rounded-3xl max-w-md w-full p-8 relative shadow-2xl space-y-6">
                 <!-- Close Button -->
-                <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl cursor-pointer">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
 
                 <!-- Header -->
                 <div class="text-center space-y-2">
-                    <h3 id="modalTitle" class="text-2xl font-black text-white">Welcome back</h3>
-                    <p id="modalSubtitle" class="text-xs text-slate-400">Sign in to your Amalaj Plus account</p>
+                    <h3 id="modalTitle" class="text-2xl font-black text-white">Create Account</h3>
+                    <p id="modalSubtitle" class="text-xs text-slate-400">Join Amalaj Plus Ethiopian Marketplace</p>
                 </div>
 
                 <!-- Google Sign-In Button -->
-                <button onclick="handleGoogleAuth()" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl flex items-center justify-center space-x-3 transition shadow-lg text-sm">
+                <button onclick="handleGoogleAuth()" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl flex items-center justify-center space-x-3 transition shadow-lg text-sm cursor-pointer">
                     <i class="fa-brands fa-google text-red-500 text-lg"></i>
                     <span>Sign in with Google</span>
                 </button>
@@ -179,7 +162,7 @@ def read_root():
 
                 <!-- Form Fields -->
                 <form id="authForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                    <div id="fullNameGroup" class="hidden">
+                    <div id="fullNameGroup">
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
                         <input type="text" id="fullNameInput" placeholder="Hailewelde Kidan" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
                     </div>
@@ -189,27 +172,44 @@ def read_root():
                         <input type="email" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
                     </div>
 
+                    <!-- Password Field with Show/Hide Eye Icon -->
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
-                        <input type="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                        <div class="relative">
+                            <input type="password" id="passwordInput" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 pr-10">
+                            <button type="button" onclick="togglePassword('passwordInput', 'eyeIcon1')" class="absolute right-3 top-3 text-slate-400 hover:text-white text-xs cursor-pointer">
+                                <i id="eyeIcon1" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-md mt-2">
-                        Sign In
+                    <!-- Confirm Password Field (Only for Sign Up) -->
+                    <div id="confirmPasswordGroup">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Confirm Password</label>
+                        <div class="relative">
+                            <input type="password" id="confirmPasswordInput" placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500 pr-10">
+                            <button type="button" onclick="togglePassword('confirmPasswordInput', 'eyeIcon2')" class="absolute right-3 top-3 text-slate-400 hover:text-white text-xs cursor-pointer">
+                                <i id="eyeIcon2" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-md mt-2 cursor-pointer">
+                        Create Account
                     </button>
                 </form>
 
                 <!-- Switch Mode Link -->
                 <div class="text-center text-xs text-slate-400">
-                    <span id="switchText">Don't have an account?</span>
-                    <button onclick="toggleAuthMode()" id="switchBtn" class="text-amber-400 font-bold hover:underline ml-1">Sign Up</button>
+                    <span id="switchText">Already have an account?</span>
+                    <button onclick="toggleAuthMode()" id="switchBtn" class="text-amber-400 font-bold hover:underline ml-1 cursor-pointer">Sign In</button>
                 </div>
             </div>
         </div>
 
         <!-- JavaScript Logic -->
         <script>
-            let currentMode = 'signin';
+            let currentMode = 'signup';
 
             function openAuthModal(mode) {
                 currentMode = mode;
@@ -234,6 +234,7 @@ def read_root():
                 const switchText = document.getElementById('switchText');
                 const switchBtn = document.getElementById('switchBtn');
                 const fullNameGroup = document.getElementById('fullNameGroup');
+                const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
 
                 if (currentMode === 'signup') {
                     title.innerText = 'Create Account';
@@ -242,6 +243,8 @@ def read_root():
                     switchText.innerText = 'Already have an account?';
                     switchBtn.innerText = 'Sign In';
                     fullNameGroup.classList.remove('hidden');
+                    confirmPasswordGroup.classList.remove('hidden');
+                    document.getElementById('confirmPasswordInput').setAttribute('required', 'true');
                 } else {
                     title.innerText = 'Welcome back';
                     subtitle.innerText = 'Sign in to your Amalaj Plus account';
@@ -249,16 +252,39 @@ def read_root():
                     switchText.innerText = "Don't have an account?";
                     switchBtn.innerText = 'Sign Up';
                     fullNameGroup.classList.add('hidden');
+                    confirmPasswordGroup.classList.add('hidden');
+                    document.getElementById('confirmPasswordInput').removeAttribute('required');
+                }
+            }
+
+            function togglePassword(inputId, iconId) {
+                const input = document.getElementById(inputId);
+                const icon = document.getElementById(iconId);
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
                 }
             }
 
             function handleGoogleAuth() {
-                // Redirects directly to backend Google OAuth Endpoint
                 window.location.href = "/auth/google";
             }
 
             function handleFormSubmit(e) {
                 e.preventDefault();
+                if (currentMode === 'signup') {
+                    const pass = document.getElementById('passwordInput').value;
+                    const confirmPass = document.getElementById('confirmPasswordInput').value;
+                    if (pass !== confirmPass) {
+                        alert("Passwords do not match! Please check and try again.");
+                        return;
+                    }
+                }
                 alert((currentMode === 'signup' ? 'Account created' : 'Logged in') + ' successfully!');
                 closeAuthModal();
             }
