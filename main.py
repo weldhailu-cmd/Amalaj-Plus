@@ -37,30 +37,31 @@ def read_root():
                         <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                     </div>
 
-                    <!-- Navigation Links -->
+                    <!-- Navigation Links & Header + Post Ad Button -->
                     <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
                         <a href="#toolRental" class="text-amber-400 font-semibold hover:underline py-2 flex items-center gap-1">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
+                        <button onclick="scrollToPostForm()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-plus-circle text-sm"></i>
+                            <span>Post Ad</span>
+                        </button>
                     </div>
 
-                    <!-- Right Actions: Sign In / Sign Up -->
+                    <!-- Right Actions: User Actions / Auth -->
                     <div id="navUserActions" class="flex items-center space-x-3">
-                        <button onclick="openAuthModal('signin')" class="flex items-center space-x-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-md cursor-pointer text-xs">
-                            <i class="fa-brands fa-google"></i>
+                        <button onclick="openAuthModal('signin')" class="flex items-center space-x-2 bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl transition border border-slate-700 cursor-pointer text-xs">
+                            <i class="fa-brands fa-google text-red-400"></i>
                             <span>Sign In</span>
-                        </button>
-                        <button onclick="openAuthModal('signup')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-700 cursor-pointer">
-                            Sign Up
                         </button>
                     </div>
                 </div>
             </header>
 
-            <!-- Hero Section with Complete Post Form -->
+            <!-- Hero Section with Full Post Ad Form -->
             <section class="max-w-7xl mx-auto px-6 py-12">
-                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="grid lg:grid-cols-12 gap-12 items-start">
                     <div class="lg:col-span-7 space-y-6">
                         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold">
                             <span>🛡️ Secure Escrow Protected Ethiopian Marketplace</span>
@@ -69,7 +70,7 @@ def read_root():
                             Buy & Sell Digital Assets & <span class="text-amber-400">Rent Mobile Repair Tools</span> Securely.
                         </h1>
                         <p class="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed">
-                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, YouTube channels, Instagram & Facebook pages, and rent professional mobile repair software tools backed by safe escrow protection.
+                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, YouTube channels, Instagram & Facebook pages with full screenshot verification and safe admin escrow protection.
                         </p>
                         <!-- Escrow Trust Badge Box -->
                         <div class="flex items-center gap-3 p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl max-w-lg">
@@ -83,11 +84,14 @@ def read_root():
                         </div>
                     </div>
 
-                    <!-- Post Digital Asset Ad Form (With Screenshot Proof & All Fields) -->
-                    <div class="lg:col-span-5">
+                    <!-- Post Digital Asset Ad Form (Full Fields & Screenshot Input) -->
+                    <div id="postAdFormContainer" class="lg:col-span-5">
                         <div class="bg-[#1c2541] border border-slate-700/60 rounded-3xl p-6 shadow-2xl space-y-4">
                             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                                <h3 class="text-base font-bold text-white">Post Digital Asset Ad</h3>
+                                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                                    <i class="fa-solid fa-pen-to-square text-amber-400"></i>
+                                    <span>Post Digital Asset Ad</span>
+                                </h3>
                                 <span class="text-amber-400 font-bold text-xs">2% Escrow Protected</span>
                             </div>
                             <form onsubmit="handlePostListing(event)" class="space-y-3 text-xs">
@@ -96,7 +100,7 @@ def read_root():
                                     <input type="text" id="listingTitle" required placeholder="e.g., Habesha Tech Channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Page Link * (Hidden)</label>
+                                    <label class="block text-slate-300 font-semibold mb-1">Channel / Page Link * (Hidden from Public)</label>
                                     <input type="url" id="listingLink" required placeholder="https://t.me/your_channel" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
@@ -121,7 +125,7 @@ def read_root():
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (OCR Auto-Scan)</label>
+                                    <label class="block text-slate-300 font-semibold mb-1">Full Page Screenshot Proof * (AI OCR Auto-Scan)</label>
                                     <input type="file" id="listingProof" accept="image/*" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] focus:outline-none file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 cursor-pointer">
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
@@ -134,7 +138,7 @@ def read_root():
                                         <input type="number" id="listingPrice" required placeholder="5000" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                     </div>
                                 </div>
-                                <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer">
+                                <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer shadow-md">
                                     Publish Ad with Escrow Protection &rarr;
                                 </button>
                             </form>
@@ -148,43 +152,37 @@ def read_root():
                 <div class="flex justify-between items-center mb-8">
                     <div>
                         <h2 class="text-2xl font-black text-white tracking-tight">Digital Assets Marketplace</h2>
-                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube, Instagram & Facebook accounts.</p>
+                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube & Facebook accounts.</p>
                     </div>
                     <button onclick="showBrowseListings('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md">
                         Browse All Listings 🌐
                     </button>
                 </div>
                 
-                <!-- 5 Platform Cards -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                <!-- 4 Main Platform Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Telegram')">
                         <div class="w-10 h-10 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-xl"><i class="fa-brands fa-telegram"></i></div>
                         <h3 class="font-bold text-white text-base">Telegram Channels</h3>
-                        <p class="text-xs text-slate-400">Verified members & groups.</p>
+                        <p class="text-xs text-slate-400">Verified members & high engagement groups.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('TikTok')">
                         <div class="w-10 h-10 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-xl"><i class="fa-brands fa-tiktok"></i></div>
                         <h3 class="font-bold text-white text-base">TikTok Accounts</h3>
-                        <p class="text-xs text-slate-400">Monetized creator accounts.</p>
+                        <p class="text-xs text-slate-400">Monetized & live-enabled creator accounts.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('YouTube')">
                         <div class="w-10 h-10 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
                         <h3 class="font-bold text-white text-base">YouTube Channels</h3>
-                        <p class="text-xs text-slate-400">Monetization ready channels.</p>
-                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
-                    </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Instagram')">
-                        <div class="w-10 h-10 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-xl"><i class="fa-brands fa-instagram"></i></div>
-                        <h3 class="font-bold text-white text-base">Instagram Pages</h3>
-                        <p class="text-xs text-slate-400">Active community profiles.</p>
+                        <p class="text-xs text-slate-400">Ready monetization channels with subscribers.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Facebook')">
                         <div class="w-10 h-10 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-xl"><i class="fa-brands fa-facebook"></i></div>
                         <h3 class="font-bold text-white text-base">Facebook Pages</h3>
-                        <p class="text-xs text-slate-400">High reach pages & groups.</p>
+                        <p class="text-xs text-slate-400">Active community pages and groups.</p>
                         <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
                     </div>
                 </div>
@@ -197,7 +195,7 @@ def read_root():
                     </div>
                     <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
-                            No listings found. Use the form above to publish your asset ad with screenshot proof!
+                            No listings found. Click "+ Post Ad" above to publish your asset with screenshot proof!
                         </div>
                     </div>
                 </div>
@@ -298,6 +296,10 @@ def read_root():
                 showBrowseListings('ALL');
             };
 
+            function scrollToPostForm() {
+                document.getElementById('postAdFormContainer').scrollIntoView({ behavior: 'smooth' });
+            }
+
             function handlePostListing(e) {
                 e.preventDefault();
                 const title = document.getElementById('listingTitle').value.trim();
@@ -307,7 +309,10 @@ def read_root():
                 const price = document.getElementById('listingPrice').value.trim();
                 const subCount = document.getElementById('listingSubCount').value.trim();
 
-                if (!title || !link || !price) return;
+                if (!title || !link || !price) {
+                    alert("እባክዎ ርዕስ፣ ሊንክ እና ዋጋ በግዴታ ይሙሉ!");
+                    return;
+                }
 
                 let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
                 listings.push({
@@ -324,6 +329,7 @@ def read_root():
                 document.getElementById('listingLink').value = '';
                 document.getElementById('listingPrice').value = '';
                 document.getElementById('listingSubCount').value = '';
+                
                 alert("Ad published successfully with Admin Escrow Protection! (2% fee applies)");
                 loadUserListings();
                 showBrowseListings('ALL');
