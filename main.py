@@ -43,6 +43,8 @@ def read_root():
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
                         <a href="#toolRentalSection" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
+                        
+                        <!-- Top Navigation Buttons with correct onclick functions -->
                         <button onclick="switchPostFormTab('asset')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3.5 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
                             <i class="fa-solid fa-plus-circle"></i>
                             <span>Post Asset</span>
