@@ -39,11 +39,14 @@ def read_root():
                     <a href="#help" class="hover:text-amber-400 transition py-2">Resources</a>
                 </div>
 
-                <!-- Right Actions & Active Google Sign-In Button -->
-                <div class="flex items-center space-x-4">
-                    <button id="googleLoginBtn" onclick="handleGoogleLogin()" class="flex items-center space-x-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-md cursor-pointer">
+                <!-- Right Actions: Sign In & Sign Up Buttons -->
+                <div class="flex items-center space-x-3">
+                    <button onclick="openAuthModal('signin')" class="flex items-center space-x-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-md cursor-pointer text-xs">
                         <i class="fa-brands fa-google"></i>
-                        <span class="text-xs">Sign In</span>
+                        <span>Sign In</span>
+                    </button>
+                    <button onclick="openAuthModal('signup')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-700">
+                        Sign Up
                     </button>
                 </div>
             </div>
@@ -94,7 +97,7 @@ def read_root():
                         </div>
 
                         <div class="pt-2 flex gap-3">
-                            <button onclick="alert('Escrow process initiated for Ethiopian market.')" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Approve Escrow Request</button>
+                            <button onclick="openAuthModal('signin')" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Approve Escrow Request</button>
                         </div>
                     </div>
                 </div>
@@ -147,10 +150,117 @@ def read_root():
             </div>
         </section>
 
-        <!-- JavaScript for Login Action -->
+        <!-- Authentication Modal (Sign In / Sign Up Pop-up) -->
+        <div id="authModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-[#1c2541] border border-slate-700 rounded-3xl max-w-md w-full p-8 relative shadow-2xl space-y-6">
+                <!-- Close Button -->
+                <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+                <!-- Header -->
+                <div class="text-center space-y-2">
+                    <h3 id="modalTitle" class="text-2xl font-black text-white">Welcome back</h3>
+                    <p id="modalSubtitle" class="text-xs text-slate-400">Sign in to your Amalaj Plus account</p>
+                </div>
+
+                <!-- Google Sign-In Button -->
+                <button onclick="handleGoogleAuth()" class="w-full bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-4 rounded-xl flex items-center justify-center space-x-3 transition shadow-lg text-sm">
+                    <i class="fa-brands fa-google text-red-500 text-lg"></i>
+                    <span>Sign in with Google</span>
+                </button>
+
+                <!-- Divider -->
+                <div class="relative flex py-1 items-center">
+                    <div class="flex-grow border-t border-slate-700"></div>
+                    <span class="flex-shrink mx-4 text-xs text-slate-500 uppercase">Or</span>
+                    <div class="flex-grow border-t border-slate-700"></div>
+                </div>
+
+                <!-- Form Fields -->
+                <form id="authForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div id="fullNameGroup" class="hidden">
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name</label>
+                        <input type="text" id="fullNameInput" placeholder="Hailewelde Kidan" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Email address</label>
+                        <input type="email" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Password</label>
+                        <input type="password" required placeholder="••••••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-xl transition text-sm shadow-md mt-2">
+                        Sign In
+                    </button>
+                </form>
+
+                <!-- Switch Mode Link -->
+                <div class="text-center text-xs text-slate-400">
+                    <span id="switchText">Don't have an account?</span>
+                    <button onclick="toggleAuthMode()" id="switchBtn" class="text-amber-400 font-bold hover:underline ml-1">Sign Up</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript Logic -->
         <script>
-            function handleGoogleLogin() {
-                alert("Google Sign-In integration ready for Amalaj Plus!");
+            let currentMode = 'signin';
+
+            function openAuthModal(mode) {
+                currentMode = mode;
+                const modal = document.getElementById('authModal');
+                modal.classList.remove('hidden');
+                updateModalUI();
+            }
+
+            function closeAuthModal() {
+                document.getElementById('authModal').classList.add('hidden');
+            }
+
+            function toggleAuthMode() {
+                currentMode = currentMode === 'signin' ? 'signup' : 'signin';
+                updateModalUI();
+            }
+
+            function updateModalUI() {
+                const title = document.getElementById('modalTitle');
+                const subtitle = document.getElementById('modalSubtitle');
+                const submitBtn = document.getElementById('submitBtn');
+                const switchText = document.getElementById('switchText');
+                const switchBtn = document.getElementById('switchBtn');
+                const fullNameGroup = document.getElementById('fullNameGroup');
+
+                if (currentMode === 'signup') {
+                    title.innerText = 'Create Account';
+                    subtitle.innerText = 'Join Amalaj Plus Ethiopian Marketplace';
+                    submitBtn.innerText = 'Create Account';
+                    switchText.innerText = 'Already have an account?';
+                    switchBtn.innerText = 'Sign In';
+                    fullNameGroup.classList.remove('hidden');
+                } else {
+                    title.innerText = 'Welcome back';
+                    subtitle.innerText = 'Sign in to your Amalaj Plus account';
+                    submitBtn.innerText = 'Sign In';
+                    switchText.innerText = "Don't have an account?";
+                    switchBtn.innerText = 'Sign Up';
+                    fullNameGroup.classList.add('hidden');
+                }
+            }
+
+            function handleGoogleAuth() {
+                // Redirects directly to backend Google OAuth Endpoint
+                window.location.href = "/auth/google";
+            }
+
+            function handleFormSubmit(e) {
+                e.preventDefault();
+                alert((currentMode === 'signup' ? 'Account created' : 'Logged in') + ' successfully!');
+                closeAuthModal();
             }
         </script>
     </body>
