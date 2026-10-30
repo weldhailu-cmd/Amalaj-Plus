@@ -29,24 +29,46 @@ def read_root():
         <!-- Header / Navigation -->
         <header class="border-b border-slate-800 bg-[#0b132b]/90 backdrop-blur sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                <!-- Logo -->
                 <div class="flex items-center space-x-3">
                     <div class="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20">A</div>
                     <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                 </div>
 
-                <div class="flex items-center space-x-6">
-                    <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-300">
-                        <a href="#features" class="hover:text-amber-400 transition">Features</a>
-                        <a href="#how-it-works" class="hover:text-amber-400 transition">How it Works</a>
-                        <a href="/docs" target="_blank" class="hover:text-amber-400 transition">API Docs</a>
-                    </nav>
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
+                    <a href="#sellers" class="hover:text-amber-400 transition">Sellers</a>
+                    <a href="#buyers" class="hover:text-amber-400 transition">Buyers</a>
+                    <a href="#pricing" class="hover:text-amber-400 transition">Pricing</a>
+                    <a href="#resources" class="hover:text-amber-400 transition">Resources</a>
+                </div>
 
-                    <!-- Language Switcher & Actions -->
-                    <div class="flex items-center space-x-3">
-                        <button onclick="toggleLanguage()" id="langBtn" class="text-xs px-3 py-1.5 border border-slate-700 bg-slate-900 rounded-lg text-slate-300 hover:border-amber-500/50 transition flex items-center gap-1.5">
-                            🌐 <span id="langText">አማርኛ</span>
+                <!-- Right Actions: Language & Dropdown Menu -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Switcher -->
+                    <button onclick="toggleLanguage()" id="langBtn" class="text-xs px-3 py-1.5 border border-slate-700 bg-slate-900 rounded-lg text-slate-300 hover:border-amber-500/50 transition flex items-center gap-1.5">
+                        🌐 <span id="langText">አማርኛ</span>
+                    </button>
+
+                    <!-- Acquire Style Menu Button -->
+                    <div class="relative">
+                        <button onclick="toggleMenu()" class="flex items-center space-x-2 bg-[#1c2541] border border-slate-700 hover:border-amber-500/50 px-3 py-1.5 rounded-xl transition shadow-md">
+                            <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            </svg>
+                            <div class="w-7 h-7 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center text-xs font-bold">
+                                👤
+                            </div>
                         </button>
-                        <a href="/docs" class="text-xs font-semibold px-4 py-2 bg-amber-500 text-slate-950 rounded-lg hover:bg-amber-400 transition shadow-md shadow-amber-500/10">Get Started</a>
+
+                        <!-- Dropdown Menu Box -->
+                        <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white text-slate-900 rounded-2xl shadow-2xl py-2 z-50 border border-slate-200">
+                            <a href="/docs" class="block px-4 py-2.5 text-sm font-semibold hover:bg-slate-100 transition">Join now</a>
+                            <a href="/docs" class="block px-4 py-2.5 text-sm font-semibold hover:bg-slate-100 transition">Log In</a>
+                            <div class="border-t border-slate-200 my-1"></div>
+                            <a href="#help" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-100 transition">Help center</a>
+                            <a href="#blog" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-100 transition">Blog</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -90,7 +112,7 @@ def read_root():
                     </div>
                 </div>
 
-                <!-- Right Column: Interactive Visual / Mockup (acquire.com style) -->
+                <!-- Right Column: Interactive Visual / Mockup -->
                 <div class="lg:col-span-5 relative">
                     <div class="relative mx-auto w-full max-w-md">
                         <!-- Main Card -->
@@ -117,7 +139,7 @@ def read_root():
                             </div>
                         </div>
 
-                        <!-- Floating Badge 1 (Top Right) -->
+                        <!-- Floating Badge 1 -->
                         <div class="floating-card absolute -top-6 -right-4 bg-slate-900/90 backdrop-blur border border-amber-500/30 rounded-xl p-3 shadow-xl z-20 flex items-center gap-3">
                             <div class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">🛡️</div>
                             <div>
@@ -126,7 +148,7 @@ def read_root():
                             </div>
                         </div>
 
-                        <!-- Floating Badge 2 (Bottom Left) -->
+                        <!-- Floating Badge 2 -->
                         <div class="floating-card absolute -bottom-6 -left-4 bg-slate-900/90 backdrop-blur border border-slate-700 rounded-xl p-3 shadow-xl z-20 flex items-center gap-3" style="animation-delay: -2s;">
                             <div class="w-8 h-8 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-xs">🎵</div>
                             <div>
@@ -140,10 +162,23 @@ def read_root():
             </div>
         </section>
 
-        <!-- Script for Language Toggle -->
+        <!-- Scripts for Menu & Language Toggle -->
         <script>
-            let currentLang = 'en';
+            function toggleMenu() {
+                const menu = document.getElementById('dropdownMenu');
+                menu.classList.toggle('hidden');
+            }
 
+            // Close dropdown when clicking outside
+            window.addEventListener('click', function(e) {
+                const menu = document.getElementById('dropdownMenu');
+                const btn = e.target.closest('button');
+                if (!btn && !menu.contains(e.target)) {
+                    menu.classList.add('hidden');
+                }
+            });
+
+            let currentLang = 'en';
             const translations = {
                 en: {
                     langBtn: 'አማርኛ',
