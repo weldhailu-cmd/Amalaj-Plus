@@ -47,7 +47,7 @@ def read_root():
                             <i class="fa-solid fa-plus-circle"></i>
                             <span>Post Asset</span>
                         </button>
-                        <button onclick="scrollToSection('toolRental')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
+                        <button onclick="scrollToSection('toolRentalSection')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-3.5 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
                             <i class="fa-solid fa-screwdriver-wrench"></i>
                             <span>Rent Tool</span>
                         </button>
@@ -225,16 +225,49 @@ def read_root():
                 </div>
             </section>
 
-            <!-- Tool Rental Section -->
-            <section id="toolRental" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
-                <div class="flex justify-between items-center mb-8">
+            <!-- Tool Rental & Posting Section -->
+            <section id="toolRentalSection" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
                     <div>
                         <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
-                        <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
-                        <p class="text-slate-400 text-xs mt-1">Rent professional flashing and unlocking software tools instantly.</p>
+                        <h2 class="text-2xl font-black text-white tracking-tight mt-1">Mobile Repair Software Tool Rentals & Post ⚡</h2>
+                        <p class="text-slate-400 text-xs mt-1">Rent professional flashing software or publish a new tool for rental.</p>
                     </div>
+                    <button onclick="toggleToolForm()" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md">
+                        + Post New Rental Tool 🛠️
+                    </button>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                <!-- Hidden / Toggleable Post Tool Form -->
+                <div id="postToolFormContainer" class="hidden mb-8 bg-[#1c2541] border border-slate-700/60 rounded-2xl p-6 shadow-xl max-w-xl mx-auto">
+                    <h3 class="font-bold text-white text-sm mb-3">Publish New Repair Tool for Rental</h3>
+                    <form onsubmit="handlePostTool(event)" class="space-y-3 text-xs">
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1">Tool Name *</label>
+                            <input type="text" id="toolNameInput" required placeholder="e.g., DFT Pro / Chimera Tool" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-1">Tool Description *</label>
+                            <input type="text" id="toolDescInput" required placeholder="e.g., Latest Qualcomm, MTK & IMEI services." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">Rental Price (ETB) *</label>
+                                <input type="number" id="toolPriceInput" required placeholder="150" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 font-semibold mb-1">Rental Duration *</label>
+                                <input type="text" id="toolDurationInput" value="3 Hours Active" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer">
+                            Publish Rental Tool &rarr;
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Rental Tools Grid -->
+                <div id="toolRentalContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl">
                         <div class="flex justify-between items-center">
                             <h3 class="font-bold text-white text-base">UnlockTool Pro</h3>
@@ -320,11 +353,17 @@ def read_root():
                 updateAssetTypes();
                 loadUserListings();
                 loadUserRentals();
+                loadCustomTools();
                 showBrowseListings('ALL');
             };
 
             function scrollToSection(id) {
                 document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            }
+
+            function toggleToolForm() {
+                const formElem = document.getElementById('postToolFormContainer');
+                formElem.classList.toggle('hidden');
             }
 
             // Dynamic Asset Types based on Platform Selection
@@ -394,6 +433,73 @@ def read_root():
                 loadUserListings();
                 showBrowseListings('ALL');
                 switchDashboardTab('listings');
+            }
+
+            function handlePostTool(e) {
+                e.preventDefault();
+                const name = document.getElementById('toolNameInput').value.trim();
+                const desc = document.getElementById('toolDescInput').value.trim();
+                const price = document.getElementById('toolPriceInput').value.trim();
+                const duration = document.getElementById('toolDurationInput').value.trim();
+
+                if (!name || !desc || !price) return;
+
+                let tools = JSON.parse(localStorage.getItem('amalaj_custom_tools') || '[]');
+                tools.push({ name, desc, price, duration });
+                localStorage.setItem('amalaj_custom_tools', JSON.stringify(tools));
+
+                document.getElementById('toolNameInput').value = '';
+                document.getElementById('toolDescInput').value = '';
+                document.getElementById('toolPriceInput').value = '';
+                
+                alert("Repair tool published successfully for rental!");
+                loadCustomTools();
+                toggleToolForm();
+            }
+
+            function loadCustomTools() {
+                const container = document.getElementById('toolRentalContainer');
+                let tools = JSON.parse(localStorage.getItem('amalaj_custom_tools') || '[]');
+                
+                let defaultToolsHTML = `
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-white text-base">UnlockTool Pro</h3>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">ETB 150 / 3 Hrs</span>
+                        </div>
+                        <p class="text-xs text-slate-300">FRP bypass, flashing, and Mi Account removal for Samsung & Xiaomi.</p>
+                        <button onclick="rentTool('UnlockTool Pro', 150)" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-white text-base">UMT Pro / Ultimate</h3>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">ETB 120 / 3 Hrs</span>
+                        </div>
+                        <p class="text-xs text-slate-300">Advanced Qualcomm & MTK servicing, flashing, and network unlocking.</p>
+                        <button onclick="rentTool('UMT Pro', 120)" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-white text-base">Pandora Tool</h3>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">ETB 130 / 3 Hrs</span>
+                        </div>
+                        <p class="text-xs text-slate-300">Powerful tool for MTK device operations, security backup & bootloader.</p>
+                        <button onclick="rentTool('Pandora Tool', 130)" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
+                    </div>
+                `;
+
+                let customToolsHTML = tools.map(t => `
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl">
+                        <div class="flex justify-between items-center">
+                            <h3 class="font-bold text-white text-base">${t.name}</h3>
+                            <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">ETB ${t.price} / ${t.duration}</span>
+                        </div>
+                        <p class="text-xs text-slate-300">${t.desc}</p>
+                        <button onclick="rentTool('${t.name}', ${t.price})" class="w-full py-2 bg-amber-500 text-slate-950 font-bold rounded-xl text-xs hover:bg-amber-400 transition cursor-pointer">Rent Tool Now</button>
+                    </div>
+                `).join('');
+
+                container.innerHTML = defaultToolsHTML + customToolsHTML;
             }
 
             function showBrowseListings(category) {
