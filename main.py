@@ -1,7 +1,11 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
+
+# Mount static folder so images can be served
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -29,9 +33,11 @@ def read_root():
         <!-- Header / Navigation -->
         <header class="border-b border-slate-800 bg-[#0b132b]/95 backdrop-blur sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
-                <!-- Logo -->
+                <!-- Circular Logo & Branding -->
                 <div class="flex items-center space-x-3">
-                    <div class="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20">A</div>
+                    <div class="w-10 h-10 rounded-full border-2 border-amber-500/80 overflow-hidden shadow-lg shadow-amber-500/20 bg-[#1c2541] flex items-center justify-center">
+                        <img src="/static/amalaj-logo.png" alt="Amalaj Plus Logo" class="w-full h-full object-cover">
+                    </div>
                     <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                 </div>
 
