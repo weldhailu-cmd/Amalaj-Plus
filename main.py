@@ -43,13 +43,13 @@ def read_root():
                     <a href="#help" class="hover:text-amber-400 transition py-2">Resources</a>
                 </div>
 
-                <!-- Right Actions: Sign In & Sign Up Buttons -->
-                <div class="flex items-center space-x-3">
+                <!-- Right Actions: Dynamic User Profile or Sign In/Sign Up -->
+                <div id="navUserActions" class="flex items-center space-x-3">
                     <button onclick="openAuthModal('signin')" class="flex items-center space-x-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-md cursor-pointer text-xs">
                         <i class="fa-brands fa-google"></i>
                         <span>Sign In</span>
                     </button>
-                    <button onclick="openAuthModal('signup')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-700">
+                    <button onclick="openAuthModal('signup')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-4 py-2 rounded-xl transition text-xs border border-slate-700 cursor-pointer">
                         Sign Up
                     </button>
                 </div>
@@ -160,6 +160,9 @@ def read_root():
                     <div class="flex-grow border-t border-slate-700"></div>
                 </div>
 
+                <!-- Error Message Alert Box -->
+                <div id="formErrorBox" class="hidden bg-red-500/10 border border-red-500/50 text-red-400 text-xs p-3 rounded-xl text-center"></div>
+
                 <!-- Form Fields -->
                 <form id="authForm" onsubmit="handleFormSubmit(event)" class="space-y-4">
                     <div id="fullNameGroup">
@@ -169,7 +172,7 @@ def read_root():
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-300 mb-1">Email address</label>
-                        <input type="email" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+                        <input type="email" id="emailInput" required placeholder="you@example.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
                     </div>
 
                     <!-- Password Field with Show/Hide Eye Icon -->
@@ -207,7 +210,7 @@ def read_root():
             </div>
         </div>
 
-        <!-- JavaScript Logic -->
+        <!-- JavaScript Logic with Strict Validation -->
         <script>
             let currentMode = 'signup';
 
@@ -215,6 +218,7 @@ def read_root():
                 currentMode = mode;
                 const modal = document.getElementById('authModal');
                 modal.classList.remove('hidden');
+                document.getElementById('formErrorBox').classList.add('hidden');
                 updateModalUI();
             }
 
@@ -224,6 +228,7 @@ def read_root():
 
             function toggleAuthMode() {
                 currentMode = currentMode === 'signin' ? 'signup' : 'signin';
+                document.getElementById('formErrorBox').classList.add('hidden');
                 updateModalUI();
             }
 
@@ -244,7 +249,6 @@ def read_root():
                     switchBtn.innerText = 'Sign In';
                     fullNameGroup.classList.remove('hidden');
                     confirmPasswordGroup.classList.remove('hidden');
-                    document.getElementById('confirmPasswordInput').setAttribute('required', 'true');
                 } else {
                     title.innerText = 'Welcome back';
                     subtitle.innerText = 'Sign in to your Amalaj Plus account';
@@ -253,7 +257,6 @@ def read_root():
                     switchBtn.innerText = 'Sign Up';
                     fullNameGroup.classList.add('hidden');
                     confirmPasswordGroup.classList.add('hidden');
-                    document.getElementById('confirmPasswordInput').removeAttribute('required');
                 }
             }
 
@@ -271,22 +274,70 @@ def read_root():
                 }
             }
 
+            function showError(msg) {
+                const errBox = document.getElementById('formErrorBox');
+                errBox.innerText = msg;
+                errBox.classList.remove('hidden');
+            }
+
             function handleGoogleAuth() {
                 window.location.href = "/auth/google";
             }
 
             function handleFormSubmit(e) {
                 e.preventDefault();
+                const email = document.getElementById('emailInput').value.trim();
+                const pass = document.getElementById('passwordInput').value;
+                const errorBox = document.getElementById('formErrorBox');
+                errorBox.classList.add('hidden');
+
+                // Strict Validation Checks
+                if (!email || !email.includes('@') || !email.includes('.')) {
+                    showError("እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ (Please enter a valid email address)");
+                    return;
+                }
+
+                if (pass.length < 6) {
+                    showError("የሚስጥር ቃል (Password) ቢያንስ 6 ፊደላት/ቁጥሮች መሆን አለበት");
+                    return;
+                }
+
                 if (currentMode === 'signup') {
-                    const pass = document.getElementById('passwordInput').value;
+                    const fullName = document.getElementById('fullNameInput').value.trim();
                     const confirmPass = document.getElementById('confirmPasswordInput').value;
-                    if (pass !== confirmPass) {
-                        alert("Passwords do not match! Please check and try again.");
+
+                    if (!fullName) {
+                        showError("እባክዎ ሙሉ ስምዎን ያስገቡ (Full name is required)");
                         return;
                     }
+
+                    if (pass !== confirmPass) {
+                        showError("የሚስጥር ቃል ማረጋገጫው አልተመሳሰለም (Passwords do not match)");
+                        return;
+                    }
+
+                    // Success for Signup
+                    alert("አካውንትዎ በተሳካ ሁኔታ ተፈጥሯል! (Account created successfully)");
+                    closeAuthModal();
+                    updateNavbarUser(fullName);
+                } else {
+                    // Success for Signin
+                    alert("እንኳን ደህና መጡ! በሰአቱ ገብተዋል (Logged in successfully)");
+                    closeAuthModal();
+                    updateNavbarUser("Hailewelde Kidan");
                 }
-                alert((currentMode === 'signup' ? 'Account created' : 'Logged in') + ' successfully!');
-                closeAuthModal();
+            }
+
+            function updateNavbarUser(name) {
+                const navActions = document.getElementById('navUserActions');
+                navActions.innerHTML = `
+                    <div class="flex items-center space-x-3 bg-slate-800/80 border border-slate-700 px-3 py-1.5 rounded-xl">
+                        <div class="w-8 h-8 rounded-full bg-amber-500 text-slate-950 font-bold flex items-center justify-center text-xs">
+                            ${name.charAt(0).toUpperCase()}
+                        </div>
+                        <span class="text-xs font-semibold text-white">${name}</span>
+                    </div>
+                `;
             }
         </script>
     </body>
