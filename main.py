@@ -58,7 +58,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Hero / About Section (Home Page Main Intro) -->
+            <!-- Hero / About Section (Home Page Main Intro with Buy & Sell Term) -->
             <section class="max-w-7xl mx-auto px-6 py-12">
                 <div class="grid lg:grid-cols-12 gap-12 items-center">
                     <div class="lg:col-span-7 space-y-6">
@@ -66,10 +66,10 @@ def read_root():
                             <span>🛡️ Secure Escrow Protected Ethiopian Marketplace</span>
                         </div>
                         <h1 class="text-4xl md:text-5xl font-black tracking-tight text-white leading-tight">
-                            Trade Digital Assets & <span class="text-amber-400">Rent Repair Tools</span> with Complete Trust.
+                            Buy & Sell Digital Assets & <span class="text-amber-400">Rent Mobile Repair Tools</span> Securely.
                         </h1>
                         <p class="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed">
-                            Amalaj Plus is a trusted platform for buying and selling verified Telegram channels, TikTok accounts, and renting professional mobile repair software tools backed by safe escrow protection.
+                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, and rent professional mobile repair software tools backed by safe escrow protection.
                         </p>
                         <!-- Escrow Trust Badge Box -->
                         <div class="flex items-center gap-3 p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl max-w-lg">
@@ -355,14 +355,6 @@ def read_root():
                     contentRentals.classList.remove('hidden');
                     contentListings.classList.add('hidden');
                 }
-            }
-
-            function openConductModal() {
-                document.getElementById('conductModal').classList.remove('hidden');
-            }
-
-            function closeConductModal() {
-                document.getElementById('conductModal').classList.add('hidden');
             }
 
             function handlePostListing(e) {
