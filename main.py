@@ -35,12 +35,42 @@ def read_root():
                     <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                 </div>
 
-                <!-- Desktop Nav Links -->
-                <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
-                    <a href="#sellers" class="hover:text-amber-400 transition">Sellers</a>
+                <!-- Desktop Nav Links with Dropdowns -->
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
+                    <!-- Sellers Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 hover:text-amber-400 transition py-2">
+                            Sellers <span class="text-xs">▼</span>
+                        </button>
+                        <div class="absolute top-full left-0 hidden group-hover:block w-48 bg-[#1c2541] border border-slate-700 rounded-xl shadow-2xl py-2 z-50">
+                            <a href="#sellers" class="block px-4 py-2 text-xs text-slate-200 hover:bg-amber-500/10 hover:text-amber-400">List Your Business</a>
+                            <a href="#sellers" class="block px-4 py-2 text-xs text-slate-200 hover:bg-amber-500/10 hover:text-amber-400">Valuation Tool</a>
+                        </div>
+                    </div>
+
                     <a href="#buyers" class="hover:text-amber-400 transition">Buyers</a>
-                    <a href="#pricing" class="hover:text-amber-400 transition">Pricing</a>
-                    <a href="#resources" class="hover:text-amber-400 transition">Resources</a>
+
+                    <!-- Pricing Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 hover:text-amber-400 transition py-2">
+                            Pricing <span class="text-xs">▼</span>
+                        </button>
+                        <div class="absolute top-full left-0 hidden group-hover:block w-48 bg-[#1c2541] border border-slate-700 rounded-xl shadow-2xl py-2 z-50">
+                            <a href="#pricing" class="block px-4 py-2 text-xs text-slate-200 hover:bg-amber-500/10 hover:text-amber-400">Free Plan</a>
+                            <a href="#pricing" class="block px-4 py-2 text-xs text-slate-200 hover:bg-amber-500/10 hover:text-amber-400">Premium Escrow</a>
+                        </div>
+                    </div>
+
+                    <!-- Resources Dropdown -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 hover:text-amber-400 transition py-2">
+                            Resources <span class="text-xs">▼</span>
+                        </button>
+                        <div class="absolute top-full left-0 hidden group-hover:block w-48 bg-[#1c2541] border border-slate-700 rounded-xl shadow-2xl py-2 z-50">
+                            <a href="#blog" class="block px-4 py-2 text-xs text-slate-200 hover:bg-amber-500/10 hover:text-amber-400">Blog</a>
+                            <a href="#help" class="block px-4 py-2 text-xs text-slate-200 hover:bg-amber-500/10 hover:text-amber-400">Help Center</a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Right Actions: Language & Dropdown Menu -->
@@ -50,7 +80,7 @@ def read_root():
                         🌐 <span id="langText">አማርኛ</span>
                     </button>
 
-                    <!-- Acquire Style Menu Button -->
+                    <!-- Acquire Style User Menu Button -->
                     <div class="relative">
                         <button onclick="toggleMenu()" class="flex items-center space-x-2 bg-[#1c2541] border border-slate-700 hover:border-amber-500/50 px-3 py-1.5 rounded-xl transition shadow-md">
                             <svg class="w-5 h-5 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,10 +192,10 @@ def read_root():
             </div>
         </section>
 
-        <!-- Help Center Modal / Section -->
+        <!-- Help Center View Section -->
         <section id="helpCenterSection" class="hidden max-w-5xl mx-auto px-6 py-16">
             <div class="text-center space-y-4 mb-12">
-                <button onclick="closeHelpCenter()" class="text-xs px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 mb-4">&larr; Back to Home</button>
+                <button onclick="closeHelpCenter()" class="text-xs px-4 py-2 bg-slate-800 text-slate-300 rounded-lg hover:bg-slate-700 mb-4">&larr; ወደ ዋናው ገጽ ተመለስ</button>
                 <h1 class="text-4xl font-extrabold text-white">How can we help?</h1>
                 <p class="text-slate-400">የሚፈልጉትን እርዳታ ወይም ጥያቄ እዚህ ይፈልጉ</p>
                 
@@ -203,7 +233,7 @@ def read_root():
             </div>
         </section>
 
-        <!-- Scripts for Menu, Language Toggle & Help Center -->
+        <!-- Scripts -->
         <script>
             function toggleMenu() {
                 const menu = document.getElementById('dropdownMenu');
