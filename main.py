@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
-# Mount static folder so images can be served
+# staticfiles ን ማገናኘት
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
@@ -35,8 +35,8 @@ def read_root():
             <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center relative">
                 <!-- Circular Logo & Branding -->
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-full border-2 border-amber-500/80 overflow-hidden shadow-lg shadow-amber-500/20 bg-[#1c2541] flex items-center justify-center">
-                        <img src="/static/amalaj-logo.png" alt="Amalaj Plus Logo" class="w-full h-full object-cover">
+                    <div class="w-10 h-10 rounded-full border-2 border-amber-500 overflow-hidden shadow-lg shadow-amber-500/20 bg-[#1c2541] flex items-center justify-center">
+                        <img src="/static/logo.png" alt="Amalaj Plus Logo" class="w-full h-full object-cover">
                     </div>
                     <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                 </div>
