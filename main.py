@@ -4,7 +4,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-app = FastAPI(title="Amalaj Plus API", version="8.0")
+app = FastAPI(title="Amalaj Plus API", version="12.0")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -77,7 +77,7 @@ def read_root(full_path: str = ""):
             </h1>
         </header>
 
-        <!-- Marketplace Listings Section -->
+        <!-- Marketplace Section -->
         <section id="marketplace" class="max-w-7xl mx-auto px-6 py-6 space-y-6">
             <div class="flex justify-between items-center bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
                 <div>
@@ -87,157 +87,31 @@ def read_root(full_path: str = ""):
                 <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-bold">Protected by 2% Escrow</span>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Listing 1 -->
-                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
-                    <div class="bg-red-600 w-10 flex items-center justify-center py-6 shrink-0">
-                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">YouTube</span>
-                    </div>
-                    <div class="p-5 flex-grow space-y-3 text-xs">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
-                                <h3 class="font-bold text-white text-sm mt-1">Sportsphere</h3>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
-                            <div><strong class="text-white">303K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
-                            <div><strong class="text-white">14M</strong><div class="text-slate-400 text-[9px]">Views</div></div>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
-                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">78,000 ETB</div></div>
-                            <button onclick="alert('Initiating Escrow Purchase for Sportsphere (78,000 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
-                        </div>
-                    </div>
+            <!-- Platform Category Selection Cards (All + 5 Platforms with dedicated Brand Colors) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="bg-[#16203a] border-2 border-amber-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl">
+                    <div class="font-black text-white text-xs">All Platforms</div>
+                    <span class="inline-block px-2 py-0.5 bg-amber-500 text-slate-950 text-[10px] font-bold rounded-full">Browse Listings</span>
                 </div>
-
-                <!-- Listing 2 -->
-                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
-                    <div class="bg-red-600 w-10 flex items-center justify-center py-6 shrink-0">
-                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">YouTube</span>
-                    </div>
-                    <div class="p-5 flex-grow space-y-3 text-xs">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
-                                <h3 class="font-bold text-white text-sm mt-1">NextGoal</h3>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
-                            <div><strong class="text-white">33K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
-                            <div><strong class="text-white">3.3M</strong><div class="text-slate-400 text-[9px]">Views</div></div>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
-                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">14,950 ETB</div></div>
-                            <button onclick="alert('Initiating Escrow Purchase for NextGoal (14,950 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
-                        </div>
-                    </div>
+                <div class="bg-[#16203a] border border-blue-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl">
+                    <div class="font-black text-white text-xs">Telegram</div>
+                    <span class="inline-block px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                 </div>
-
-                <!-- Listing 3 -->
-                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
-                    <div class="bg-gradient-to-b from-purple-600 via-pink-600 to-amber-500 w-10 flex items-center justify-center py-6 shrink-0">
-                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">Instagram</span>
-                    </div>
-                    <div class="p-5 flex-grow space-y-3 text-xs">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
-                                <h3 class="font-bold text-white text-sm mt-1">thela.stone291</h3>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
-                            <div><strong class="text-white">1.1K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
-                            <div><strong class="text-white">1 Avg</strong><div class="text-slate-400 text-[9px]">Likes</div></div>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
-                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">910 ETB</div></div>
-                            <button onclick="alert('Initiating Escrow Purchase for thela.stone291 (910 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
-                        </div>
-                    </div>
+                <div class="bg-[#16203a] border border-red-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl">
+                    <div class="font-black text-white text-xs">YouTube</div>
+                    <span class="inline-block px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                 </div>
-
-                <!-- Listing 4 -->
-                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
-                    <div class="bg-blue-600 w-10 flex items-center justify-center py-6 shrink-0">
-                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">Facebook</span>
-                    </div>
-                    <div class="p-5 flex-grow space-y-3 text-xs">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
-                                <h3 class="font-bold text-white text-sm mt-1">Osama Jami</h3>
-                            </div>
-                        </div>
-                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
-                            <div><strong class="text-white">5.1K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
-                            <div><strong class="text-white">12 Likes</strong><div class="text-slate-400 text-[9px]">Pages</div></div>
-                        </div>
-                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
-                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">1,950 ETB</div></div>
-                            <button onclick="alert('Initiating Escrow Purchase for Osama Jami (1,950 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
-                        </div>
-                    </div>
+                <div class="bg-[#16203a] border border-pink-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl">
+                    <div class="font-black text-white text-xs">TikTok</div>
+                    <span class="inline-block px-2 py-0.5 bg-pink-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                 </div>
-            </div>
-        </section>
-
-        <!-- Tool Rentals Section -->
-        <section id="toolRentals" class="max-w-7xl mx-auto px-6 py-6 space-y-6">
-            <div class="flex justify-between items-center bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
-                <div>
-                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
-                    <h2 class="text-xl font-black text-white mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
+                <div class="bg-[#16203a] border border-purple-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl">
+                    <div class="font-black text-white text-xs">Instagram</div>
+                    <span class="inline-block px-2 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                 </div>
-                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold">AnyDesk Remote</span>
-            </div>
-
-            <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl flex justify-between items-center text-xs">
-                <div>
-                    <h3 class="font-bold text-white text-base">UnlockTool Pro</h3>
-                    <p class="text-slate-300 mt-1">FRP bypass, flashing, and Mi Account removal for Samsung & Xiaomi.</p>
-                    <span class="text-amber-300 font-semibold mt-2 block"><i class="fa-solid fa-link"></i> AnyDesk/TeamViewer Remote</span>
-                </div>
-                <div class="text-right space-y-2">
-                    <div class="text-base font-black text-emerald-400">150.0 ETB / 3 Hours</div>
-                    <button onclick="alert('Opening UnlockTool Rental Modal...')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl cursor-pointer shadow">
-                        Rent Tool Now ⚡
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dashboard Analytics Section -->
-        <section id="dashboard" class="max-w-7xl mx-auto px-6 py-6 mb-16 space-y-6">
-            <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-8 shadow-2xl space-y-6">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-                    <div>
-                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Overview</span>
-                        <h2 class="text-xl font-black text-white mt-1">User Dashboard & Deposit Analytics</h2>
-                    </div>
-                    <div class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-2xl flex items-center gap-2">
-                        <i class="fa-solid fa-wallet text-amber-400"></i>
-                        <span class="font-black text-white text-sm">3,500 ETB</span>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-2">
-                        <span class="text-slate-400">Total Balance</span>
-                        <div class="text-2xl font-black text-white">0 ETB</div>
-                    </div>
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-2">
-                        <span class="text-slate-400">Total Income</span>
-                        <div class="text-2xl font-black text-amber-400">24,100 ETB</div>
-                    </div>
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-2">
-                        <span class="text-slate-400">Sold Channels</span>
-                        <div class="text-2xl font-black text-white">5 Channels</div>
-                    </div>
-                    <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-2">
-                        <span class="text-slate-400">Telegram Bot Scan</span>
-                        <div class="text-2xl font-black text-emerald-400">Verified ✓</div>
-                    </div>
+                <div class="bg-[#16203a] border border-blue-600 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl">
+                    <div class="font-black text-white text-xs">Facebook</div>
+                    <span class="inline-block px-2 py-0.5 bg-blue-700 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                 </div>
             </div>
         </section>
