@@ -4,9 +4,16 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
-app = FastAPI(title="Amalaj Plus API", version="6.5")
+app = FastAPI(title="Amalaj Plus API", version="8.0")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+DB_MARKETPLACE_LISTINGS = [
+    {"id": 1, "title": "Sportsphere", "platform": "YouTube", "subscribers": "303K", "views": "14M", "price": "78,000 ETB", "status": "ACTIVE"},
+    {"id": 2, "title": "NextGoal", "platform": "YouTube", "subscribers": "33K", "views": "3.3M", "price": "14,950 ETB", "status": "ACTIVE"},
+    {"id": 3, "title": "thela.stone291", "platform": "Instagram", "subscribers": "1.1K", "views": "1 Avg Likes", "price": "910 ETB", "status": "ACTIVE"},
+    {"id": 4, "title": "Osama Jami", "platform": "Facebook", "subscribers": "5.1K", "views": "12 Page Likes", "price": "1,950 ETB", "status": "ACTIVE"}
+]
 
 DB_TOOLS = [
     {
@@ -20,50 +27,13 @@ DB_TOOLS = [
     }
 ]
 
-DB_TRANSACTIONS = []
-
-@app.get("/auth/google")
-def google_auth_placeholder():
-    return RedirectResponse(url="/")
+@app.get("/api/v1/marketplace", response_model=List[dict])
+def get_marketplace_listings():
+    return DB_MARKETPLACE_LISTINGS
 
 @app.get("/api/v1/tools", response_model=List[dict])
 def get_rental_tools():
     return DB_TOOLS
-
-@app.post("/api/v1/chapa/pay")
-def create_chapa_payment(
-    amount: float = Form(...),
-    email: str = Form(...),
-    first_name: str = Form(...),
-    phone_number: str = Form(...)
-):
-    payment_record = {
-        "id": len(DB_TRANSACTIONS) + 1,
-        "amount": amount,
-        "email": email,
-        "phone_number": phone_number,
-        "status": "APPROVED",
-        "gateway": "Chapa / Telebirr",
-        "date": datetime.now().strftime("%Y-%m-%d %H:%M")
-    }
-    DB_TRANSACTIONS.append(payment_record)
-    return {
-        "success": True,
-        "checkout_url": "https://api.chapa.co/v1/hosted/pay/checkout-sample",
-        "message": "Payment gateway initialized successfully with 2% escrow protection.",
-        "transaction": payment_record
-    }
-
-@app.post("/api/v1/telegram/bot/verify")
-def verify_telegram_bot_channel(
-    channel_username: str = Form(...)
-):
-    return {
-        "success": True,
-        "message": f"Channel {channel_username} auto-scan verified successfully via Amalaj Bot.",
-        "subscribers_count": "15.4K",
-        "status": "ACTIVE_VERIFIED"
-    }
 
 @app.get("/{full_path:path}", response_class=HTMLResponse)
 def read_root(full_path: str = ""):
@@ -89,33 +59,161 @@ def read_root(full_path: str = ""):
                 </div>
                 <div class="hidden md:flex items-center space-x-6 text-xs font-semibold">
                     <a href="/" class="text-amber-400 hover:text-amber-300 transition">Home</a>
-                    <a href="#dashboard" class="text-slate-300 hover:text-white transition">Dashboard & Analytics</a>
-                    <a href="#payments" class="text-slate-300 hover:text-white transition">Chapa / Telebirr Pay</a>
+                    <a href="#marketplace" class="text-slate-300 hover:text-white transition">Marketplace</a>
+                    <a href="#toolRentals" class="text-slate-300 hover:text-white transition">Tool Rentals</a>
+                    <a href="#dashboard" class="text-slate-300 hover:text-white transition">Dashboard</a>
                     <span class="px-3.5 py-1.5 bg-amber-500 text-slate-950 font-bold rounded-xl shadow-lg">🛡️ 2% Escrow Active</span>
                 </div>
             </div>
         </nav>
 
         <!-- Hero Section -->
-        <header class="max-w-7xl mx-auto px-6 py-14 text-center space-y-6">
-            <div class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold tracking-wide">
+        <header class="max-w-7xl mx-auto px-6 py-12 text-center space-y-4">
+            <div class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold">
                 ⚡ Secured Digital Asset & Tool Rental Ecosystem
             </div>
-            <h1 class="text-4xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-3xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-black text-white tracking-tight">
                 Trade Digital Channels & Rent Repair Software with <span class="text-amber-400">Escrow Protection</span>
             </h1>
-            <p class="text-slate-400 text-xs md:text-sm max-w-xl mx-auto">
-                Integrated with Chapa & Telebirr automated payments, Telegram bot verification, and 3-day secure fund holding.
-            </p>
         </header>
 
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="max-w-7xl mx-auto px-6 py-8 space-y-8">
+        <!-- Marketplace Listings Section -->
+        <section id="marketplace" class="max-w-7xl mx-auto px-6 py-6 space-y-6">
+            <div class="flex justify-between items-center bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+                <div>
+                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">P2P Asset Trading</span>
+                    <h2 class="text-xl font-black text-white mt-1">Browse Verified Marketplace Listings</h2>
+                </div>
+                <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-bold">Protected by 2% Escrow</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Listing 1 -->
+                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
+                    <div class="bg-red-600 w-10 flex items-center justify-center py-6 shrink-0">
+                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">YouTube</span>
+                    </div>
+                    <div class="p-5 flex-grow space-y-3 text-xs">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
+                                <h3 class="font-bold text-white text-sm mt-1">Sportsphere</h3>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
+                            <div><strong class="text-white">303K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
+                            <div><strong class="text-white">14M</strong><div class="text-slate-400 text-[9px]">Views</div></div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
+                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">78,000 ETB</div></div>
+                            <button onclick="alert('Initiating Escrow Purchase for Sportsphere (78,000 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 2 -->
+                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
+                    <div class="bg-red-600 w-10 flex items-center justify-center py-6 shrink-0">
+                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">YouTube</span>
+                    </div>
+                    <div class="p-5 flex-grow space-y-3 text-xs">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
+                                <h3 class="font-bold text-white text-sm mt-1">NextGoal</h3>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
+                            <div><strong class="text-white">33K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
+                            <div><strong class="text-white">3.3M</strong><div class="text-slate-400 text-[9px]">Views</div></div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
+                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">14,950 ETB</div></div>
+                            <button onclick="alert('Initiating Escrow Purchase for NextGoal (14,950 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 3 -->
+                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
+                    <div class="bg-gradient-to-b from-purple-600 via-pink-600 to-amber-500 w-10 flex items-center justify-center py-6 shrink-0">
+                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">Instagram</span>
+                    </div>
+                    <div class="p-5 flex-grow space-y-3 text-xs">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
+                                <h3 class="font-bold text-white text-sm mt-1">thela.stone291</h3>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
+                            <div><strong class="text-white">1.1K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
+                            <div><strong class="text-white">1 Avg</strong><div class="text-slate-400 text-[9px]">Likes</div></div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
+                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">910 ETB</div></div>
+                            <button onclick="alert('Initiating Escrow Purchase for thela.stone291 (910 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Listing 4 -->
+                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl overflow-hidden shadow-2xl flex relative">
+                    <div class="bg-blue-600 w-10 flex items-center justify-center py-6 shrink-0">
+                        <span class="text-white font-bold text-xs tracking-widest uppercase transform -rotate-90 whitespace-nowrap">Facebook</span>
+                    </div>
+                    <div class="p-5 flex-grow space-y-3 text-xs">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="px-2 py-0.5 bg-blue-600 text-white rounded text-[9px] font-bold">NEW</span>
+                                <h3 class="font-bold text-white text-sm mt-1">Osama Jami</h3>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-2.5 flex justify-between text-[11px]">
+                            <div><strong class="text-white">5.1K</strong><div class="text-slate-400 text-[9px]">Subscribers</div></div>
+                            <div><strong class="text-white">12 Likes</strong><div class="text-slate-400 text-[9px]">Pages</div></div>
+                        </div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800">
+                            <div><div class="text-[9px] text-slate-400 uppercase">Price</div><div class="text-base font-black text-white">1,950 ETB</div></div>
+                            <button onclick="alert('Initiating Escrow Purchase for Osama Jami (1,950 ETB)')" class="px-3.5 py-2 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl cursor-pointer shadow">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Rentals Section -->
+        <section id="toolRentals" class="max-w-7xl mx-auto px-6 py-6 space-y-6">
+            <div class="flex justify-between items-center bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+                <div>
+                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">For Technicians</span>
+                    <h2 class="text-xl font-black text-white mt-1">Mobile Repair Software Tool Rentals ⚡</h2>
+                </div>
+                <span class="px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full text-xs font-bold">AnyDesk Remote</span>
+            </div>
+
+            <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl flex justify-between items-center text-xs">
+                <div>
+                    <h3 class="font-bold text-white text-base">UnlockTool Pro</h3>
+                    <p class="text-slate-300 mt-1">FRP bypass, flashing, and Mi Account removal for Samsung & Xiaomi.</p>
+                    <span class="text-amber-300 font-semibold mt-2 block"><i class="fa-solid fa-link"></i> AnyDesk/TeamViewer Remote</span>
+                </div>
+                <div class="text-right space-y-2">
+                    <div class="text-base font-black text-emerald-400">150.0 ETB / 3 Hours</div>
+                    <button onclick="alert('Opening UnlockTool Rental Modal...')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl cursor-pointer shadow">
+                        Rent Tool Now ⚡
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Analytics Section -->
+        <section id="dashboard" class="max-w-7xl mx-auto px-6 py-6 mb-16 space-y-6">
             <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-8 shadow-2xl space-y-6">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-slate-800">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4">
                     <div>
-                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Financial Overview</span>
-                        <h2 class="text-2xl font-black text-white mt-1">User Dashboard & Deposit Analytics</h2>
+                        <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Overview</span>
+                        <h2 class="text-xl font-black text-white mt-1">User Dashboard & Deposit Analytics</h2>
                     </div>
                     <div class="px-4 py-2 bg-slate-900 border border-slate-800 rounded-2xl flex items-center gap-2">
                         <i class="fa-solid fa-wallet text-amber-400"></i>
@@ -123,7 +221,6 @@ def read_root(full_path: str = ""):
                     </div>
                 </div>
 
-                <!-- Analytics Cards -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
                     <div class="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-2">
                         <span class="text-slate-400">Total Balance</span>
@@ -142,29 +239,6 @@ def read_root(full_path: str = ""):
                         <div class="text-2xl font-black text-emerald-400">Verified ✓</div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Payment Integration Section -->
-        <section id="payments" class="max-w-7xl mx-auto px-6 py-8 mb-16">
-            <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-8 shadow-2xl max-w-xl mx-auto space-y-6">
-                <div class="flex justify-between items-center pb-4 border-b border-slate-800">
-                    <h3 class="text-base font-bold text-white">Instant Chapa / Telebirr Deposit</h3>
-                    <span class="text-amber-400 font-bold text-xs">2% Escrow Fee</span>
-                </div>
-                <form onsubmit="event.preventDefault(); alert('Chapa / Telebirr Payment Gateway Initialized Successfully!');" class="space-y-4 text-xs">
-                    <div>
-                        <label class="block text-slate-300 font-semibold mb-1">Amount (ETB) *</label>
-                        <input type="number" required placeholder="3500" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-amber-500" />
-                    </div>
-                    <div>
-                        <label class="block text-slate-300 font-semibold mb-1">Phone Number / Telebirr *</label>
-                        <input type="text" required placeholder="0911223344" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:outline-none focus:border-amber-500" />
-                    </div>
-                    <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition cursor-pointer shadow-lg">
-                        Proceed to Secure Payment &rarr;
-                    </button>
-                </form>
             </div>
         </section>
 
