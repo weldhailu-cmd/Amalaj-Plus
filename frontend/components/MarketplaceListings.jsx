@@ -4,61 +4,11 @@ export default function MarketplaceListings() {
     const [selectedPlatform, setSelectedPlatform] = useState('ALL');
 
     const [listings, setListings] = useState([
-        {
-            id: 1,
-            platform: 'Telegram',
-            title: 'Ethiopian Crypto Hub',
-            category: 'Crypto',
-            price: '15,000 ETB',
-            subscribers: '12K',
-            views: '45K',
-            status: 'ACTIVE',
-            color: 'border-blue-500 bg-blue-600'
-        },
-        {
-            id: 2,
-            platform: 'YouTube',
-            title: 'Sportsphere',
-            category: 'Sports',
-            price: '78,000 ETB',
-            subscribers: '303K',
-            views: '14M',
-            status: 'ACTIVE',
-            color: 'border-red-500 bg-red-600'
-        },
-        {
-            id: 3,
-            platform: 'TikTok',
-            title: 'Habesha Trends',
-            category: 'Entertainment',
-            price: '6,500 ETB',
-            subscribers: '45K',
-            views: '1.2M',
-            status: 'ACTIVE',
-            color: 'border-pink-500 bg-pink-600'
-        },
-        {
-            id: 4,
-            platform: 'Instagram',
-            title: 'thela.stone291',
-            category: 'Lifestyle',
-            price: '910 ETB',
-            subscribers: '1.1K',
-            views: '1 Avg Likes',
-            status: 'ACTIVE',
-            color: 'border-purple-500 bg-purple-600'
-        },
-        {
-            id: 5,
-            platform: 'Facebook',
-            title: 'Osama Jami',
-            category: 'Business',
-            price: '1,950 ETB',
-            subscribers: '5.1K',
-            views: '12 Page Likes',
-            status: 'ACTIVE',
-            color: 'border-blue-600 bg-blue-700'
-        }
+        { id: 1, platform: 'Telegram', title: 'Crypto Hub', price: '15,000 ETB', subscribers: '12K', views: '45K' },
+        { id: 2, platform: 'YouTube', title: 'Sportsphere', price: '78,000 ETB', subscribers: '303K', views: '14M' },
+        { id: 3, platform: 'TikTok', title: 'Habesha Trends', price: '6,500 ETB', subscribers: '45K', views: '1.2M' },
+        { id: 4, platform: 'Instagram', title: 'thela.stone291', price: '910 ETB', subscribers: '1.1K', views: '1 Avg' },
+        { id: 5, platform: 'Facebook', title: 'Osama Jami', price: '1,950 ETB', subscribers: '5.1K', views: '12 Likes' }
     ]);
 
     const filteredListings = selectedPlatform === 'ALL' 
@@ -67,64 +17,46 @@ export default function MarketplaceListings() {
 
     return (
         <div className="max-w-7xl mx-auto px-6 py-8 space-y-8">
-            {/* Platform Selection Cards (All + 5 Platforms) */}
+            {/* Platform Selection Cards */}
             <div className="space-y-4">
                 <div className="flex justify-between items-center">
-                    <h2 className="text-lg font-black text-white">Select Platform to Browse Listings</h2>
+                    <h2 className="text-base font-black text-white">Select Platform to Browse Listings</h2>
                     <span className="text-xs text-amber-400 font-bold">Verified Channels & Accounts</span>
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                    {/* 1. All Platforms */}
-                    <div onClick={() => setSelectedPlatform('ALL')} className={`bg-[#16203a] border-2 ${selectedPlatform === 'ALL' ? 'border-amber-400 shadow-amber-500/20' : 'border-amber-500/50'} rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1`}>
-                        <div className="w-10 h-10 mx-auto rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold">
-                            <i className="fa-solid fa-layer-group"></i>
-                        </div>
+                    <div onClick={() => setSelectedPlatform('ALL')} className="bg-[#16203a] border-2 border-amber-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                        <div className="w-10 h-10 mx-auto rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold"><i className="fa-solid fa-layer-group"></i></div>
                         <div className="font-black text-white text-xs">All Platforms</div>
                         <span className="inline-block px-2 py-0.5 bg-amber-500 text-slate-950 text-[10px] font-bold rounded-full">Browse Listings</span>
                     </div>
 
-                    {/* 2. Telegram */}
-                    <div onClick={() => setSelectedPlatform('Telegram')} className={`bg-[#16203a] border ${selectedPlatform === 'Telegram' ? 'border-blue-400' : 'border-blue-500/40'} rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1`}>
-                        <div className="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">
-                            <i className="fa-brands fa-telegram"></i>
-                        </div>
+                    <div onClick={() => setSelectedPlatform('Telegram')} className="bg-[#16203a] border border-blue-500/40 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                        <div className="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold"><i className="fa-brands fa-telegram"></i></div>
                         <div className="font-black text-white text-xs">Telegram</div>
                         <span className="inline-block px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                     </div>
 
-                    {/* 3. YouTube */}
-                    <div onClick={() => setSelectedPlatform('YouTube')} className={`bg-[#16203a] border ${selectedPlatform === 'YouTube' ? 'border-red-400' : 'border-red-500/40'} rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1`}>
-                        <div className="w-10 h-10 mx-auto rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 font-bold">
-                            <i className="fa-brands fa-youtube"></i>
-                        </div>
+                    <div onClick={() => setSelectedPlatform('YouTube')} className="bg-[#16203a] border border-red-500/40 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                        <div className="w-10 h-10 mx-auto rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 font-bold"><i className="fa-brands fa-youtube"></i></div>
                         <div className="font-black text-white text-xs">YouTube</div>
                         <span className="inline-block px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                     </div>
 
-                    {/* 4. TikTok */}
-                    <div onClick={() => setSelectedPlatform('TikTok')} className={`bg-[#16203a] border ${selectedPlatform === 'TikTok' ? 'border-pink-400' : 'border-pink-500/40'} rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1`}>
-                        <div className="w-10 h-10 mx-auto rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold">
-                            <i className="fa-brands fa-tiktok"></i>
-                        </div>
+                    <div onClick={() => setSelectedPlatform('TikTok')} className="bg-[#16203a] border border-pink-500/40 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                        <div className="w-10 h-10 mx-auto rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 font-bold"><i className="fa-brands fa-tiktok"></i></div>
                         <div className="font-black text-white text-xs">TikTok</div>
                         <span className="inline-block px-2 py-0.5 bg-pink-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                     </div>
 
-                    {/* 5. Instagram */}
-                    <div onClick={() => setSelectedPlatform('Instagram')} className={`bg-[#16203a] border ${selectedPlatform === 'Instagram' ? 'border-purple-400' : 'border-purple-500/40'} rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1`}>
-                        <div className="w-10 h-10 mx-auto rounded-xl bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 flex items-center justify-center text-white font-bold">
-                            <i className="fa-brands fa-instagram"></i>
-                        </div>
+                    <div onClick={() => setSelectedPlatform('Instagram')} className="bg-[#16203a] border border-purple-500/40 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                        <div className="w-10 h-10 mx-auto rounded-xl bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 flex items-center justify-center text-white font-bold"><i className="fa-brands fa-instagram"></i></div>
                         <div className="font-black text-white text-xs">Instagram</div>
                         <span className="inline-block px-2 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                     </div>
 
-                    {/* 6. Facebook */}
-                    <div onClick={() => setSelectedPlatform('Facebook')} className={`bg-[#16203a] border ${selectedPlatform === 'Facebook' ? 'border-blue-400' : 'border-blue-600/40'} rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1`}>
-                        <div className="w-10 h-10 mx-auto rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500 font-bold">
-                            <i className="fa-brands fa-facebook"></i>
-                        </div>
+                    <div onClick={() => setSelectedPlatform('Facebook')} className="bg-[#16203a] border border-blue-600/40 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                        <div className="w-10 h-10 mx-auto rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500 font-bold"><i className="fa-brands fa-facebook"></i></div>
                         <div className="font-black text-white text-xs">Facebook</div>
                         <span className="inline-block px-2 py-0.5 bg-blue-700 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
                     </div>
@@ -136,7 +68,7 @@ export default function MarketplaceListings() {
                 <div className="flex justify-between items-center bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
                     <div>
                         <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">{selectedPlatform} Active</span>
-                        <h2 className="text-xl font-black text-white mt-1">Browse Verified Marketplace Listings</h2>
+                        <h2 className="text-xl font-black text-white mt-1">Verified Marketplace Listings</h2>
                     </div>
                     <span className="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-bold">Protected by 2% Escrow</span>
                 </div>
