@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI(title="Amalaj Plus API", version="3.3")
+app = FastAPI(title="Amalaj Plus API", version="3.4")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -160,18 +160,28 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Promotional Banner Space (Extra Top Space Monetization) -->
-            <div class="bg-gradient-to-r from-amber-500/10 via-blue-600/10 to-amber-500/10 border-y border-amber-500/20 py-2.5 px-6 text-center text-xs text-amber-300 flex items-center justify-center gap-2">
-                <i class="fa-solid fa-bullhorn text-amber-400"></i>
-                <span><strong>Promotional Spot:</strong> Feature your digital brand or verified channels here. Contact admin for banner ads!</span>
+            <!-- Promotional Banner Space (Monetization & Brand Promotion) -->
+            <div class="max-w-7xl mx-auto px-6 pt-6">
+                <div class="bg-gradient-to-r from-blue-900/40 via-amber-600/20 to-blue-900/40 border border-amber-500/30 rounded-2xl p-4 text-center shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex items-center space-x-3 text-left">
+                        <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Amalaj Plus Secure Escrow Guarantee</h4>
+                            <p class="text-slate-300 text-xs">Buy & sell Telegram, TikTok, YouTube channels safely with verified admin escrow protection.</p>
+                        </div>
+                    </div>
+                    <span class="text-xs bg-amber-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl shadow whitespace-nowrap">Trusted Platform 🛡️</span>
+                </div>
             </div>
 
-            <!-- 1. Digital Asset Categories Marketplace (6-Grid including All Browse) -->
-            <section id="marketplace" class="max-w-7xl mx-auto px-6 py-10">
-                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+            <!-- 1. Digital Asset Categories Marketplace (All 6 Cards in 1 Row) -->
+            <section id="marketplace" class="max-w-7xl mx-auto px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     <div>
                         <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Explore & Buy Securely</span>
-                        <h2 class="text-3xl font-black text-white tracking-tight mt-1">Digital Assets Marketplace</h2>
+                        <h2 class="text-2xl font-black text-white tracking-tight mt-1">Digital Assets Marketplace</h2>
                         <p class="text-slate-400 text-xs mt-1">Explore verified Telegram, TikTok, YouTube, Instagram & Facebook assets.</p>
                     </div>
                     <div class="flex items-center gap-2 w-full md:w-auto">
@@ -179,43 +189,43 @@ def read_root():
                     </div>
                 </div>
                 
-                <!-- 6 Compact Grid Cards (Telegram, TikTok, YouTube, Instagram, Facebook, All Browse) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('Telegram')">
-                        <div class="w-8 h-8 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-lg"><i class="fa-brands fa-telegram"></i></div>
-                        <h3 class="font-bold text-white text-sm">Telegram</h3>
-                        <p class="text-[11px] text-slate-400">Channels & Groups</p>
-                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
+                <!-- Exactly 6 Grid Cards Side-by-Side -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+                    <div class="p-3.5 bg-[#16203a] border border-slate-700/60 rounded-xl hover:border-[#229ED9] transition shadow-lg space-y-1.5 cursor-pointer" onclick="showBrowseListings('Telegram')">
+                        <div class="w-7 h-7 rounded-lg bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-sm"><i class="fa-brands fa-telegram"></i></div>
+                        <h3 class="font-bold text-white text-xs">Telegram</h3>
+                        <p class="text-[10px] text-slate-400">Channels & Groups</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Browse &rarr;</span>
                     </div>
-                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('TikTok')">
-                        <div class="w-8 h-8 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-lg"><i class="fa-brands fa-tiktok"></i></div>
-                        <h3 class="font-bold text-white text-sm">TikTok</h3>
-                        <p class="text-[11px] text-slate-400">Creator Accounts</p>
-                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
+                    <div class="p-3.5 bg-[#16203a] border border-slate-700/60 rounded-xl hover:border-[#EE1D52] transition shadow-lg space-y-1.5 cursor-pointer" onclick="showBrowseListings('TikTok')">
+                        <div class="w-7 h-7 rounded-lg bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-sm"><i class="fa-brands fa-tiktok"></i></div>
+                        <h3 class="font-bold text-white text-xs">TikTok</h3>
+                        <p class="text-[10px] text-slate-400">Creator Accounts</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Browse &rarr;</span>
                     </div>
-                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('YouTube')">
-                        <div class="w-8 h-8 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-lg"><i class="fa-brands fa-youtube"></i></div>
-                        <h3 class="font-bold text-white text-sm">YouTube</h3>
-                        <p class="text-[11px] text-slate-400">Monetized Channels</p>
-                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
+                    <div class="p-3.5 bg-[#16203a] border border-slate-700/60 rounded-xl hover:border-[#FF0000] transition shadow-lg space-y-1.5 cursor-pointer" onclick="showBrowseListings('YouTube')">
+                        <div class="w-7 h-7 rounded-lg bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-sm"><i class="fa-brands fa-youtube"></i></div>
+                        <h3 class="font-bold text-white text-xs">YouTube</h3>
+                        <p class="text-[10px] text-slate-400">Monetized Channels</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Browse &rarr;</span>
                     </div>
-                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('Instagram')">
-                        <div class="w-8 h-8 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-lg"><i class="fa-brands fa-instagram"></i></div>
-                        <h3 class="font-bold text-white text-sm">Instagram</h3>
-                        <p class="text-[11px] text-slate-400">Active Pages</p>
-                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
+                    <div class="p-3.5 bg-[#16203a] border border-slate-700/60 rounded-xl hover:border-[#E1306C] transition shadow-lg space-y-1.5 cursor-pointer" onclick="showBrowseListings('Instagram')">
+                        <div class="w-7 h-7 rounded-lg bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-sm"><i class="fa-brands fa-instagram"></i></div>
+                        <h3 class="font-bold text-white text-xs">Instagram</h3>
+                        <p class="text-[10px] text-slate-400">Active Pages</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Browse &rarr;</span>
                     </div>
-                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('Facebook')">
-                        <div class="w-8 h-8 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-lg"><i class="fa-brands fa-facebook"></i></div>
-                        <h3 class="font-bold text-white text-sm">Facebook</h3>
-                        <p class="text-[11px] text-slate-400">High Reach Pages</p>
-                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
+                    <div class="p-3.5 bg-[#16203a] border border-slate-700/60 rounded-xl hover:border-[#1877F2] transition shadow-lg space-y-1.5 cursor-pointer" onclick="showBrowseListings('Facebook')">
+                        <div class="w-7 h-7 rounded-lg bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-sm"><i class="fa-brands fa-facebook"></i></div>
+                        <h3 class="font-bold text-white text-xs">Facebook</h3>
+                        <p class="text-[10px] text-slate-400">High Reach Pages</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Browse &rarr;</span>
                     </div>
-                    <div class="p-4 bg-[#1c2541] border border-amber-500/50 rounded-2xl hover:border-amber-400 transition shadow-xl space-y-2 cursor-pointer bg-gradient-to-br from-[#16203a] to-amber-950/30" onclick="showBrowseListings('ALL')">
-                        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-globe"></i></div>
-                        <h3 class="font-bold text-white text-sm">All Browser</h3>
-                        <p class="text-[11px] text-amber-300">View All Listings</p>
-                        <span class="text-[10px] text-amber-400 font-bold">Open All 🌐</span>
+                    <div class="p-3.5 bg-[#1c2541] border border-amber-500/50 rounded-xl hover:border-amber-400 transition shadow-lg space-y-1.5 cursor-pointer bg-gradient-to-br from-[#16203a] to-amber-950/30" onclick="showBrowseListings('ALL')">
+                        <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm"><i class="fa-solid fa-globe"></i></div>
+                        <h3 class="font-bold text-white text-xs">All Browser</h3>
+                        <p class="text-[10px] text-amber-300">View All Listings</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Open All 🌐</span>
                     </div>
                 </div>
 
@@ -232,7 +242,7 @@ def read_root():
                 </div>
             </section>
 
-            <!-- 2. How Amalaj Plus Works (Chapa-Style Secure Mediation Flow Section) -->
+            <!-- 2. How Amalaj Plus Works (Secure Mediation Flow Section) -->
             <section id="howItWorks" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
                 <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
                     <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Secure Escrow Workflow</span>
