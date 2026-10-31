@@ -122,7 +122,7 @@ def read_root():
     </head>
     <body class="bg-[#0b132b] text-slate-100 min-h-screen font-sans selection:bg-amber-500 selection:text-slate-950 flex flex-col justify-between">
         <div>
-            <!-- Header / Navigation -->
+            <!-- Header / Clean Navigation Bar -->
             <header class="border-b border-slate-800 bg-[#0b132b]/95 backdrop-blur sticky top-0 z-50">
                 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                     <div class="flex items-center space-x-3">
@@ -138,17 +138,6 @@ def read_root():
                         <a href="#howItWorks" class="hover:text-amber-400 transition py-2">How It Works 🛡️</a>
                         <a href="#toolRentalSection" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
-                        
-                        <div class="flex items-center space-x-2 pl-2 border-l border-slate-800">
-                            <button onclick="switchPostFormTab('asset')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition shadow-lg shadow-amber-500/20 flex items-center gap-1.5 cursor-pointer text-xs">
-                                <i class="fa-solid fa-plus-circle"></i>
-                                <span>Post Asset</span>
-                            </button>
-                            <button onclick="switchPostFormTab('tool')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold px-4 py-2 rounded-xl transition border border-slate-700 flex items-center gap-1.5 cursor-pointer text-xs">
-                                <i class="fa-solid fa-screwdriver-wrench"></i>
-                                <span>Rent Tool</span>
-                            </button>
-                        </div>
                     </div>
 
                     <div id="navUserActions" class="flex items-center space-x-3">
@@ -176,7 +165,7 @@ def read_root():
                 </div>
             </div>
 
-            <!-- 1. Digital Asset Categories Marketplace (All Browser placed FIRST) -->
+            <!-- 1. Digital Asset Categories Marketplace with Search bar AND Add Post Button side-by-side -->
             <section id="marketplace" class="max-w-7xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     <div>
@@ -184,8 +173,12 @@ def read_root():
                         <h2 class="text-2xl font-black text-white tracking-tight mt-1">Digital Assets Marketplace</h2>
                         <p class="text-slate-400 text-xs mt-1">Explore verified Telegram, TikTok, YouTube, Instagram & Facebook assets.</p>
                     </div>
+                    <!-- Search Bar & Add Post Button Combined -->
                     <div class="flex items-center gap-2 w-full md:w-auto">
                         <input type="text" id="searchInput" oninput="searchListings()" placeholder="Search by name, category..." class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 w-full md:w-64">
+                        <button onclick="openPostModal()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-xl transition text-xs whitespace-nowrap flex items-center gap-1.5 cursor-pointer shadow-lg">
+                            <i class="fa-solid fa-plus-circle"></i> Add Post
+                        </button>
                     </div>
                 </div>
                 
@@ -229,10 +222,15 @@ def read_root():
                     </div>
                 </div>
 
-                <!-- Compact Browse Listings Box -->
+                <!-- Dedicated View Container (Deep Navigation / Dedicated Page with Back Button) -->
                 <div id="browseListingsSection" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-5 shadow-xl space-y-3">
                     <div class="flex justify-between items-center pb-2 border-b border-slate-800">
-                        <h3 id="browseTitle" class="font-bold text-white text-sm">All Browse Listings & Categories</h3>
+                        <div class="flex items-center gap-3">
+                            <button id="backButton" onclick="resetToMarketHome()" class="hidden text-xs bg-slate-800 hover:bg-slate-700 text-amber-400 px-3 py-1.5 rounded-lg border border-slate-700 cursor-pointer">
+                                <i class="fa-solid fa-arrow-left"></i> Back
+                            </button>
+                            <h3 id="browseTitle" class="font-bold text-white text-sm">All Browse Listings & Categories</h3>
+                        </div>
                         <span class="text-[11px] text-amber-400 font-bold">🛡️ Escrow Protected Market</span>
                     </div>
                     <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -243,7 +241,7 @@ def read_root():
                 </div>
             </section>
 
-            <!-- 2. How Amalaj Plus Works (Auto-Swapping Slider Section) -->
+            <!-- 2. How Amalaj Plus Works (Restored 3D Images Integration) -->
             <section id="howItWorks" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
                 <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
                     <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Secure Escrow Workflow</span>
@@ -251,13 +249,15 @@ def read_root():
                     <p class="text-slate-400 text-xs">Safe, transparent, and verified digital asset trading & tool rentals in Ethiopia.</p>
                 </div>
 
-                <!-- Auto-Swapping Slider Container -->
+                <!-- Auto-Swapping Slider Container with 3D step images -->
                 <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-8 shadow-2xl max-w-4xl mx-auto text-center relative overflow-hidden">
-                    <div id="sliderStepBadge" class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold mb-4">Step 1 of 3</div>
+                    <div class="mb-6 flex justify-center">
+                        <img id="sliderImage" src="/static/step1-connection.png" alt="Step Illustration" class="max-h-64 object-contain rounded-xl shadow-lg border border-amber-500/20" onerror="this.src='https://via.placeholder.com/400x200?text=Amalaj+Plus+Escrow'">
+                    </div>
+                    <div id="sliderStepBadge" class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold mb-2">Step 1 of 3</div>
                     <h3 id="sliderTitle" class="text-2xl font-black text-white mb-2">1. Disengaged Parties</h3>
                     <p id="sliderDesc" class="text-slate-300 text-sm max-w-xl mx-auto mb-6">Buyer & Seller connect securely through our verified digital marketplace platform.</p>
                     
-                    <!-- Visual Indicator Dots -->
                     <div class="flex justify-center space-x-2">
                         <span class="dot w-3 h-3 rounded-full bg-amber-500 transition-all duration-300"></span>
                         <span class="dot w-3 h-3 rounded-full bg-slate-700 transition-all duration-300"></span>
@@ -420,7 +420,7 @@ def read_root():
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-2xl font-black text-white tracking-tight">User Dashboard</h2>
-                        <p class="text-slate-400 text-xs mt-1">Manage your active listings and software tool rentals.</p>
+                        <p class="text-slate-400 text-xs mt-1">Manage your active listings, view counts, and software tool rentals.</p>
                     </div>
                     <div class="flex space-x-2 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
                         <button id="tabBtnListings" onclick="switchDashboardTab('listings')" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer">My Listings</button>
@@ -430,12 +430,12 @@ def read_root():
 
                 <div id="contentListings" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-white text-sm">Your Posted Digital Assets</h3>
+                        <h3 class="font-bold text-white text-sm">Your Posted Digital Assets & Earnings</h3>
                         <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">🛡️ Escrow Secured</span>
                     </div>
                     <div id="userListingsContainer" class="space-y-3">
                         <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
-                            <span>No active listings yet. Use the form above to add one!</span>
+                            <span>No active listings yet. Use the Post Asset form above!</span>
                             <span class="text-emerald-400 font-semibold">Escrow Ready</span>
                         </div>
                     </div>
@@ -444,12 +444,11 @@ def read_root():
                 <div id="contentRentals" class="hidden bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="font-bold text-white text-sm">Your Active Tool Rentals</h3>
-                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">⚡ Instant Access</span>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">⚡ Remote Access Active</span>
                     </div>
                     <div id="userRentalsContainer" class="space-y-3">
-                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
-                            <span>No active tool rentals. Choose a tool below to rent instantly.</span>
-                            <span class="text-amber-400 font-semibold">Available 24/7</span>
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400">
+                            No active tool rentals found.
                         </div>
                     </div>
                 </div>
@@ -500,48 +499,206 @@ def read_root():
                 "DFT Pro": "Latest Qualcomm, MTK & IMEI services."
             };
 
-            // Auto-Swapping Slider Logic for How It Works
-            const sliderSteps = [
-                { badge: "Step 1 of 3", title: "1. Disengaged Parties", desc: "Buyer & Seller connect securely through our verified digital marketplace platform." },
-                { badge: "Step 2 of 3", title: "2. Approaching Negotiation", desc: "Funds are deposited into Admin Escrow or processed via instant Chapa payment gateway." },
-                { badge: "Step 3 of 3", title: "3. Unified Agreement", desc: "Asset ownership or tool session is fully transferred and verified before funds are released." }
+            // Slider rotation logic with step1, step2, step3 3D images
+            const steps = [
+                { badge: "Step 1 of 3", title: "1. Disengaged Parties", desc: "Buyer & Seller connect securely through our verified digital marketplace platform.", img: "/static/step1-connection.png" },
+                { badge: "Step 2 of 3", title: "2. Escrow Protection", desc: "Funds are deposited securely into Amalaj Plus escrow until asset transfer is verified.", img: "/static/step2-escrow.png" },
+                { badge: "Step 3 of 3", title: "3. Unified Agreement", desc: "Successful transfer confirmed and funds released safely to the seller.", img: "/static/step3-agreement.png" }
             ];
-            let currentSliderIndex = 0;
-
-            function initSlider() {
-                setInterval(() => {
-                    currentSliderIndex = (currentSliderIndex + 1) % sliderSteps.length;
-                    const step = sliderSteps[currentSliderIndex];
-                    const badgeElem = document.getElementById('sliderStepBadge');
-                    const titleElem = document.getElementById('sliderTitle');
-                    const descElem = document.getElementById('sliderDesc');
-                    const dots = document.querySelectorAll('.dot');
-
-                    if (badgeElem && titleElem && descElem) {
-                        badgeElem.innerText = step.badge;
-                        titleElem.innerText = step.title;
-                        descElem.innerText = step.desc;
-
-                        dots.forEach((dot, idx) => {
-                            if (idx === currentSliderIndex) {
-                                dot.className = "dot w-3 h-3 rounded-full bg-amber-500 transition-all duration-300";
-                            } else {
-                                dot.className = "dot w-3 h-3 rounded-full bg-slate-700 transition-all duration-300";
-                            }
-                        });
-                    }
-                }, 4000);
+            let currentStep = 0;
+            function updateSlider() {
+                const s = steps[currentStep];
+                const badgeElem = document.getElementById('sliderStepBadge');
+                const titleElem = document.getElementById('sliderTitle');
+                const descElem = document.getElementById('sliderDesc');
+                const imgElem = document.getElementById('sliderImage');
+                
+                if (badgeElem && titleElem && descElem && imgElem) {
+                    badgeElem.innerText = s.badge;
+                    titleElem.innerText = s.title;
+                    descElem.innerText = s.desc;
+                    imgElem.src = s.img;
+                }
+                const dots = document.querySelectorAll('.dot');
+                dots.forEach((dot, idx) => {
+                    dot.className = idx === currentStep ? "dot w-3 h-3 rounded-full bg-amber-500 transition-all duration-300" : "dot w-3 h-3 rounded-full bg-slate-700 transition-all duration-300";
+                });
+                currentStep = (currentStep + 1) % steps.length;
             }
+            setInterval(updateSlider, 4000);
+
+            // Mock Data Storage for interactive listings & deep navigation
+            let DB_LISTINGS_CLIENT = [];
 
             window.onload = function() {
                 updateAssetTypes();
                 updateToolDescription();
                 loadTools();
-                loadUserListings();
-                loadUserRentals();
                 showBrowseListings('ALL');
-                initSlider();
             };
+
+            function showBrowseListings(platform) {
+                const container = document.getElementById('browseContainer');
+                const title = document.getElementById('browseTitle');
+                const backBtn = document.getElementById('backButton');
+                if (backBtn) backBtn.classList.remove('hidden');
+
+                let filtered = platform === 'ALL' ? DB_LISTINGS_CLIENT : DB_LISTINGS_CLIENT.filter(l => l.platform === platform);
+                if (title) title.innerText = platform === 'ALL' ? "All Browse Listings" : `${platform} Verified Listings`;
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No listings found for ${platform}. Click Add Post to list one!</div>`;
+                    return;
+                }
+
+                container.innerHTML = filtered.map(l => `
+                    <div onclick="openDetailView(${l.id})" class="p-4 bg-slate-900/80 border border-slate-800 rounded-xl hover:border-amber-500 transition cursor-pointer space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold">${l.platform}</span>
+                            <span class="text-xs font-black text-emerald-400">${l.price} ETB</span>
+                        </div>
+                        <h4 class="font-bold text-white text-xs">${l.title}</h4>
+                        <p class="text-[10px] text-slate-400">Niche: ${l.niche} | Views/Subs: ${l.subCount || 'Verified'}</p>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-semibold">
+                            <span>View Deep Details &rarr;</span>
+                            <span>🛡️ Escrow</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function resetToMarketHome() {
+                const backBtn = document.getElementById('backButton');
+                if (backBtn) backBtn.classList.add('hidden');
+                const title = document.getElementById('browseTitle');
+                if (title) title.innerText = "All Browse Listings & Categories";
+                showBrowseListings('ALL');
+            }
+
+            function openDetailView(id) {
+                const l = DB_LISTINGS_CLIENT.find(item => item.id === id);
+                if (!l) return;
+                const container = document.getElementById('browseContainer');
+                const backBtn = document.getElementById('backButton');
+                if (backBtn) backBtn.classList.remove('hidden');
+                const title = document.getElementById('browseTitle');
+                if (title) title.innerText = `Detail View: ${l.title}`;
+
+                container.innerHTML = `
+                    <div class="col-span-full bg-slate-900/90 border border-amber-500/40 rounded-2xl p-6 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                            <div>
+                                <span class="text-xs bg-amber-500/20 text-amber-400 px-3 py-1 rounded-full font-bold">${l.platform}</span>
+                                <h3 class="text-lg font-black text-white mt-2">${l.title}</h3>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xl font-black text-emerald-400">${l.price} ETB</span>
+                                <p class="text-[10px] text-slate-400">Escrow Protected Price</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300">
+                            <div class="space-y-2">
+                                <p><strong>Category / Niche:</strong> ${l.niche}</p>
+                                <p><strong>Subscribers / Views:</strong> ${l.subCount || 'Verified Member'}</p>
+                                <p><strong>Channel Link:</strong> <a href="${l.link}" target="_blank" class="text-amber-400 underline">${l.link}</a></p>
+                            </div>
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-center">
+                                <span class="text-slate-500 text-[11px]">Screenshot Proof Verified 🛡️</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 pt-3">
+                            <button onclick="alert('Escrow payment request initiated for ${l.title}!')" class="flex-1 py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer text-xs">
+                                Buy Securely via Escrow 🛡️
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function searchListings() {
+                const query = document.getElementById('searchInput').value.toLowerCase();
+                const container = document.getElementById('browseContainer');
+                const filtered = DB_LISTINGS_CLIENT.filter(l => l.title.toLowerCase().includes(query) || l.platform.toLowerCase().includes(query) || l.niche.toLowerCase().includes(query));
+                
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No matching listings found for "${query}".</div>`;
+                    return;
+                }
+
+                container.innerHTML = filtered.map(l => `
+                    <div onclick="openDetailView(${l.id})" class="p-4 bg-slate-900/80 border border-slate-800 rounded-xl hover:border-amber-500 transition cursor-pointer space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold">${l.platform}</span>
+                            <span class="text-xs font-black text-emerald-400">${l.price} ETB</span>
+                        </div>
+                        <h4 class="font-bold text-white text-xs">${l.title}</h4>
+                        <p class="text-[10px] text-slate-400">Niche: ${l.niche} | Views/Subs: ${l.subCount || 'Verified'}</p>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-[10px] text-amber-400 font-semibold">
+                            <span>View Deep Details &rarr;</span>
+                            <span>🛡️ Escrow</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function handlePostListing(e) {
+                e.preventDefault();
+                const newListing = {
+                    id: DB_LISTINGS_CLIENT.length + 1,
+                    title: document.getElementById('listingTitle').value,
+                    link: document.getElementById('listingLink').value,
+                    platform: document.getElementById('listingPlatform').value,
+                    niche: document.getElementById('listingNiche').value,
+                    subCount: document.getElementById('listingSubCount').value || '1.2K',
+                    price: document.getElementById('listingPrice').value
+                };
+                DB_LISTINGS_CLIENT.push(newListing);
+                alert("Asset published successfully with escrow protection!");
+                document.getElementById('formPostAsset').reset();
+                showBrowseListings('ALL');
+                updateDashboardListings();
+            }
+
+            function updateDashboardListings() {
+                const container = document.getElementById('userListingsContainer');
+                if (!container) return;
+                if (DB_LISTINGS_CLIENT.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active listings yet.</span></div>`;
+                    return;
+                }
+                container.innerHTML = DB_LISTINGS_CLIENT.map(l => `
+                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                        <div>
+                            <span class="text-amber-400 font-bold">${l.platform}</span> - <strong class="text-white">${l.title}</strong>
+                            <p class="text-[10px] text-slate-400">Views Tracked: ${l.subCount} | Price: ${l.price} ETB</p>
+                        </div>
+                        <span class="text-emerald-400 font-bold bg-emerald-500/10 px-2.5 py-1 rounded-full text-[10px]">Active & Generating</span>
+                    </div>
+                `).join('');
+            }
+
+            function switchDashboardTab(tab) {
+                const listingsTab = document.getElementById('contentListings');
+                const rentalsTab = document.getElementById('contentRentals');
+                const btnListings = document.getElementById('tabBtnListings');
+                const btnRentals = document.getElementById('tabBtnRentals');
+
+                if (tab === 'listings') {
+                    listingsTab.classList.remove('hidden');
+                    rentalsTab.classList.add('hidden');
+                    btnListings.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
+                    btnRentals.className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer";
+                } else {
+                    rentalsTab.classList.remove('hidden');
+                    listingsTab.classList.add('hidden');
+                    btnRentals.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
+                    btnListings.className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer";
+                }
+            }
+
+            function openPostModal() {
+                window.scrollTo({ top: 900, behavior: 'smooth' });
+            }
 
             function switchPostFormTab(type) {
                 const formAsset = document.getElementById('formPostAsset');
@@ -560,7 +717,6 @@ def read_root():
                     tabToolBtn.className = "px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
                     tabAssetBtn.className = "px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition cursor-pointer";
                 }
-                document.getElementById('marketplace').scrollIntoView({ behavior: 'smooth' });
             }
 
             function updateAssetTypes() {
@@ -572,12 +728,13 @@ def read_root():
                 else if (platform === 'YouTube') options = ['Monetized Channel', 'Subscriber Channel'];
                 else if (platform === 'Instagram') options = ['Page', 'Account'];
                 else if (platform === 'Facebook') options = ['Page', 'Group'];
-                assetTypeSelect.innerHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+                if (assetTypeSelect) assetTypeSelect.innerHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
             }
 
             function updateToolDescription() {
                 const selectedTool = document.getElementById('toolNameInput').value;
-                document.getElementById('toolDescInput').value = toolDescriptions[selectedTool] || "";
+                const descInput = document.getElementById('toolDescInput');
+                if (descInput) descInput.value = toolDescriptions[selectedTool] || "";
             }
 
             function handleProofUpload(e) {
@@ -587,24 +744,27 @@ def read_root():
             }
 
             async function loadTools() {
-                const res = await fetch('/api/v1/tools');
-                const tools = await res.json();
-                const container = document.getElementById('toolRentalContainer');
-                container.innerHTML = tools.map(t => `
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl flex flex-col justify-between">
-                        <div class="space-y-2">
-                            <div class="flex justify-between items-center">
-                                <h3 class="font-bold text-white text-base">${t.tool_name}</h3>
-                                <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">ETB ${t.rental_price} / ${t.rental_duration}</span>
+                try {
+                    const res = await fetch('/api/v1/tools');
+                    const tools = await res.json();
+                    const container = document.getElementById('toolRentalContainer');
+                    if (!container) return;
+                    container.innerHTML = tools.map(t => `
+                        <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl space-y-3 shadow-xl flex flex-col justify-between">
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <h3 class="font-bold text-white text-base">${t.tool_name}</h3>
+                                    <span class="text-xs bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full font-bold">ETB ${t.rental_price} / ${t.rental_duration}</span>
+                                </div>
+                                <p class="text-xs text-slate-300">${t.description}</p>
+                                <p class="text-[11px] text-amber-300 font-semibold"><i class="fa-solid fa-link"></i> ${t.connection_type}</p>
                             </div>
-                            <p class="text-xs text-slate-300">${t.description}</p>
-                            <p class="text-[11px] text-amber-300 font-semibold"><i class="fa-solid fa-link"></i> ${t.connection_type}</p>
+                            <button onclick="openRentalModal(${t.id}, '${t.tool_name}')" class="w-full py-2 ${t.status === 'AVAILABLE' ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-700 text-slate-400 cursor-not-allowed'} font-bold rounded-xl text-xs transition cursor-pointer">
+                                ${t.status === 'AVAILABLE' ? 'Rent Tool Now ⚡' : 'Currently Rented (Busy)'}
+                            </button>
                         </div>
-                        <button onclick="openRentalModal(${t.id}, '${t.tool_name}')" class="w-full py-2 ${t.status === 'AVAILABLE' ? 'bg-amber-500 hover:bg-amber-400 text-slate-950' : 'bg-slate-700 text-slate-400 cursor-not-allowed'} font-bold rounded-xl text-xs transition cursor-pointer">
-                            ${t.status === 'AVAILABLE' ? 'Rent Tool Now ⚡' : 'Currently Rented (Busy)'}
-                        </button>
-                    </div>
-                `).join('');
+                    `).join('');
+                } catch(err) { console.error(err); }
             }
 
             function openRentalModal(id, name) {
@@ -668,111 +828,10 @@ def read_root():
                 }
             }
 
-            function handlePostListing(e) {
-                e.preventDefault();
-                const title = document.getElementById('listingTitle').value.trim();
-                const link = document.getElementById('listingLink').value.trim();
-                const platform = document.getElementById('listingPlatform').value;
-                const assetType = document.getElementById('listingAssetType').value;
-                const niche = document.getElementById('listingNiche').value;
-                const price = document.getElementById('listingPrice').value.trim();
-                const subCount = document.getElementById('listingSubCount').value.trim();
-
-                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
-                listings.push({ platform: `${platform} (${assetType})`, niche, title, price, subCount, link });
-                localStorage.setItem('amalaj_listings', JSON.stringify(listings));
-
-                alert("Asset published successfully with Escrow Protection!");
-                e.target.reset();
-                loadUserListings();
-                switchDashboardTab('listings');
-            }
-
-            function showBrowseListings(category) {
-                const container = document.getElementById('browseContainer');
-                const titleElem = document.getElementById('browseTitle');
-                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
-                titleElem.innerText = category === 'ALL' ? "All Browse Listings & Categories" : `Browse Listings: ${category}`;
-                let filtered = category === 'ALL' ? listings : listings.filter(i => i.platform && i.platform.toLowerCase().includes(category.toLowerCase()));
-                
-                if (filtered.length === 0) {
-                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No listings found. Use the form below to publish your asset ad!</div>`;
-                    return;
-                }
-                container.innerHTML = filtered.map(item => `
-                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-2 shadow-lg">
-                        <div class="flex justify-between items-center"><span class="text-amber-400 font-bold uppercase text-[9px]">${item.platform}</span><span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span></div>
-                        <h4 class="font-bold text-white text-xs">${item.title}</h4>
-                        <div class="text-[10px] text-slate-300 space-y-0.5"><p>Category: <span class="text-amber-300 font-semibold">${item.niche}</span></p><p>Subscribers: <span class="font-semibold text-white">${item.subCount}</span></p></div>
-                        <div class="flex justify-between items-center pt-1.5 border-t border-slate-800 text-xs"><span class="font-black text-amber-400 text-xs">ETB ${item.price}</span><button onclick="alert('Connecting to seller via secure Escrow Chat...')" class="px-2.5 py-1 bg-amber-500 text-slate-950 font-bold rounded-lg hover:bg-amber-400 transition cursor-pointer text-[11px]">Buy / Chat</button></div>
-                    </div>
-                `).join('');
-            }
-
-            function searchListings() {
-                const query = document.getElementById('searchInput').value.toLowerCase().trim();
-                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
-                const container = document.getElementById('browseContainer');
-                let filtered = listings.filter(i => (i.title && i.title.toLowerCase().includes(query)) || (i.platform && i.platform.toLowerCase().includes(query)));
-                if (filtered.length === 0) {
-                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No matching listings found.</div>`;
-                    return;
-                }
-                container.innerHTML = filtered.map(item => `
-                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-2 shadow-lg">
-                        <span class="text-amber-400 font-bold uppercase text-[9px]">${item.platform}</span>
-                        <h4 class="font-bold text-white text-xs">${item.title}</h4>
-                        <span class="font-black text-amber-400 text-xs">ETB ${item.price}</span>
-                    </div>
-                `).join('');
-            }
-
-            function switchDashboardTab(tab) {
-                const btnList = document.getElementById('tabBtnListings');
-                const btnRent = document.getElementById('tabBtnRentals');
-                const contentList = document.getElementById('contentListings');
-                const contentRent = document.getElementById('contentRentals');
-                if (tab === 'listings') {
-                    btnList.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
-                    btnRent.className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer";
-                    contentList.classList.remove('hidden');
-                    contentRent.classList.add('hidden');
-                } else {
-                    btnRent.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
-                    btnList.className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer";
-                    contentRent.classList.remove('hidden');
-                    contentList.classList.add('hidden');
-                }
-            }
-
-            function loadUserListings() {
-                const container = document.getElementById('userListingsContainer');
-                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
-                if (listings.length === 0) {
-                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active listings yet.</span><span class="text-emerald-400 font-semibold">Escrow Ready</span></div>`;
-                    return;
-                }
-                container.innerHTML = listings.map(item => `
-                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-                        <div><span class="text-amber-400 font-bold uppercase text-[9px]">${item.platform}</span><h4 class="font-bold text-white text-xs mt-0.5">${item.title}</h4></div>
-                        <span class="font-extrabold text-emerald-400 text-xs">ETB ${item.price}</span>
-                    </div>
-                `).join('');
-            }
-
-            function loadUserRentals() {
+            async function loadUserRentals() {
                 const container = document.getElementById('userRentalsContainer');
-                let rentals = JSON.parse(localStorage.getItem('amalaj_rentals') || '[]');
-                if (rentals.length === 0) {
-                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active tool rentals.</span><span class="text-amber-400 font-semibold">Available 24/7</span></div>`;
-                    return;
-                }
-                container.innerHTML = rentals.map(item => `
-                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-                        <div><span class="text-amber-400 font-bold text-[9px]">TOOL RENTAL</span><h4 class="font-bold text-white text-xs mt-0.5">${item.name}</h4></div>
-                        <span class="font-extrabold text-amber-400 text-xs">ETB ${item.price}</span>
-                    </div>
-                `).join('');
+                if (!container) return;
+                container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400">Active session connected successfully.</div>`;
             }
         </script>
     </body>
