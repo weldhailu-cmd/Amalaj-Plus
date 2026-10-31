@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI(title="Amalaj Plus API", version="3.1")
+app = FastAPI(title="Amalaj Plus API", version="3.3")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -127,7 +127,7 @@ def read_root():
                 <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
                     <div class="flex items-center space-x-3">
                         <div class="w-10 h-10 rounded-full border-2 border-amber-500 overflow-hidden shadow-lg shadow-amber-500/20 bg-white flex items-center justify-center p-0.5">
-                            <img src="/static/logo.png" alt="Logo" class="w-full h-full object-cover rounded-full">
+                            <img src="/static/logo.png" alt="Logo" class="w-full h-full object-cover rounded-full" onerror="this.src='https://via.placeholder.com/40'">
                         </div>
                         <span class="text-2xl font-extrabold text-white tracking-tight">Amalaj<span class="text-amber-400">Plus</span></span>
                     </div>
@@ -135,6 +135,7 @@ def read_root():
                     <div class="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-300">
                         <a href="#" class="hover:text-amber-400 transition py-2">Home</a>
                         <a href="#marketplace" class="hover:text-amber-400 transition py-2">Digital Marketplace</a>
+                        <a href="#howItWorks" class="hover:text-amber-400 transition py-2">How It Works 🛡️</a>
                         <a href="#toolRentalSection" class="hover:text-amber-400 transition py-2">Tool Rental ⚡</a>
                         <a href="#dashboardSection" class="hover:text-amber-400 transition py-2">My Dashboard</a>
                         
@@ -159,52 +160,62 @@ def read_root():
                 </div>
             </header>
 
-            <!-- 1. Digital Asset Categories Marketplace (Placed First for High Buyer Engagement) -->
+            <!-- Promotional Banner Space (Extra Top Space Monetization) -->
+            <div class="bg-gradient-to-r from-amber-500/10 via-blue-600/10 to-amber-500/10 border-y border-amber-500/20 py-2.5 px-6 text-center text-xs text-amber-300 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-bullhorn text-amber-400"></i>
+                <span><strong>Promotional Spot:</strong> Feature your digital brand or verified channels here. Contact admin for banner ads!</span>
+            </div>
+
+            <!-- 1. Digital Asset Categories Marketplace (6-Grid including All Browse) -->
             <section id="marketplace" class="max-w-7xl mx-auto px-6 py-10">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                     <div>
                         <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Explore & Buy Securely</span>
                         <h2 class="text-3xl font-black text-white tracking-tight mt-1">Digital Assets Marketplace</h2>
-                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube & Facebook accounts.</p>
+                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram, TikTok, YouTube, Instagram & Facebook assets.</p>
                     </div>
                     <div class="flex items-center gap-2 w-full md:w-auto">
                         <input type="text" id="searchInput" oninput="searchListings()" placeholder="Search by name, category..." class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 w-full md:w-64">
-                        <button onclick="showBrowseListings('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md whitespace-nowrap">
-                            Browse All 🌐
-                        </button>
                     </div>
                 </div>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Telegram')">
-                        <div class="w-10 h-10 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-xl"><i class="fa-brands fa-telegram"></i></div>
-                        <h3 class="font-bold text-white text-base">Telegram Channels</h3>
-                        <p class="text-xs text-slate-400">Verified members & groups.</p>
-                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                <!-- 6 Compact Grid Cards (Telegram, TikTok, YouTube, Instagram, Facebook, All Browse) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('Telegram')">
+                        <div class="w-8 h-8 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-lg"><i class="fa-brands fa-telegram"></i></div>
+                        <h3 class="font-bold text-white text-sm">Telegram</h3>
+                        <p class="text-[11px] text-slate-400">Channels & Groups</p>
+                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('TikTok')">
-                        <div class="w-10 h-10 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-xl"><i class="fa-brands fa-tiktok"></i></div>
-                        <h3 class="font-bold text-white text-base">TikTok Accounts</h3>
-                        <p class="text-xs text-slate-400">Monetized creator accounts.</p>
-                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('TikTok')">
+                        <div class="w-8 h-8 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-lg"><i class="fa-brands fa-tiktok"></i></div>
+                        <h3 class="font-bold text-white text-sm">TikTok</h3>
+                        <p class="text-[11px] text-slate-400">Creator Accounts</p>
+                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('YouTube')">
-                        <div class="w-10 h-10 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
-                        <h3 class="font-bold text-white text-base">YouTube Channels</h3>
-                        <p class="text-xs text-slate-400">Monetization ready channels.</p>
-                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('YouTube')">
+                        <div class="w-8 h-8 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-lg"><i class="fa-brands fa-youtube"></i></div>
+                        <h3 class="font-bold text-white text-sm">YouTube</h3>
+                        <p class="text-[11px] text-slate-400">Monetized Channels</p>
+                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Instagram')">
-                        <div class="w-10 h-10 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-xl"><i class="fa-brands fa-instagram"></i></div>
-                        <h3 class="font-bold text-white text-base">Instagram Pages</h3>
-                        <p class="text-xs text-slate-400">Active community profiles.</p>
-                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('Instagram')">
+                        <div class="w-8 h-8 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-lg"><i class="fa-brands fa-instagram"></i></div>
+                        <h3 class="font-bold text-white text-sm">Instagram</h3>
+                        <p class="text-[11px] text-slate-400">Active Pages</p>
+                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
                     </div>
-                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Facebook')">
-                        <div class="w-10 h-10 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-xl"><i class="fa-brands fa-facebook"></i></div>
-                        <h3 class="font-bold text-white text-base">Facebook Pages</h3>
-                        <p class="text-xs text-slate-400">High reach pages & groups.</p>
-                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    <div class="p-4 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-2 cursor-pointer" onclick="showBrowseListings('Facebook')">
+                        <div class="w-8 h-8 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-lg"><i class="fa-brands fa-facebook"></i></div>
+                        <h3 class="font-bold text-white text-sm">Facebook</h3>
+                        <p class="text-[11px] text-slate-400">High Reach Pages</p>
+                        <span class="text-[10px] text-amber-400 font-bold">Browse &rarr;</span>
+                    </div>
+                    <div class="p-4 bg-[#1c2541] border border-amber-500/50 rounded-2xl hover:border-amber-400 transition shadow-xl space-y-2 cursor-pointer bg-gradient-to-br from-[#16203a] to-amber-950/30" onclick="showBrowseListings('ALL')">
+                        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-globe"></i></div>
+                        <h3 class="font-bold text-white text-sm">All Browser</h3>
+                        <p class="text-[11px] text-amber-300">View All Listings</p>
+                        <span class="text-[10px] text-amber-400 font-bold">Open All 🌐</span>
                     </div>
                 </div>
 
@@ -221,7 +232,33 @@ def read_root():
                 </div>
             </section>
 
-            <!-- 2. Hero & Universal Post Box Section -->
+            <!-- 2. How Amalaj Plus Works (Chapa-Style Secure Mediation Flow Section) -->
+            <section id="howItWorks" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
+                <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                    <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Secure Escrow Workflow</span>
+                    <h2 class="text-3xl font-black text-white tracking-tight">How Amalaj Plus Works</h2>
+                    <p class="text-slate-400 text-xs">Safe, transparent, and verified digital asset trading & tool rentals in Ethiopia.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 text-center space-y-3 shadow-xl">
+                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-lg font-bold">1</div>
+                        <h3 class="font-bold text-white text-base">Disengaged Parties</h3>
+                        <p class="text-xs text-slate-300">Buyer & Seller connect securely through our verified digital marketplace platform.</p>
+                    </div>
+                    <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 text-center space-y-3 shadow-xl">
+                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-lg font-bold">2</div>
+                        <h3 class="font-bold text-white text-base">Approaching Negotiation</h3>
+                        <p class="text-xs text-slate-300">Funds are deposited into Admin Escrow or processed via instant Chapa payment gateway.</p>
+                    </div>
+                    <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 text-center space-y-3 shadow-xl">
+                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-lg font-bold">3</div>
+                        <h3 class="font-bold text-white text-base">Unified Agreement</h3>
+                        <p class="text-xs text-slate-300">Asset ownership or tool session is fully transferred and verified before funds are released.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Hero & Universal Post Box Section -->
             <section class="max-w-7xl mx-auto px-6 py-12 border-t border-slate-800">
                 <div class="grid lg:grid-cols-12 gap-12 items-start">
                     <div class="lg:col-span-7 space-y-6">
