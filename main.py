@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI(title="Amalaj Plus API", version="3.4")
+app = FastAPI(title="Amalaj Plus API", version="3.5")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -160,7 +160,7 @@ def read_root():
                 </div>
             </header>
 
-            <!-- Promotional Banner Space (Monetization & Brand Promotion) -->
+            <!-- Promotional Banner Space -->
             <div class="max-w-7xl mx-auto px-6 pt-6">
                 <div class="bg-gradient-to-r from-blue-900/40 via-amber-600/20 to-blue-900/40 border border-amber-500/30 rounded-2xl p-4 text-center shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="flex items-center space-x-3 text-left">
@@ -176,7 +176,7 @@ def read_root():
                 </div>
             </div>
 
-            <!-- 1. Digital Asset Categories Marketplace (All 6 Cards in 1 Row) -->
+            <!-- 1. Digital Asset Categories Marketplace (All Browser placed FIRST) -->
             <section id="marketplace" class="max-w-7xl mx-auto px-6 py-8">
                 <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     <div>
@@ -189,8 +189,14 @@ def read_root():
                     </div>
                 </div>
                 
-                <!-- Exactly 6 Grid Cards Side-by-Side -->
+                <!-- 6 Grid Cards with All Browser FIRST -->
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+                    <div class="p-3.5 bg-[#1c2541] border border-amber-500/50 rounded-xl hover:border-amber-400 transition shadow-lg space-y-1.5 cursor-pointer bg-gradient-to-br from-[#16203a] to-amber-950/30" onclick="showBrowseListings('ALL')">
+                        <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm"><i class="fa-solid fa-globe"></i></div>
+                        <h3 class="font-bold text-white text-xs">All Browser</h3>
+                        <p class="text-[10px] text-amber-300">View All Listings</p>
+                        <span class="text-[9px] text-amber-400 font-bold block">Open All 🌐</span>
+                    </div>
                     <div class="p-3.5 bg-[#16203a] border border-slate-700/60 rounded-xl hover:border-[#229ED9] transition shadow-lg space-y-1.5 cursor-pointer" onclick="showBrowseListings('Telegram')">
                         <div class="w-7 h-7 rounded-lg bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-sm"><i class="fa-brands fa-telegram"></i></div>
                         <h3 class="font-bold text-white text-xs">Telegram</h3>
@@ -221,49 +227,41 @@ def read_root():
                         <p class="text-[10px] text-slate-400">High Reach Pages</p>
                         <span class="text-[9px] text-amber-400 font-bold block">Browse &rarr;</span>
                     </div>
-                    <div class="p-3.5 bg-[#1c2541] border border-amber-500/50 rounded-xl hover:border-amber-400 transition shadow-lg space-y-1.5 cursor-pointer bg-gradient-to-br from-[#16203a] to-amber-950/30" onclick="showBrowseListings('ALL')">
-                        <div class="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center text-sm"><i class="fa-solid fa-globe"></i></div>
-                        <h3 class="font-bold text-white text-xs">All Browser</h3>
-                        <p class="text-[10px] text-amber-300">View All Listings</p>
-                        <span class="text-[9px] text-amber-400 font-bold block">Open All 🌐</span>
-                    </div>
                 </div>
 
-                <div id="browseListingsSection" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-2xl space-y-4">
-                    <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                        <h3 id="browseTitle" class="font-bold text-white text-base">All Browse Listings & Categories</h3>
-                        <span class="text-xs text-amber-400 font-bold">🛡️ Escrow Protected Market</span>
+                <!-- Compact Browse Listings Box -->
+                <div id="browseListingsSection" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-5 shadow-xl space-y-3">
+                    <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+                        <h3 id="browseTitle" class="font-bold text-white text-sm">All Browse Listings & Categories</h3>
+                        <span class="text-[11px] text-amber-400 font-bold">🛡️ Escrow Protected Market</span>
                     </div>
-                    <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
+                    <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
                             No listings found. Use the form below to publish your asset ad!
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 2. How Amalaj Plus Works (Secure Mediation Flow Section) -->
+            <!-- 2. How Amalaj Plus Works (Auto-Swapping Slider Section) -->
             <section id="howItWorks" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
-                <div class="text-center max-w-2xl mx-auto mb-10 space-y-2">
+                <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
                     <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Secure Escrow Workflow</span>
                     <h2 class="text-3xl font-black text-white tracking-tight">How Amalaj Plus Works</h2>
                     <p class="text-slate-400 text-xs">Safe, transparent, and verified digital asset trading & tool rentals in Ethiopia.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 text-center space-y-3 shadow-xl">
-                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-lg font-bold">1</div>
-                        <h3 class="font-bold text-white text-base">Disengaged Parties</h3>
-                        <p class="text-xs text-slate-300">Buyer & Seller connect securely through our verified digital marketplace platform.</p>
-                    </div>
-                    <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 text-center space-y-3 shadow-xl">
-                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-lg font-bold">2</div>
-                        <h3 class="font-bold text-white text-base">Approaching Negotiation</h3>
-                        <p class="text-xs text-slate-300">Funds are deposited into Admin Escrow or processed via instant Chapa payment gateway.</p>
-                    </div>
-                    <div class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 text-center space-y-3 shadow-xl">
-                        <div class="w-12 h-12 bg-amber-500/20 text-amber-400 rounded-full flex items-center justify-center mx-auto text-lg font-bold">3</div>
-                        <h3 class="font-bold text-white text-base">Unified Agreement</h3>
-                        <p class="text-xs text-slate-300">Asset ownership or tool session is fully transferred and verified before funds are released.</p>
+
+                <!-- Auto-Swapping Slider Container -->
+                <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-8 shadow-2xl max-w-4xl mx-auto text-center relative overflow-hidden">
+                    <div id="sliderStepBadge" class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 text-xs font-bold mb-4">Step 1 of 3</div>
+                    <h3 id="sliderTitle" class="text-2xl font-black text-white mb-2">1. Disengaged Parties</h3>
+                    <p id="sliderDesc" class="text-slate-300 text-sm max-w-xl mx-auto mb-6">Buyer & Seller connect securely through our verified digital marketplace platform.</p>
+                    
+                    <!-- Visual Indicator Dots -->
+                    <div class="flex justify-center space-x-2">
+                        <span class="dot w-3 h-3 rounded-full bg-amber-500 transition-all duration-300"></span>
+                        <span class="dot w-3 h-3 rounded-full bg-slate-700 transition-all duration-300"></span>
+                        <span class="dot w-3 h-3 rounded-full bg-slate-700 transition-all duration-300"></span>
                     </div>
                 </div>
             </section>
@@ -502,6 +500,39 @@ def read_root():
                 "DFT Pro": "Latest Qualcomm, MTK & IMEI services."
             };
 
+            // Auto-Swapping Slider Logic for How It Works
+            const sliderSteps = [
+                { badge: "Step 1 of 3", title: "1. Disengaged Parties", desc: "Buyer & Seller connect securely through our verified digital marketplace platform." },
+                { badge: "Step 2 of 3", title: "2. Approaching Negotiation", desc: "Funds are deposited into Admin Escrow or processed via instant Chapa payment gateway." },
+                { badge: "Step 3 of 3", title: "3. Unified Agreement", desc: "Asset ownership or tool session is fully transferred and verified before funds are released." }
+            ];
+            let currentSliderIndex = 0;
+
+            function initSlider() {
+                setInterval(() => {
+                    currentSliderIndex = (currentSliderIndex + 1) % sliderSteps.length;
+                    const step = sliderSteps[currentSliderIndex];
+                    const badgeElem = document.getElementById('sliderStepBadge');
+                    const titleElem = document.getElementById('sliderTitle');
+                    const descElem = document.getElementById('sliderDesc');
+                    const dots = document.querySelectorAll('.dot');
+
+                    if (badgeElem && titleElem && descElem) {
+                        badgeElem.innerText = step.badge;
+                        titleElem.innerText = step.title;
+                        descElem.innerText = step.desc;
+
+                        dots.forEach((dot, idx) => {
+                            if (idx === currentSliderIndex) {
+                                dot.className = "dot w-3 h-3 rounded-full bg-amber-500 transition-all duration-300";
+                            } else {
+                                dot.className = "dot w-3 h-3 rounded-full bg-slate-700 transition-all duration-300";
+                            }
+                        });
+                    }
+                }, 4000);
+            }
+
             window.onload = function() {
                 updateAssetTypes();
                 updateToolDescription();
@@ -509,6 +540,7 @@ def read_root():
                 loadUserListings();
                 loadUserRentals();
                 showBrowseListings('ALL');
+                initSlider();
             };
 
             function switchPostFormTab(type) {
@@ -664,15 +696,15 @@ def read_root():
                 let filtered = category === 'ALL' ? listings : listings.filter(i => i.platform && i.platform.toLowerCase().includes(category.toLowerCase()));
                 
                 if (filtered.length === 0) {
-                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No listings found. Use the form below to publish your asset ad!</div>`;
+                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No listings found. Use the form below to publish your asset ad!</div>`;
                     return;
                 }
                 container.innerHTML = filtered.map(item => `
-                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
-                        <div class="flex justify-between items-center"><span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span><span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span></div>
-                        <h4 class="font-bold text-white text-sm">${item.title}</h4>
-                        <div class="text-[11px] text-slate-300 space-y-1"><p>Category: <span class="text-amber-300 font-semibold">${item.niche}</span></p><p>Subscribers: <span class="font-semibold text-white">${item.subCount}</span></p></div>
-                        <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-xs"><span class="font-black text-amber-400">ETB ${item.price}</span><button onclick="alert('Connecting to seller via secure Escrow Chat...')" class="px-3 py-1.5 bg-amber-500 text-slate-950 font-bold rounded-lg hover:bg-amber-400 transition cursor-pointer">Buy / Chat</button></div>
+                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-2 shadow-lg">
+                        <div class="flex justify-between items-center"><span class="text-amber-400 font-bold uppercase text-[9px]">${item.platform}</span><span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span></div>
+                        <h4 class="font-bold text-white text-xs">${item.title}</h4>
+                        <div class="text-[10px] text-slate-300 space-y-0.5"><p>Category: <span class="text-amber-300 font-semibold">${item.niche}</span></p><p>Subscribers: <span class="font-semibold text-white">${item.subCount}</span></p></div>
+                        <div class="flex justify-between items-center pt-1.5 border-t border-slate-800 text-xs"><span class="font-black text-amber-400 text-xs">ETB ${item.price}</span><button onclick="alert('Connecting to seller via secure Escrow Chat...')" class="px-2.5 py-1 bg-amber-500 text-slate-950 font-bold rounded-lg hover:bg-amber-400 transition cursor-pointer text-[11px]">Buy / Chat</button></div>
                     </div>
                 `).join('');
             }
@@ -683,14 +715,14 @@ def read_root():
                 const container = document.getElementById('browseContainer');
                 let filtered = listings.filter(i => (i.title && i.title.toLowerCase().includes(query)) || (i.platform && i.platform.toLowerCase().includes(query)));
                 if (filtered.length === 0) {
-                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No matching listings found.</div>`;
+                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No matching listings found.</div>`;
                     return;
                 }
                 container.innerHTML = filtered.map(item => `
-                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
-                        <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span>
-                        <h4 class="font-bold text-white text-sm">${item.title}</h4>
-                        <span class="font-black text-amber-400">ETB ${item.price}</span>
+                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 space-y-2 shadow-lg">
+                        <span class="text-amber-400 font-bold uppercase text-[9px]">${item.platform}</span>
+                        <h4 class="font-bold text-white text-xs">${item.title}</h4>
+                        <span class="font-black text-amber-400 text-xs">ETB ${item.price}</span>
                     </div>
                 `).join('');
             }
@@ -717,13 +749,13 @@ def read_root():
                 const container = document.getElementById('userListingsContainer');
                 let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
                 if (listings.length === 0) {
-                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active listings yet.</span><span class="text-emerald-400 font-semibold">Escrow Ready</span></div>`;
+                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active listings yet.</span><span class="text-emerald-400 font-semibold">Escrow Ready</span></div>`;
                     return;
                 }
                 container.innerHTML = listings.map(item => `
-                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-                        <div><span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span><h4 class="font-bold text-white text-sm mt-0.5">${item.title}</h4></div>
-                        <span class="font-extrabold text-emerald-400 text-sm">ETB ${item.price}</span>
+                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                        <div><span class="text-amber-400 font-bold uppercase text-[9px]">${item.platform}</span><h4 class="font-bold text-white text-xs mt-0.5">${item.title}</h4></div>
+                        <span class="font-extrabold text-emerald-400 text-xs">ETB ${item.price}</span>
                     </div>
                 `).join('');
             }
@@ -732,13 +764,13 @@ def read_root():
                 const container = document.getElementById('userRentalsContainer');
                 let rentals = JSON.parse(localStorage.getItem('amalaj_rentals') || '[]');
                 if (rentals.length === 0) {
-                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active tool rentals.</span><span class="text-amber-400 font-semibold">Available 24/7</span></div>`;
+                    container.innerHTML = `<div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active tool rentals.</span><span class="text-amber-400 font-semibold">Available 24/7</span></div>`;
                     return;
                 }
                 container.innerHTML = rentals.map(item => `
-                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-                        <div><span class="text-amber-400 font-bold text-[10px]">TOOL RENTAL</span><h4 class="font-bold text-white text-sm mt-0.5">${item.name}</h4></div>
-                        <span class="font-extrabold text-amber-400 text-sm">ETB ${item.price}</span>
+                    <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                        <div><span class="text-amber-400 font-bold text-[9px]">TOOL RENTAL</span><h4 class="font-bold text-white text-xs mt-0.5">${item.name}</h4></div>
+                        <span class="font-extrabold text-amber-400 text-xs">ETB ${item.price}</span>
                     </div>
                 `).join('');
             }
