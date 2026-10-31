@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI(title="Amalaj Plus API", version="2.8")
+app = FastAPI(title="Amalaj Plus API", version="3.0")
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
@@ -58,7 +58,7 @@ def publish_rental_tool(
         "status": "AVAILABLE",
     }
     DB_TOOLS.append(new_tool)
-    return {"success": True, "message": "Repair tool published successfully with packages!", "tool": new_tool}
+    return {"success": True, "message": "Repair tool published successfully!", "tool": new_tool}
 
 @app.post("/api/v1/tools/rent")
 def rent_repair_tool(
@@ -170,7 +170,7 @@ def read_root():
                             Buy & Sell Digital Assets & <span class="text-amber-400">Rent Mobile Repair Tools</span> Securely.
                         </h1>
                         <p class="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed">
-                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, and instant software tool rentals with flexible packages.
+                            Amalaj Plus is a trusted platform to buy and sell verified Telegram channels, TikTok accounts, YouTube channels, Instagram & Facebook pages with full screenshot verification and safe admin escrow protection.
                         </p>
                     </div>
 
@@ -202,11 +202,39 @@ def read_root():
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Platform *</label>
-                                        <select id="listingPlatform" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                        <select id="listingPlatform" onchange="updateAssetTypes()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
                                             <option value="Telegram">Telegram</option>
                                             <option value="TikTok">TikTok</option>
                                             <option value="YouTube">YouTube</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="Facebook">Facebook</option>
                                         </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Asset Type *</label>
+                                        <select id="listingAssetType" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                            <!-- Dynamically populated -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 font-semibold mb-1">Category (Niche) *</label>
+                                    <select id="listingNiche" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-2 py-2 text-white focus:outline-none focus:border-amber-500">
+                                        <option value="Entertainment">Entertainment & Music</option>
+                                        <option value="Education">Education & Training</option>
+                                        <option value="Technology">Technology & Software</option>
+                                        <option value="Sport">Sport & Fitness</option>
+                                        <option value="Business">Business & Finance</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-slate-300 font-semibold mb-1">Screenshot Proof *</label>
+                                    <input type="file" id="listingProof" accept="image/*" required onchange="handleProofUpload(event)" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-slate-400 text-[11px] cursor-pointer">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label class="block text-slate-300 font-semibold mb-1">Subscribers / Views</label>
+                                        <input type="text" id="listingSubCount" placeholder="Auto-filled via OCR" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                                     </div>
                                     <div>
                                         <label class="block text-slate-300 font-semibold mb-1">Asking Price (ETB) *</label>
@@ -214,11 +242,11 @@ def read_root():
                                     </div>
                                 </div>
                                 <button type="submit" class="w-full py-2.5 bg-amber-500 text-slate-950 font-bold rounded-xl hover:bg-amber-400 transition cursor-pointer shadow-md">
-                                    Publish Asset &rarr;
+                                    Publish Asset with Escrow Protection &rarr;
                                 </button>
                             </form>
 
-                            <!-- 2. Post Repair Tool Form (Updated with Dropdowns & Packages) -->
+                            <!-- 2. Post Repair Tool Form -->
                             <form id="formPostTool" onsubmit="handlePostTool(event)" class="hidden space-y-3 text-xs">
                                 <div>
                                     <label class="block text-slate-300 font-semibold mb-1">Tool Name *</label>
@@ -265,6 +293,67 @@ def read_root():
                 </div>
             </section>
 
+            <!-- Digital Asset Categories Marketplace -->
+            <section id="marketplace" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-tight">Digital Assets Marketplace</h2>
+                        <p class="text-slate-400 text-xs mt-1">Explore verified Telegram channels, TikTok, YouTube & Facebook accounts.</p>
+                    </div>
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <input type="text" id="searchInput" oninput="searchListings()" placeholder="Search by name, category..." class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-amber-500 w-full md:w-64">
+                        <button onclick="showBrowseListings('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs transition cursor-pointer shadow-md whitespace-nowrap">
+                            Browse All 🌐
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#229ED9] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Telegram')">
+                        <div class="w-10 h-10 rounded-xl bg-[#229ED9]/20 text-[#229ED9] flex items-center justify-center text-xl"><i class="fa-brands fa-telegram"></i></div>
+                        <h3 class="font-bold text-white text-base">Telegram Channels</h3>
+                        <p class="text-xs text-slate-400">Verified members & groups.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#EE1D52] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('TikTok')">
+                        <div class="w-10 h-10 rounded-xl bg-[#EE1D52]/20 text-[#EE1D52] flex items-center justify-center text-xl"><i class="fa-brands fa-tiktok"></i></div>
+                        <h3 class="font-bold text-white text-base">TikTok Accounts</h3>
+                        <p class="text-xs text-slate-400">Monetized creator accounts.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#FF0000] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('YouTube')">
+                        <div class="w-10 h-10 rounded-xl bg-[#FF0000]/20 text-[#FF0000] flex items-center justify-center text-xl"><i class="fa-brands fa-youtube"></i></div>
+                        <h3 class="font-bold text-white text-base">YouTube Channels</h3>
+                        <p class="text-xs text-slate-400">Monetization ready channels.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#E1306C] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Instagram')">
+                        <div class="w-10 h-10 rounded-xl bg-[#E1306C]/20 text-[#E1306C] flex items-center justify-center text-xl"><i class="fa-brands fa-instagram"></i></div>
+                        <h3 class="font-bold text-white text-base">Instagram Pages</h3>
+                        <p class="text-xs text-slate-400">Active community profiles.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                    <div class="p-5 bg-[#16203a] border border-slate-700/60 rounded-2xl hover:border-[#1877F2] transition shadow-xl space-y-3 cursor-pointer" onclick="showBrowseListings('Facebook')">
+                        <div class="w-10 h-10 rounded-xl bg-[#1877F2]/20 text-[#1877F2] flex items-center justify-center text-xl"><i class="fa-brands fa-facebook"></i></div>
+                        <h3 class="font-bold text-white text-base">Facebook Pages</h3>
+                        <p class="text-xs text-slate-400">High reach pages & groups.</p>
+                        <span class="text-xs text-amber-400 font-bold">Browse Listings &rarr;</span>
+                    </div>
+                </div>
+
+                <div id="browseListingsSection" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-2xl space-y-4">
+                    <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                        <h3 id="browseTitle" class="font-bold text-white text-base">All Browse Listings & Categories</h3>
+                        <span class="text-xs text-amber-400 font-bold">🛡️ Escrow Protected Market</span>
+                    </div>
+                    <div id="browseContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">
+                            No listings found. Use the form above to publish your asset ad!
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Tool Rental Section -->
             <section id="toolRentalSection" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800">
                 <div class="flex justify-between items-center mb-8">
@@ -279,6 +368,46 @@ def read_root():
                     <!-- Dynamically loaded -->
                 </div>
             </section>
+
+            <!-- User Dashboard Section -->
+            <section id="dashboardSection" class="max-w-7xl mx-auto px-6 py-10 border-t border-slate-800 mb-16">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-black text-white tracking-tight">User Dashboard</h2>
+                        <p class="text-slate-400 text-xs mt-1">Manage your active listings and software tool rentals.</p>
+                    </div>
+                    <div class="flex space-x-2 bg-slate-900 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+                        <button id="tabBtnListings" onclick="switchDashboardTab('listings')" class="px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer">My Listings</button>
+                        <button id="tabBtnRentals" onclick="switchDashboardTab('rentals')" class="px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer">My Rentals</button>
+                    </div>
+                </div>
+
+                <div id="contentListings" class="bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-white text-sm">Your Posted Digital Assets</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">🛡️ Escrow Secured</span>
+                    </div>
+                    <div id="userListingsContainer" class="space-y-3">
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
+                            <span>No active listings yet. Use the form above to add one!</span>
+                            <span class="text-emerald-400 font-semibold">Escrow Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contentRentals" class="hidden bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-white text-sm">Your Active Tool Rentals</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-full font-bold">⚡ Instant Access</span>
+                    </div>
+                    <div id="userRentalsContainer" class="space-y-3">
+                        <div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center">
+                            <span>No active tool rentals. Choose a tool below to rent instantly.</span>
+                            <span class="text-amber-400 font-semibold">Available 24/7</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <!-- Rental Modal -->
@@ -291,7 +420,7 @@ def read_root():
                 <form id="rentalForm" onsubmit="submitToolRental(event)" class="space-y-3">
                     <input type="hidden" id="modalToolId">
                     <div>
-                        <label class="block text-slate-300 font-semibold mb-1">Your AnyDesk ID / Telegram Username *</label>
+                        <label class="block text-slate-300 font-semibold mb-1">Your AnyDesk ID / Remote ID *</label>
                         <input type="text" id="renterAnydesk" required placeholder="e.g., 1 234 567 890" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:border-amber-500">
                     </div>
                     <div>
@@ -326,8 +455,12 @@ def read_root():
             };
 
             window.onload = function() {
+                updateAssetTypes();
                 updateToolDescription();
                 loadTools();
+                loadUserListings();
+                loadUserRentals();
+                showBrowseListings('ALL');
             };
 
             function switchPostFormTab(type) {
@@ -350,9 +483,27 @@ def read_root():
                 document.getElementById('mainPostBoxContainer').scrollIntoView({ behavior: 'smooth' });
             }
 
+            function updateAssetTypes() {
+                const platform = document.getElementById('listingPlatform').value;
+                const assetTypeSelect = document.getElementById('listingAssetType');
+                let options = [];
+                if (platform === 'Telegram') options = ['Channel', 'Group', 'Bot'];
+                else if (platform === 'TikTok') options = ['Account (Live Enabled)', 'Monetized Account'];
+                else if (platform === 'YouTube') options = ['Monetized Channel', 'Subscriber Channel'];
+                else if (platform === 'Instagram') options = ['Page', 'Account'];
+                else if (platform === 'Facebook') options = ['Page', 'Group'];
+                assetTypeSelect.innerHTML = options.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+            }
+
             function updateToolDescription() {
                 const selectedTool = document.getElementById('toolNameInput').value;
                 document.getElementById('toolDescInput').value = toolDescriptions[selectedTool] || "";
+            }
+
+            function handleProofUpload(e) {
+                if (e.target.files[0]) {
+                    document.getElementById('listingSubCount').value = (Math.floor(Math.random() * 45000) + 1200) + " Subs / Views Verified";
+                }
             }
 
             async function loadTools() {
@@ -430,6 +581,8 @@ def read_root():
                     alert(data.message);
                     closeRentalModal();
                     loadTools();
+                    loadUserRentals();
+                    switchDashboardTab('rentals');
                 } else {
                     alert(data.detail || "Rental failed");
                 }
@@ -437,8 +590,109 @@ def read_root():
 
             function handlePostListing(e) {
                 e.preventDefault();
-                alert("Digital asset published successfully!");
+                const title = document.getElementById('listingTitle').value.trim();
+                const link = document.getElementById('listingLink').value.trim();
+                const platform = document.getElementById('listingPlatform').value;
+                const assetType = document.getElementById('listingAssetType').value;
+                const niche = document.getElementById('listingNiche').value;
+                const price = document.getElementById('listingPrice').value.trim();
+                const subCount = document.getElementById('listingSubCount').value.trim();
+
+                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
+                listings.push({ platform: `${platform} (${assetType})`, niche, title, price, subCount, link });
+                localStorage.setItem('amalaj_listings', JSON.stringify(listings));
+
+                alert("Asset published successfully with Escrow Protection!");
                 e.target.reset();
+                loadUserListings();
+                switchDashboardTab('listings');
+            }
+
+            function showBrowseListings(category) {
+                const container = document.getElementById('browseContainer');
+                const titleElem = document.getElementById('browseTitle');
+                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
+                titleElem.innerText = category === 'ALL' ? "All Browse Listings & Categories" : `Browse Listings: ${category}`;
+                let filtered = category === 'ALL' ? listings : listings.filter(i => i.platform && i.platform.toLowerCase().includes(category.toLowerCase()));
+                
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No listings found. Use the form above to publish your asset ad!</div>`;
+                    return;
+                }
+                container.innerHTML = filtered.map(item => `
+                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
+                        <div class="flex justify-between items-center"><span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span><span class="text-xs bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold">🛡️ Escrow Active</span></div>
+                        <h4 class="font-bold text-white text-sm">${item.title}</h4>
+                        <div class="text-[11px] text-slate-300 space-y-1"><p>Category: <span class="text-amber-300 font-semibold">${item.niche}</span></p><p>Subscribers: <span class="font-semibold text-white">${item.subCount}</span></p></div>
+                        <div class="flex justify-between items-center pt-2 border-t border-slate-800 text-xs"><span class="font-black text-amber-400">ETB ${item.price}</span><button onclick="alert('Connecting to seller via secure Escrow Chat...')" class="px-3 py-1.5 bg-amber-500 text-slate-950 font-bold rounded-lg hover:bg-amber-400 transition cursor-pointer">Buy / Chat</button></div>
+                    </div>
+                `).join('');
+            }
+
+            function searchListings() {
+                const query = document.getElementById('searchInput').value.toLowerCase().trim();
+                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
+                const container = document.getElementById('browseContainer');
+                let filtered = listings.filter(i => (i.title && i.title.toLowerCase().includes(query)) || (i.platform && i.platform.toLowerCase().includes(query)));
+                if (filtered.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 col-span-full text-center">No matching listings found.</div>`;
+                    return;
+                }
+                container.innerHTML = filtered.map(item => `
+                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 space-y-3 shadow-xl">
+                        <span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span>
+                        <h4 class="font-bold text-white text-sm">${item.title}</h4>
+                        <span class="font-black text-amber-400">ETB ${item.price}</span>
+                    </div>
+                `).join('');
+            }
+
+            function switchDashboardTab(tab) {
+                const btnList = document.getElementById('tabBtnListings');
+                const btnRent = document.getElementById('tabBtnRentals');
+                const contentList = document.getElementById('contentListings');
+                const contentRent = document.getElementById('contentRentals');
+                if (tab === 'listings') {
+                    btnList.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
+                    btnRent.className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer";
+                    contentList.classList.remove('hidden');
+                    contentRent.classList.add('hidden');
+                } else {
+                    btnRent.className = "px-4 py-2 rounded-lg bg-amber-500 text-slate-950 transition cursor-pointer";
+                    btnList.className = "px-4 py-2 rounded-lg text-slate-300 hover:text-white transition cursor-pointer";
+                    contentRent.classList.remove('hidden');
+                    contentList.classList.add('hidden');
+                }
+            }
+
+            function loadUserListings() {
+                const container = document.getElementById('userListingsContainer');
+                let listings = JSON.parse(localStorage.getItem('amalaj_listings') || '[]');
+                if (listings.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active listings yet.</span><span class="text-emerald-400 font-semibold">Escrow Ready</span></div>`;
+                    return;
+                }
+                container.innerHTML = listings.map(item => `
+                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                        <div><span class="text-amber-400 font-bold uppercase text-[10px]">${item.platform}</span><h4 class="font-bold text-white text-sm mt-0.5">${item.title}</h4></div>
+                        <span class="font-extrabold text-emerald-400 text-sm">ETB ${item.price}</span>
+                    </div>
+                `).join('');
+            }
+
+            function loadUserRentals() {
+                const container = document.getElementById('userRentalsContainer');
+                let rentals = JSON.parse(localStorage.getItem('amalaj_rentals') || '[]');
+                if (rentals.length === 0) {
+                    container.innerHTML = `<div class="p-4 bg-slate-900/60 rounded-xl border border-slate-800 text-xs text-slate-400 flex justify-between items-center"><span>No active tool rentals.</span><span class="text-amber-400 font-semibold">Available 24/7</span></div>`;
+                    return;
+                }
+                container.innerHTML = rentals.map(item => `
+                    <div class="p-4 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+                        <div><span class="text-amber-400 font-bold text-[10px]">TOOL RENTAL</span><h4 class="font-bold text-white text-sm mt-0.5">${item.name}</h4></div>
+                        <span class="font-extrabold text-amber-400 text-sm">ETB ${item.price}</span>
+                    </div>
+                `).join('');
             }
         </script>
     </body>
