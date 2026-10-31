@@ -6,19 +6,18 @@ export default function SellerVerification() {
     const [price, setPrice] = useState('');
     const [idFront, setIdFront] = useState(null);
     const [idBack, setIdBack] = useState(null);
-    const [portrait, setPortrait] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        alert('Verification & Listing submitted successfully! Admin will review your ID and channel stats.');
+        alert('National ID & First-Time Listing submitted securely. Verification in progress!');
     };
 
     return (
         <div className="max-w-3xl mx-auto px-6 py-8 bg-[#16203a] border border-slate-700/60 rounded-3xl shadow-2xl text-slate-100 space-y-6">
             <div className="border-b border-slate-800 pb-4">
-                <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">Security & Anti-Scam Verification</span>
-                <h2 className="text-2xl font-black text-white mt-1">Seller Identity & Channel Listing</h2>
-                <p className="text-xs text-slate-400 mt-1">To protect buyers, every seller must provide official ID verification before posting an ad.</p>
+                <span className="text-xs text-amber-400 font-bold uppercase tracking-wider">Anti-Scam Protection</span>
+                <h2 className="text-2xl font-black text-white mt-1">One-Time Seller National ID Verification</h2>
+                <p className="text-xs text-slate-400 mt-1">Required only for your first listing to ensure absolute marketplace trust.</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6 text-xs">
@@ -42,7 +41,7 @@ export default function SellerVerification() {
                 {/* Channel Details */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                        <label className="font-bold text-slate-300">Channel / Account Title</label>
+                        <label className="font-bold text-slate-300">Channel / Account Name</label>
                         <input 
                             type="text" 
                             placeholder="e.g. Sportsphere" 
@@ -65,13 +64,13 @@ export default function SellerVerification() {
                     </div>
                 </div>
 
-                {/* Mandatory ID Verification Section */}
+                {/* National ID Upload Section */}
                 <div className="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-5 space-y-4">
                     <div className="flex items-center gap-2 text-amber-400 font-bold">
-                        <i className="fa-solid fa-shield-halved"></i>
-                        <span>Mandatory Seller ID Verification (Fayida / National ID / Passport)</span>
+                        <i className="fa-solid fa-id-card"></i>
+                        <span>National ID / Fayida Verification (First-Time Only)</span>
                     </div>
-                    <p className="text-[11px] text-slate-400">Please upload high-quality scanned images of your legal identification card.</p>
+                    <p className="text-[11px] text-slate-400">Upload clear images of your official ID to prevent fraud and protect buyers.</p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
@@ -93,17 +92,6 @@ export default function SellerVerification() {
                             />
                         </div>
                     </div>
-
-                    {/* Optional Portrait Photo */}
-                    <div className="space-y-1.5 pt-2 border-t border-slate-800">
-                        <label className="font-bold text-slate-300">Seller Portrait / Guard Photo (Optional)</label>
-                        <input 
-                            type="file" 
-                            onChange={(e) => setPortrait(e.target.files[0])}
-                            className="w-full text-slate-400 text-[10px] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 cursor-pointer"
-                        />
-                        <span className="text-[10px] text-slate-500 block">Helps build extra trust with verified buyers.</span>
-                    </div>
                 </div>
 
                 {/* Submit Button */}
@@ -111,7 +99,7 @@ export default function SellerVerification() {
                     type="submit" 
                     className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-sm"
                 >
-                    Verify & Submit Channel Listing 🛡️
+                    Submit Listing & Verify ID 🛡️
                 </button>
             </form>
         </div>
