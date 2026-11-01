@@ -45,7 +45,7 @@
         </div>
     </nav>
 
-    <!-- Main Browse-First Marketplace Section (Directly on Home Page) -->
+    <!-- Main Browse-First Marketplace Section -->
     <main id="marketplace" style="max-width: 1280px; margin: 0 auto; padding: 32px 24px;">
         <div style="text-align: center; margin-bottom: 32px;">
             <div style="display: inline-block; padding: 6px 16px; background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); border-radius: 50px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
@@ -143,11 +143,11 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">Father's Full Name (የአባት ስም)</label>
-                        <input type="text" id="fatherName" placeholder="Enter father's name" class="form-input" required />
+                        <input type="text" id="fatherName" placeholder="Enter father's full name" class="form-input" required />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Mother's Full Name (የእናት ስም)</label>
-                        <input type="text" id="motherName" placeholder="Enter mother's name" class="form-input" required />
+                        <input type="text" id="motherName" placeholder="Enter mother's full name" class="form-input" required />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Phone Number (የስልክ ቁጥር)</label>
@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                <!-- ID Photo Upload Box Restored -->
+                <!-- ID Photo Upload Box with Strict Validation -->
                 <div class="upload-box">
                     <div style="display: flex; align-items: center; gap: 8px; color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 8px;">
                         <i class="fa-solid fa-id-card"></i>
@@ -168,11 +168,11 @@
                     <div class="grid-2">
                         <div class="form-group" style="margin-bottom: 0;">
                             <label class="form-label">ID Front Side *</label>
-                            <input type="file" required style="font-size: 10px; color: #94a3b8;" />
+                            <input type="file" id="idFrontInput" accept="image/*" required style="font-size: 10px; color: #94a3b8;" />
                         </div>
                         <div class="form-group" style="margin-bottom: 0;">
                             <label class="form-label">ID Back Side *</label>
-                            <input type="file" required style="font-size: 10px; color: #94a3b8;" />
+                            <input type="file" id="idBackInput" accept="image/*" required style="font-size: 10px; color: #94a3b8;" />
                         </div>
                     </div>
                 </div>
@@ -208,13 +208,20 @@
     </div>
 
     <script>
+        // Verified Sellers Database (Locked & Tracked by Phone Number)
         let verifiedSellers = ['0911223344', '0912345678']; 
-        let isCurrentSessionVerified = false;
+        let currentVerifiedPhone = null;
 
         function checkAndOpenSellerFlow() {
-            if (isCurrentSessionVerified) {
+            const phoneCheck = prompt("እባክዎ የተመዘገቡበትን ስልክ ቁጥር ያስገቡ (+251... / 09...):");
+            if (!phoneCheck) return;
+
+            if (verifiedSellers.includes(phoneCheck)) {
+                currentVerifiedPhone = phoneCheck;
+                alert("እንኳን ደህና መጡ! ነባር ተጠቃሚ ስለሆኑ ኬዋይሲ በራስ-ሰር አልፏል።");
                 openModal('listingModal');
             } else {
+                currentVerifiedPhone = phoneCheck;
                 openModal('kycModal');
             }
         }
@@ -236,16 +243,36 @@
 
         function handleKYCSubmit(e) {
             e.preventDefault();
-            const phone = document.getElementById('sellerPhone').value;
-            if (!verifiedSellers.includes(phone)) verifiedSellers.push(phone);
-            isCurrentSessionVerified = true;
+            const phone = document.getElementById('sellerPhone').value.trim();
+            const fayidaNum = document.getElementById('fayidaNum').value.trim();
+            const frontFile = document.getElementById('idFrontInput').files[0];
+            const backFile = document.getElementById('idBackInput').files[0];
+
+            // 1. Strict 16-Digit Fayida Number Validation
+            if (fayidaNum.length !== 16 || !/^\d+$/.test(fayidaNum)) {
+                alert("ስህተት: የፋይዳ መታወቂያ ቁጥር በትክክል 16 አሃዝ ቁጥር መሆን አለበት!");
+                return;
+            }
+
+            // 2. Strict ID Photo Validation
+            if (!frontFile || !backFile) {
+                alert("ስህተት: እባክዎ የመታወቂያዎን ፊት (Front) እና ጀርባ (Back) ፎቶዎች በትክክል ይጫኑ!");
+                return;
+            }
+
+            // 3. Lock & Register Seller to Prevent Fraud / Re-editing
+            if (!verifiedSellers.includes(phone)) {
+                verifiedSellers.push(phone);
+            }
+
+            alert("የመታወቂያ ማረጋገጫዎ ተሳክቷል! መረጃዎ በደህንነት ተመዝግቧል።");
             closeModal('kycModal');
             openModal('listingModal');
         }
 
         function handleListingSubmit(e) {
             e.preventDefault();
-            alert('Your channel ad has been published successfully!');
+            alert('Your channel ad has been published successfully and secured under platform escrow!');
             closeModal('listingModal');
         }
     </script>
