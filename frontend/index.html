@@ -1,18 +1,18 @@
-<!-- One-Time Seller National ID Verification Modal (Step 1) -->
+<!-- One-Time Seller National ID Verification Modal (Pure KYC Step) -->
 <div id="sellerModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-    <div class="bg-[#16203a] border border-slate-700/80 w-full max-w-2xl rounded-3xl p-6 shadow-2xl relative space-y-5 max-h-[95vh] overflow-y-auto text-slate-100">
+    <div class="bg-[#16203a] border border-slate-700/80 w-full max-w-xl rounded-3xl p-6 shadow-2xl relative space-y-5 max-h-[95vh] overflow-y-auto text-slate-100">
         <button onclick="closeVerificationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
             <i class="fa-solid fa-xmark"></i>
         </button>
 
         <div class="border-b border-slate-800 pb-3">
-            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Step 1: KYC Protection</span>
-            <h2 class="text-xl font-black text-white mt-1">One-Time Seller Identity Verification</h2>
-            <p class="text-[11px] text-slate-400 mt-0.5">Enter your Fayida details once. Existing sellers with registered phone numbers will skip this step.</p>
+            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Anti-Scam Protection</span>
+            <h2 class="text-xl font-black text-white mt-1">One-Time Seller National ID Verification</h2>
+            <p class="text-[11px] text-slate-400 mt-0.5">Required only for your first listing. Existing users with registered phone numbers bypass this step automatically.</p>
         </div>
 
         <form onsubmit="handleKYCSubmit(event)" class="space-y-4 text-xs">
-            <!-- Personal Identity Fields Only -->
+            <!-- Personal Identity Fields -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div class="space-y-1">
                     <label class="font-bold text-slate-300">Father's Full Name (የአባት ስም)</label>
@@ -32,12 +32,14 @@
                 </div>
             </div>
 
-            <!-- ID Upload Section -->
+            <!-- National ID Photo Verification -->
             <div class="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-4 space-y-3">
                 <div class="flex items-center gap-2 text-amber-400 font-bold">
                     <i class="fa-solid fa-id-card"></i>
                     <span>National ID / Fayida Photo Verification</span>
                 </div>
+                <p class="text-[10px] text-slate-400">Upload clear images of your official ID to prevent fraud and protect buyers.</p>
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div class="space-y-1">
                         <label class="font-bold text-slate-300 text-[11px]">ID Front Side *</label>
@@ -51,62 +53,16 @@
             </div>
 
             <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-xs">
-                Verify Identity & Continue to Listing ➔
-            </button>
-        </form>
-    </div>
-</div>
-
-<!-- Step 2: Specific Platform Ad Listing Modal (Dynamic based on selected platform) -->
-<div id="listingModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-    <div class="bg-[#16203a] border border-amber-500/50 w-full max-w-2xl rounded-3xl p-6 shadow-2xl relative space-y-5 max-h-[95vh] overflow-y-auto text-slate-100">
-        <button onclick="closeListingModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <div class="border-b border-slate-800 pb-3">
-            <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Step 2: Post Channel Listing</span>
-            <h2 class="text-xl font-black text-white mt-1" id="selectedPlatformTitle">Post Listing</h2>
-            <p class="text-[11px] text-slate-400 mt-0.5" id="platformEscrowNote">Verified Seller Active. Fill out your asset details below.</p>
-        </div>
-
-        <form onsubmit="handleListingSubmit(event)" class="space-y-4 text-xs">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-300">Channel / Page / Account Name</label>
-                    <input type="text" placeholder="e.g. Habesha Tech" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
-                </div>
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-300">Asking Price (ETB)</label>
-                    <input type="text" placeholder="e.g. 25000 ETB" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
-                </div>
-            </div>
-
-            <!-- Dynamic notice for specific platforms like TikTok -->
-            <div id="platformSpecialRule" class="hidden p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl text-[11px] text-blue-300">
-                ℹ️ <b>TikTok Special Escrow:</b> Payments are safely released to the seller after a 3-day verification window to protect recovery credentials.
-            </div>
-
-            <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-xs">
-                Publish Channel Ad to Marketplace 🚀
+                Verify Identity & Continue 🛡️
             </button>
         </form>
     </div>
 </div>
 
 <script>
-    let isSellerVerified = false; // Simulated database state
-    let activePlatform = 'Telegram';
+    let registeredPhones = ['0911223344']; // Simulated database for existing users
 
-    function openVerificationModal(platform) {
-        activePlatform = platform || 'Telegram';
-        
-        // If already verified, directly open the platform listing modal
-        if (isSellerVerified) {
-            openListingModal(activePlatform);
-            return;
-        }
-
+    function openVerificationModal() {
         document.getElementById('sellerModal').classList.remove('hidden');
         document.getElementById('sellerModal').classList.add('flex');
     }
@@ -116,41 +72,19 @@
         document.getElementById('sellerModal').classList.remove('flex');
     }
 
-    function openListingModal(platform) {
-        document.getElementById('selectedPlatformTitle').innerText = 'Post Ad for ' + platform;
-        
-        const ruleBox = document.getElementById('platformSpecialRule');
-        if (platform === 'TikTok') {
-            ruleBox.classList.remove('hidden');
-        } else {
-            ruleBox.classList.add('hidden');
-        }
-
-        document.getElementById('listingModal').classList.remove('hidden');
-        document.getElementById('listingModal').classList.add('flex');
-    }
-
-    function closeListingModal() {
-        document.getElementById('listingModal').classList.add('hidden');
-        document.getElementById('listingModal').classList.remove('flex');
-    }
-
     function handleKYCSubmit(e) {
         e.preventDefault();
         const phone = document.getElementById('sellerPhone').value;
         const fayida = document.getElementById('fayidaNum').value;
 
-        // Save verification state so user won't fill KYC again
-        isSellerVerified = true;
-        alert(`Identity verified for Fayida ID: ${fayida}! Proceeding to post your ${activePlatform} ad.`);
-        
-        closeVerificationModal();
-        openListingModal(activePlatform);
-    }
+        // Check if phone number already exists (Existing User check)
+        if (registeredPhones.includes(phone)) {
+            alert('Welcome back! Your phone number is already verified as an existing seller. Proceeding to post ad.');
+        } else {
+            registeredPhones.push(phone);
+            alert(`Identity successfully verified for Fayida ID: ${fayida}! You are now registered.`);
+        }
 
-    function handleListingSubmit(e) {
-        e.preventDefault();
-        alert(`Your ${activePlatform} ad has been successfully posted to Amalaj Plus marketplace!`);
-        closeListingModal();
+        closeVerificationModal();
     }
 </script>
