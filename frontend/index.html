@@ -15,7 +15,6 @@
         .btn-primary { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #0f172a; font-weight: 900; padding: 10px 20px; border-radius: 12px; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3); }
         .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.1); }
         
-        /* Modal Overlay Styles */
         .modal-overlay { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
         .modal-box { background: #16203a; border: 1px solid rgba(245, 158, 11, 0.4); width: 100%; max-width: 550px; border-radius: 24px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; max-height: 95vh; overflow-y: auto; color: #f8fafc; }
         .modal-close { position: absolute; top: 16px; right: 16px; color: #94a3b8; font-size: 18px; background: none; border: none; cursor: pointer; }
@@ -51,7 +50,7 @@
             ⚡ Secured Digital Asset & Tool Rental Ecosystem
         </div>
         <h1 style="font-size: 36px; font-weight: 900; margin-bottom: 12px;">
-            Trade Digital Channels with <span style="color: #fbbf24;">3-Day Escrow Protection</span>
+            Trade Digital Channels & Rent Repair Software with <span style="color: #fbbf24;">Escrow Protection</span>
         </h1>
         <p style="font-size: 13px; color: #94a3b8; max-width: 500px; margin: 0 auto 32px auto;">
             Explore verified marketplace listings freely. Sellers undergo mandatory One-Time Fayida ID verification only when posting ads.
@@ -71,7 +70,7 @@
                 <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase;">Public Marketplace</span>
                 <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 2px;">Verified Channel Listings</h2>
             </div>
-            <span style="padding: 6px 12px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-radius: 20px; font-size: 11px; font-weight: 700;">Protected by 3-Day Escrow</span>
+            <span style="padding: 6px 12px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-radius: 20px; font-size: 11px; font-weight: 700;">Protected by Escrow</span>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
@@ -98,4 +97,145 @@
             <div style="border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px;">
                 <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Step 1: Identity Verification</span>
                 <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 4px;">One-Time Seller National ID Verification</h2>
-                <p style="font-size: 11px
+                <p style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Enter your details once. Existing sellers bypass this step automatically.</p>
+            </div>
+
+            <form onsubmit="handleKYCSubmit(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Father's Full Name (የአባት ስም)</label>
+                        <input type="text" id="fatherName" placeholder="Enter father's name" class="form-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Mother's Full Name (የእናት ስም)</label>
+                        <input type="text" id="motherName" placeholder="Enter mother's name" class="form-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number (የስልክ ቁጥር)</label>
+                        <input type="tel" id="sellerPhone" placeholder="09... / 07..." class="form-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Fayida ID (16 Digits)</label>
+                        <input type="text" id="fayidaNum" maxlength="16" pattern="\d{16}" placeholder="16-digit Fayida number" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="upload-box">
+                    <div style="display: flex; align-items: center; gap: 8px; color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 8px;">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>National ID / Fayida Photo Verification</span>
+                    </div>
+                    <div class="grid-2">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">ID Front Side *</label>
+                            <input type="file" required style="font-size: 10px; color: #94a3b8;" />
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label">ID Back Side *</label>
+                            <input type="file" required style="font-size: 10px; color: #94a3b8;" />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 12px; font-size: 12px;">
+                    Verify Identity & Continue 🛡️
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- STEP 2: Platform-Specific Channel Listing Modal -->
+    <div id="listingModal" class="modal-overlay">
+        <div class="modal-box" style="border-color: rgba(16, 185, 129, 0.4);">
+            <button onclick="closeModal('listingModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+
+            <div style="border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px;">
+                <span style="font-size: 10px; color: #34d399; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Step 2: Post Channel Listing</span>
+                <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 4px;">Post Channel Listing</h2>
+                <p style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Verified Seller Active. Complete your asset listing information.</p>
+            </div>
+
+            <form onsubmit="handleListingSubmit(event)">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Channel / Account Name</label>
+                        <input type="text" placeholder="e.g. Habesha Tech" class="form-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Asking Price (ETB)</label>
+                        <input type="text" placeholder="e.g. 25000 ETB" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Channel Link (URL)</label>
+                        <input type="url" placeholder="https://t.me/..." class="form-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Followers Count</label>
+                        <input type="number" placeholder="e.g. 15000" class="form-input" required />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Dashboard Screenshot (Analytics Proof)</label>
+                    <input type="file" required style="font-size: 10px; color: #94a3b8;" />
+                </div>
+
+                <div style="padding: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; font-size: 11px; color: #34d399; margin-bottom: 14px;">
+                    🛡️ <b>Escrow Protection:</b> Funds are held securely to verify credential handover before payout release.
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 12px; background: linear-gradient(135deg, #059669, #34d399); color: #022c22;">
+                    Publish Channel Ad to Marketplace 🚀
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let verifiedSellers = ['0911223344', '0912345678']; 
+        let isCurrentSessionVerified = false;
+
+        function checkAndOpenSellerFlow() {
+            if (isCurrentSessionVerified) {
+                openModal('listingModal');
+            } else {
+                openModal('kycModal');
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        function handleKYCSubmit(e) {
+            e.preventDefault();
+            const phone = document.getElementById('sellerPhone').value;
+            const fayida = document.getElementById('fayidaNum').value;
+
+            if (verifiedSellers.includes(phone)) {
+                alert(`Welcome back! Phone number ${phone} is already registered. Skipping KYC.`);
+            } else {
+                verifiedSellers.push(phone);
+                alert(`Verification successful! Fayida ID ${fayida} registered securely.`);
+            }
+
+            isCurrentSessionVerified = true;
+            closeModal('kycModal');
+            openModal('listingModal');
+        }
+
+        function handleListingSubmit(e) {
+            e.preventDefault();
+            alert('Your channel ad has been submitted successfully under Escrow protection!');
+            closeModal('listingModal');
+        }
+    </script>
+</body>
+</html>
