@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amalaj Plus - Secured P2P Marketplace & Tool Rentals</title>
+    <title>Amalaj Plus - Trade Digital Channels & Rent Repair Software</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -15,6 +15,7 @@
         .btn-primary { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #0f172a; font-weight: 900; padding: 10px 20px; border-radius: 12px; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.3); }
         .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.1); }
         
+        /* Modal Styles */
         .modal-overlay { position: fixed; inset: 0; background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 100; padding: 16px; }
         .modal-box { background: #16203a; border: 1px solid rgba(245, 158, 11, 0.4); width: 100%; max-width: 550px; border-radius: 24px; padding: 24px; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); position: relative; max-height: 95vh; overflow-y: auto; color: #f8fafc; }
         .modal-close { position: absolute; top: 16px; right: 16px; color: #94a3b8; font-size: 18px; background: none; border: none; cursor: pointer; }
@@ -37,54 +38,58 @@
     <nav>
         <div class="nav-container">
             <div class="logo">Amalaj<span>Plus</span></div>
-            <div style="display: flex; gap: 12px; align-items: center;">
-                <a href="#marketplace" style="color: #cbd5e1; font-size: 12px; font-weight: 600; text-decoration: none;">Browse Listings</a>
+            <div style="display: flex; gap: 16px; align-items: center;">
+                <a href="#marketplace" style="color: #fbbf24; font-size: 12px; font-weight: 700; text-decoration: none;">Browse Marketplace</a>
                 <button onclick="checkAndOpenSellerFlow()" class="btn-primary">+ Post Ad (Sell)</button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero / Free Exploration Section -->
-    <main style="max-width: 1280px; margin: 0 auto; padding: 64px 24px; text-align: center;">
+    <!-- Hero Section -->
+    <main style="max-width: 1280px; margin: 0 auto; padding: 48px 24px; text-align: center;">
         <div style="display: inline-block; padding: 6px 16px; background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); border-radius: 50px; font-size: 11px; font-weight: 700; margin-bottom: 16px;">
             ⚡ Secured Digital Asset & Tool Rental Ecosystem
         </div>
-        <h1 style="font-size: 36px; font-weight: 900; margin-bottom: 12px;">
+        <h1 style="font-size: 34px; font-weight: 900; margin-bottom: 12px;">
             Trade Digital Channels & Rent Repair Software with <span style="color: #fbbf24;">Escrow Protection</span>
         </h1>
-        <p style="font-size: 13px; color: #94a3b8; max-width: 500px; margin: 0 auto 32px auto;">
-            Explore verified marketplace listings freely. Sellers undergo mandatory One-Time Fayida ID verification only when posting ads.
+        <p style="font-size: 13px; color: #94a3b8; max-width: 550px; margin: 0 auto 32px auto;">
+            Browse verified marketplace listings freely as a buyer or seller. Secure transactions protected by Escrow and mandatory One-Time Fayida KYC verification for sellers.
         </p>
-        <div style="display: flex; gap: 12px; justify-content: center;">
-            <a href="#marketplace" style="padding: 14px 28px; background: #1e293b; color: #fff; border-radius: 12px; font-size: 13px; font-weight: 700; text-decoration: none; border: 1px solid #334155;">Browse Marketplace</a>
-            <button onclick="checkAndOpenSellerFlow()" class="btn-primary" style="padding: 14px 28px; font-size: 13px;">
-                + Post Ad Now 🛡️
-            </button>
-        </div>
     </main>
 
-    <!-- Marketplace Section -->
-    <section id="marketplace" style="max-width: 1280px; margin: 0 auto; padding: 32px 24px;">
+    <!-- Browse-First Marketplace Section (Front and Center) -->
+    <section id="marketplace" style="max-width: 1280px; margin: 0 auto; padding: 0 24px 48px 24px;">
         <div style="display: flex; justify-content: space-between; align-items: center; background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px; margin-bottom: 24px;">
             <div>
-                <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase;">Public Marketplace</span>
-                <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 2px;">Verified Channel Listings</h2>
+                <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase;">Browse-First Marketplace</span>
+                <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 2px;">Active Verified Listings</h2>
             </div>
             <span style="padding: 6px 12px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-radius: 20px; font-size: 11px; font-weight: 700;">Protected by Escrow</span>
         </div>
 
+        <!-- Marketplace Cards Grid -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
             <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
                 <span style="padding: 2px 8px; background: #2563eb; color: #fff; border-radius: 6px; font-size: 10px; font-weight: 700;">Telegram</span>
                 <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 8px;">Crypto Hub</h3>
-                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 8px 0;">15,000 ETB</div>
+                <p style="font-size: 11px; color: #94a3b8; margin: 4px 0;">50,000 Subscribers • Crypto & NFT</p>
+                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 12px 0;">15,000 ETB</div>
                 <button onclick="alert('Initiating Secure Escrow Purchase')" style="width: 100%; padding: 10px; background: #2563eb; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">Buy Now</button>
             </div>
             <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
                 <span style="padding: 2px 8px; background: #db2777; color: #fff; border-radius: 6px; font-size: 10px; font-weight: 700;">TikTok</span>
                 <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 8px;">Habesha Trends</h3>
-                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 8px 0;">6,500 ETB</div>
+                <p style="font-size: 11px; color: #94a3b8; margin: 4px 0;">24,000 Followers • Education</p>
+                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 12px 0;">6,500 ETB</div>
                 <button onclick="alert('Initiating Secure Escrow Purchase')" style="width: 100%; padding: 10px; background: #db2777; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">Buy Now</button>
+            </div>
+            <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
+                <span style="padding: 2px 8px; background: #dc2626; color: #fff; border-radius: 6px; font-size: 10px; font-weight: 700;">YouTube</span>
+                <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 8px;">Sportsphere</h3>
+                <p style="font-size: 11px; color: #94a3b8; margin: 4px 0;">120,000 Subscribers • Monetized</p>
+                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 12px 0;">78,000 ETB</div>
+                <button onclick="alert('Initiating Secure Escrow Purchase')" style="width: 100%; padding: 10px; background: #dc2626; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">Buy Now</button>
             </div>
         </div>
     </section>
@@ -198,6 +203,7 @@
         let verifiedSellers = ['0911223344', '0912345678']; 
         let isCurrentSessionVerified = false;
 
+        // Browse first: modals are closed by default and triggered ONLY when clicking Post Ad
         function checkAndOpenSellerFlow() {
             if (isCurrentSessionVerified) {
                 openModal('listingModal');
