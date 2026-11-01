@@ -1,90 +1,199 @@
-<!-- One-Time Seller National ID Verification Modal (Pure KYC Step) -->
-<div id="sellerModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
-    <div class="bg-[#16203a] border border-slate-700/80 w-full max-w-xl rounded-3xl p-6 shadow-2xl relative space-y-5 max-h-[95vh] overflow-y-auto text-slate-100">
-        <button onclick="closeVerificationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amalaj Plus - Secured P2P Marketplace & Tool Rentals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#0b132b] text-slate-100 min-h-screen font-sans selection:bg-amber-500 selection:text-slate-950">
 
-        <div class="border-b border-slate-800 pb-3">
-            <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Anti-Scam Protection</span>
-            <h2 class="text-xl font-black text-white mt-1">One-Time Seller National ID Verification</h2>
-            <p class="text-[11px] text-slate-400 mt-0.5">Required only for your first listing. Existing users with registered phone numbers bypass this step automatically.</p>
+    <!-- Navigation Header -->
+    <nav class="bg-[#16203a]/90 backdrop-blur-md border-b border-slate-700/60 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="text-xl font-black text-white">Amalaj<span class="text-amber-400">Plus</span></span>
+            <div class="flex items-center space-x-4 text-xs font-semibold">
+                <button onclick="checkAndOpenSellerFlow('ALL')" class="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer">
+                    + Post Ad (Sell)
+                </button>
+            </div>
         </div>
+    </nav>
 
-        <form onsubmit="handleKYCSubmit(event)" class="space-y-4 text-xs">
-            <!-- Personal Identity Fields -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-300">Father's Full Name (የአባት ስም)</label>
-                    <input type="text" id="fatherName" placeholder="Enter father's name" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
-                </div>
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-300">Mother's Full Name (የእናት ስም)</label>
-                    <input type="text" id="motherName" placeholder="Enter mother's name" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
-                </div>
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-300">Phone Number (የስልክ ቁጥር)</label>
-                    <input type="tel" id="sellerPhone" placeholder="09... / 07..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
-                </div>
-                <div class="space-y-1">
-                    <label class="font-bold text-slate-300">Fayida National ID Number (16 Digits)</label>
-                    <input type="text" id="fayidaNum" maxlength="16" pattern="\d{16}" placeholder="16-digit Fayida number" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
-                </div>
+    <!-- Main Content Section -->
+    <main class="max-w-7xl mx-auto px-6 py-12 text-center space-y-6">
+        <div class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold">
+            ⚡ Secured Digital Asset & Tool Rental Ecosystem
+        </div>
+        <h1 class="text-3xl md:text-4xl font-black text-white">
+            Trade Digital Channels with <span class="text-amber-400">3-Day Escrow Protection</span>
+        </h1>
+        <p class="text-sm text-slate-400 max-w-xl mx-auto">
+            High-trust marketplace enforcing mandatory One-Time National ID (Fayida) seller verification.
+        </p>
+
+        <div class="pt-6">
+            <button onclick="checkAndOpenSellerFlow('ALL')" class="px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-2xl shadow-xl transition cursor-pointer text-sm">
+                Start Selling / Verification 🛡️
+            </button>
+        </div>
+    </main>
+
+    <!-- STEP 1: One-Time Seller National ID (Fayida) Verification Modal -->
+    <div id="kycModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
+        <div class="bg-[#16203a] border border-amber-500/40 w-full max-w-xl rounded-3xl p-6 shadow-2xl relative space-y-5 max-h-[95vh] overflow-y-auto text-slate-100">
+            <button onclick="closeModal('kycModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="border-b border-slate-800 pb-3">
+                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Step 1: Identity Verification</span>
+                <h2 class="text-xl font-black text-white mt-1">One-Time Seller National ID Verification</h2>
+                <p class="text-[11px] text-slate-400 mt-0.5">Enter your details once. Existing sellers with registered phone numbers bypass this step automatically.</p>
             </div>
 
-            <!-- National ID Photo Verification -->
-            <div class="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-4 space-y-3">
-                <div class="flex items-center gap-2 text-amber-400 font-bold">
-                    <i class="fa-solid fa-id-card"></i>
-                    <span>National ID / Fayida Photo Verification</span>
+            <form onsubmit="handleKYCSubmit(event)" class="space-y-4 text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Father's Full Name (የአባት ስም)</label>
+                        <input type="text" id="fatherName" placeholder="Enter father's name" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Mother's Full Name (የእናት ስም)</label>
+                        <input type="text" id="motherName" placeholder="Enter mother's name" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Phone Number (የስልክ ቁጥር)</label>
+                        <input type="tel" id="sellerPhone" placeholder="09... / 07..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Fayida National ID Number (16 Digits)</label>
+                        <input type="text" id="fayidaNum" maxlength="16" pattern="\d{16}" placeholder="16-digit Fayida number" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 outline-none" required />
+                    </div>
                 </div>
-                <p class="text-[10px] text-slate-400">Upload clear images of your official ID to prevent fraud and protect buyers.</p>
+
+                <div class="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center gap-2 text-amber-400 font-bold">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>National ID / Fayida Photo Verification</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-300 text-[11px]">ID Front Side *</label>
+                            <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="font-bold text-slate-300 text-[11px]">ID Back Side *</label>
+                            <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-xs">
+                    Verify Identity & Continue 🛡️
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- STEP 2: Platform-Specific Channel Listing Modal -->
+    <div id="listingModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
+        <div class="bg-[#16203a] border border-emerald-500/40 w-full max-w-2xl rounded-3xl p-6 shadow-2xl relative space-y-5 max-h-[95vh] overflow-y-auto text-slate-100">
+            <button onclick="closeModal('listingModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="border-b border-slate-800 pb-3">
+                <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Step 2: Post Channel Listing</span>
+                <h2 class="text-xl font-black text-white mt-1" id="listingPlatformTitle">Post Channel Listing</h2>
+                <p class="text-[11px] text-slate-400 mt-0.5">Verified Seller Active. Complete your asset listing information.</p>
+            </div>
+
+            <form onsubmit="handleListingSubmit(event)" class="space-y-4 text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Channel / Page / Account Name</label>
+                        <input type="text" placeholder="e.g. Habesha Tech" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-emerald-500 outline-none" required />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Asking Price (ETB)</label>
+                        <input type="text" placeholder="e.g. 25000 ETB" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-emerald-500 outline-none" required />
+                    </div>
+                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div class="space-y-1">
-                        <label class="font-bold text-slate-300 text-[11px]">ID Front Side *</label>
-                        <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+                        <label class="font-bold text-slate-300">Channel Link (URL)</label>
+                        <input type="url" placeholder="https://t.me/..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-emerald-500 outline-none" required />
                     </div>
                     <div class="space-y-1">
-                        <label class="font-bold text-slate-300 text-[11px]">ID Back Side *</label>
-                        <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+                        <label class="font-bold text-slate-300">Followers Count</label>
+                        <input type="number" placeholder="e.g. 15000" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white focus:border-emerald-500 outline-none" required />
                     </div>
                 </div>
-            </div>
 
-            <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-xs">
-                Verify Identity & Continue 🛡️
-            </button>
-        </form>
+                <div class="space-y-1">
+                    <label class="font-bold text-slate-300">Dashboard Screenshot (Analytics Proof)</label>
+                    <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-500 file:text-slate-950 hover:file:bg-emerald-400 cursor-pointer" />
+                </div>
+
+                <div class="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-[11px] text-emerald-300">
+                    🛡️ <b>3-Day Escrow Protection:</b> Funds are held in escrow for 3 days to verify credential recovery before payout release to seller.
+                </div>
+
+                <button type="submit" class="w-full py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-xs">
+                    Publish Channel Ad to Marketplace 🚀
+                </button>
+            </form>
+        </div>
     </div>
-</div>
 
-<script>
-    let registeredPhones = ['0911223344']; // Simulated database for existing users
+    <script>
+        // Simulated database of registered seller phone numbers
+        let verifiedSellers = ['0911223344', '0912345678']; 
+        let isCurrentSessionVerified = false;
 
-    function openVerificationModal() {
-        document.getElementById('sellerModal').classList.remove('hidden');
-        document.getElementById('sellerModal').classList.add('flex');
-    }
-
-    function closeVerificationModal() {
-        document.getElementById('sellerModal').classList.add('hidden');
-        document.getElementById('sellerModal').classList.remove('flex');
-    }
-
-    function handleKYCSubmit(e) {
-        e.preventDefault();
-        const phone = document.getElementById('sellerPhone').value;
-        const fayida = document.getElementById('fayidaNum').value;
-
-        // Check if phone number already exists (Existing User check)
-        if (registeredPhones.includes(phone)) {
-            alert('Welcome back! Your phone number is already verified as an existing seller. Proceeding to post ad.');
-        } else {
-            registeredPhones.push(phone);
-            alert(`Identity successfully verified for Fayida ID: ${fayida}! You are now registered.`);
+        function checkAndOpenSellerFlow(platform) {
+            if (isCurrentSessionVerified) {
+                openModal('listingModal');
+            } else {
+                openModal('kycModal');
+            }
         }
 
-        closeVerificationModal();
-    }
-</script>
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        }
+
+        function handleKYCSubmit(e) {
+            e.preventDefault();
+            const phone = document.getElementById('sellerPhone').value;
+            const fayida = document.getElementById('fayidaNum').value;
+
+            if (verifiedSellers.includes(phone)) {
+                alert(`Welcome back! Phone number ${phone} is already registered and verified. Skipping KYC.`);
+            } else {
+                verifiedSellers.push(phone);
+                alert(`Verification successful! Fayida ID ${fayida} registered securely.`);
+            }
+
+            isCurrentSessionVerified = true;
+            closeModal('kycModal');
+            openModal('listingModal');
+        }
+
+        function handleListingSubmit(e) {
+            e.preventDefault();
+            alert('Your channel ad has been submitted and is protected under the 3-day Escrow window!');
+            closeModal('listingModal');
+        }
+    </script>
+</body>
+</html>
