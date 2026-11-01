@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                <!-- ID Photo Upload Box with Strict Validation -->
+                <!-- ID Photo Upload Box with Strict Image Validation -->
                 <div class="upload-box">
                     <div style="display: flex; align-items: center; gap: 8px; color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 8px;">
                         <i class="fa-solid fa-id-card"></i>
@@ -254,9 +254,14 @@
                 return;
             }
 
-            // 2. Strict ID Photo Validation
+            // 2. Strict ID Photo & File Type Validation (ማንኛውም የዘፈቀደ ፋይል እንዳያልፍ መከላከል)
             if (!frontFile || !backFile) {
                 alert("ስህተት: እባክዎ የመታወቂያዎን ፊት (Front) እና ጀርባ (Back) ፎቶዎች በትክክል ይጫኑ!");
+                return;
+            }
+
+            if (!frontFile.type.startsWith('image/') || !backFile.type.startsWith('image/')) {
+                alert("ስህተት: እባክዎ ትክክለኛ የፎቶ ፋይል (JPEG/PNG) ብቻ ይጫኑ! ሌላ ፋይል መቀበል አይቻልም።");
                 return;
             }
 
