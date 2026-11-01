@@ -142,16 +142,16 @@
             <form onsubmit="handleKYCSubmit(event)">
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label">Father's Full Name (የአባት ስም)</label>
-                        <input type="text" id="fatherName" placeholder="Enter father's full name" class="form-input" required />
+                        <label class="form-label">Full Name (የአመልካች ሙሉ ስም)</label>
+                        <input type="text" id="fullName" placeholder="Enter full name" class="form-input" required />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Mother's Full Name (የእናት ስም)</label>
                         <input type="text" id="motherName" placeholder="Enter mother's full name" class="form-input" required />
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Phone Number (የስልክ ቁጥር)</label>
-                        <input type="tel" id="sellerPhone" placeholder="09... / 07..." class="form-input" required />
+                        <label class="form-label">Phone Number (የስልክ ቁጥር - 09/07)</label>
+                        <input type="tel" id="sellerPhone" placeholder="09XXXXXXXX / 07XXXXXXXX" class="form-input" required />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Fayida ID (16 Digits)</label>
@@ -208,10 +208,10 @@
     </div>
 
     <script>
-        // Anti-Fraud Storage Lock using LocalStorage to persist verified records securely
+        // Anti-Fraud Storage Lock using LocalStorage
         function getVerifiedSellers() {
             let stored = localStorage.getItem('amalaj_verified_sellers');
-            return stored ? JSON.parse(stored) : ['0911223344', '0912345678'];
+            return stored ? JSON.parse(stored) : [];
         }
 
         function saveVerifiedSeller(phone, fayida) {
@@ -222,25 +222,27 @@
             }
         }
 
-        function isSellerVerified(phone, fayida) {
-            let data = getVerifiedSellers();
-            return data.some(item => item.phone === phone || item.fayida === fayida);
-        }
-
         function checkAndOpenSellerFlow() {
-            const phoneCheck = prompt("እባክዎ የተመዘገቡበትን ስልክ ቁጥር ያስገቡ (+251... / 09...):");
+            const phoneCheck = prompt("እባክዎ የተመዘገቡበትን ስልክ ቁጥር ያስገቡ (በ 09 ወይም 07 ይጀምር):");
             if (!phoneCheck) return;
 
+            let cleanPhone = phoneCheck.trim();
+            // Strict Ethiopian Phone Check for Prompt
+            const ethiopianPhoneRegex = /^(09|07)\d{8}$/;
+            if (!ethiopianPhoneRegex.test(cleanPhone)) {
+                alert("ስህተት: ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ (በ 09 ወይም 07 የሚጀምር 10 አሃዝ ሊሆን ይገባል)!");
+                return;
+            }
+
             let data = getVerifiedSellers();
-            let found = data.find(item => item.phone === phoneCheck.trim());
+            let found = data.find(item => item.phone === cleanPhone);
 
             if (found) {
                 alert("እንኳን ደህና መጡ! ነባር ተጠቃሚ ስለሆኑ ኬዋይሲ በራስ-ሰር አልፏል።");
                 openModal('listingModal');
             } else {
-                // Pre-fill phone if possible or open kyc
                 openModal('kycModal');
-                document.getElementById('sellerPhone').value = phoneCheck.trim();
+                document.getElementById('sellerPhone').value = cleanPhone;
             }
         }
 
@@ -263,35 +265,46 @@
             e.preventDefault();
             const phone = document.getElementById('sellerPhone').value.trim();
             const fayidaNum = document.getElementById('fayidaNum').value.trim();
-            const father = document.getElementById('fatherName').value.trim();
+            const fullName = document.getElementById('fullName').value.trim();
             const mother = document.getElementById('motherName').value.trim();
             const frontFile = document.getElementById('idFrontInput').files[0];
             const backFile = document.getElementById('idBackInput').files[0];
 
-            // 1. Strict Anti-Fraud Duplicate Check (Phone or Fayida already used)
+            // 1. Strict Ethiopian Phone Number Format Validation (09 or 07, exactly 10 digits)
+            const phoneRegex = /^(09|07)\d{8}$/;
+            if (!phoneRegex.test(phone)) {
+                alert("ስህተት: ስልክ ቁጥሩ በ 09 ወይም በ 07 መጀመር እና በትክክል 10 አሃዝ መሆን አለበት! (ለምሳሌ: 0911223344)");
+                return;
+            }
+
+            // 2. Strict Anti-Fraud Duplicate Check (Phone or Fayida already used)
             let allSellers = getVerifiedSellers();
             if (allSellers.some(item => item.phone === phone)) {
                 alert("ስህተት: ይህ ስልክ ቁጥር ቀደም ብሎ በሌላ መታወቂያ ተመዝግቧል! ማጭበርበር የተከለከለ ነው።");
                 return;
             }
             if (allSellers.some(item => item.fayida === fayidaNum)) {
-                alert("ስህተት: ይህ የፋይዳ መታወቂያ ቁጥር ቀደም ብሎ ተመዝግቧል! አንድ መታወቂያ ለአንድ አካውንት ብቻ ነው።");
+                alert("ስህተት: ይህ የፋይዳ መታወቂያ ቁጥር ቀደም ብሎ ተመዝግቧል! አንድ መታወቂያ ለአንድ አካውንት ብቻ ነው የሚፈቀደው።");
                 return;
             }
 
-            // 2. Strict 16-Digit Fayida Number Validation
+            // 3. Strict 16-Digit Fayida Number Validation
             if (fayidaNum.length !== 16 || !/^\d+$/.test(fayidaNum)) {
                 alert("ስህተት: የፋይዳ መታወቂያ ቁጥር በትክክል 16 አሃዝ ቁጥር መሆን አለበት!");
                 return;
             }
 
-            // 3. Strict Name and Field Validation (Prevent single word or fake texts like 'Boss')
-            if (father.length < 3 || mother.length < 3) {
-                alert("ስህተት: እባክዎ ትክክለኛ ሙሉ የክብር ስም ያስገቡ!");
+            // 4. Strict Full Name & Mother Name Validation (Prevent fake texts like '1234' or 'Boss')
+            if (fullName.length < 4 || /^\d+$/.test(fullName) || fullName.toLowerCase() === 'boss') {
+                alert("ስህተት: እባክዎ ትክክለኛ ሙሉ ስምዎን ያስገቡ (የውሸት ስም ወይም ቁጥር መጠቀም አይቻልም)!");
+                return;
+            }
+            if (mother.length < 3 || /^\d+$/.test(mother)) {
+                alert("ስህተት: እባክዎ ትክክለኛ የእናት ስም ያስገቡ!");
                 return;
             }
 
-            // 4. Strict Image File Type Validation
+            // 5. Strict Image File Type Validation
             if (!frontFile || !backFile) {
                 alert("ስህተት: እባክዎ የመታወቂያዎን ፊት (Front) እና ጀርባ (Back) ፎቶዎች በትክክል ይጫኑ!");
                 return;
