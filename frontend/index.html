@@ -46,52 +46,82 @@
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-            <div onclick="filterPlatform('ALL')" class="bg-[#16203a] border-2 border-amber-500 hover:bg-amber-500/10 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
-                <div class="w-10 h-10 mx-auto rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-lg font-bold">
-                    <i class="fa-solid fa-layer-group"></i>
+            <!-- Telegram Card -->
+            <div class="bg-[#16203a] border border-blue-500/40 hover:border-blue-500 rounded-2xl p-4 text-center space-y-2 shadow-xl transition transform hover:-translate-y-1">
+                <div onclick="filterPlatform('Telegram')" class="cursor-pointer space-y-2">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-lg font-bold">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <div class="font-black text-white text-xs">Telegram</div>
                 </div>
-                <div class="font-black text-white text-xs">All Platforms</div>
-                <span class="inline-block px-2 py-0.5 bg-amber-500 text-slate-950 text-[10px] font-bold rounded-full">Browse Listings</span>
+                <button onclick="openVerificationModal()" class="w-full py-1 bg-blue-600 hover:bg-blue-500 text-white text-[10px] font-bold rounded-lg transition cursor-pointer">
+                    + Post Ad
+                </button>
             </div>
 
-            <div onclick="filterPlatform('Telegram')" class="bg-[#16203a] border border-blue-500/40 hover:border-blue-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
-                <div class="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-lg font-bold">
-                    <i class="fa-brands fa-telegram"></i>
+            <!-- YouTube Card -->
+            <div class="bg-[#16203a] border border-red-500/40 hover:border-red-500 rounded-2xl p-4 text-center space-y-2 shadow-xl transition transform hover:-translate-y-1">
+                <div onclick="filterPlatform('YouTube')" class="cursor-pointer space-y-2">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 text-lg font-bold">
+                        <i class="fa-brands fa-youtube"></i>
+                    </div>
+                    <div class="font-black text-white text-xs">YouTube</div>
                 </div>
-                <div class="font-black text-white text-xs">Telegram</div>
-                <span class="inline-block px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+                <button onclick="openVerificationModal()" class="w-full py-1 bg-red-600 hover:bg-red-500 text-white text-[10px] font-bold rounded-lg transition cursor-pointer">
+                    + Post Ad
+                </button>
             </div>
 
-            <div onclick="filterPlatform('YouTube')" class="bg-[#16203a] border border-red-500/40 hover:border-red-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
-                <div class="w-10 h-10 mx-auto rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 text-lg font-bold">
-                    <i class="fa-brands fa-youtube"></i>
+            <!-- TikTok Card -->
+            <div class="bg-[#16203a] border border-pink-500/40 hover:border-pink-500 rounded-2xl p-4 text-center space-y-2 shadow-xl transition transform hover:-translate-y-1">
+                <div onclick="filterPlatform('TikTok')" class="cursor-pointer space-y-2">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-lg font-bold">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </div>
+                    <div class="font-black text-white text-xs">TikTok</div>
                 </div>
-                <div class="font-black text-white text-xs">YouTube</div>
-                <span class="inline-block px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+                <button onclick="openVerificationModal()" class="w-full py-1 bg-pink-600 hover:bg-pink-500 text-white text-[10px] font-bold rounded-lg transition cursor-pointer">
+                    + Post Ad
+                </button>
             </div>
 
-            <div onclick="filterPlatform('TikTok')" class="bg-[#16203a] border border-pink-500/40 hover:border-pink-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
-                <div class="w-10 h-10 mx-auto rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-lg font-bold">
-                    <i class="fa-brands fa-tiktok"></i>
+            <!-- Instagram Card -->
+            <div class="bg-[#16203a] border border-purple-500/40 hover:border-purple-500 rounded-2xl p-4 text-center space-y-2 shadow-xl transition transform hover:-translate-y-1">
+                <div onclick="filterPlatform('Instagram')" class="cursor-pointer space-y-2">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 flex items-center justify-center text-white text-lg font-bold">
+                        <i class="fa-brands fa-instagram"></i>
+                    </div>
+                    <div class="font-black text-white text-xs">Instagram</div>
                 </div>
-                <div class="font-black text-white text-xs">TikTok</div>
-                <span class="inline-block px-2 py-0.5 bg-pink-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+                <button onclick="openVerificationModal()" class="w-full py-1 bg-purple-600 hover:bg-purple-500 text-white text-[10px] font-bold rounded-lg transition cursor-pointer">
+                    + Post Ad
+                </button>
             </div>
 
-            <div onclick="filterPlatform('Instagram')" class="bg-[#16203a] border border-purple-500/40 hover:border-purple-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
-                <div class="w-10 h-10 mx-auto rounded-xl bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 flex items-center justify-center text-white text-lg font-bold">
-                    <i class="fa-brands fa-instagram"></i>
+            <!-- Facebook Card -->
+            <div class="bg-[#16203a] border border-blue-600/40 hover:border-blue-600 rounded-2xl p-4 text-center space-y-2 shadow-xl transition transform hover:-translate-y-1">
+                <div onclick="filterPlatform('Facebook')" class="cursor-pointer space-y-2">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500 text-lg font-bold">
+                        <i class="fa-brands fa-facebook"></i>
+                    </div>
+                    <div class="font-black text-white text-xs">Facebook</div>
                 </div>
-                <div class="font-black text-white text-xs">Instagram</div>
-                <span class="inline-block px-2 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+                <button onclick="openVerificationModal()" class="w-full py-1 bg-blue-700 hover:bg-blue-600 text-white text-[10px] font-bold rounded-lg transition cursor-pointer">
+                    + Post Ad
+                </button>
             </div>
 
-            <div onclick="filterPlatform('Facebook')" class="bg-[#16203a] border border-blue-600/40 hover:border-blue-600 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
-                <div class="w-10 h-10 mx-auto rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500 text-lg font-bold">
-                    <i class="fa-brands fa-facebook"></i>
+            <!-- All Platforms Card -->
+            <div class="bg-[#16203a] border-2 border-amber-500 hover:bg-amber-500/10 rounded-2xl p-4 text-center space-y-2 shadow-xl transition transform hover:-translate-y-1">
+                <div onclick="filterPlatform('ALL')" class="cursor-pointer space-y-2">
+                    <div class="w-10 h-10 mx-auto rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-lg font-bold">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div class="font-black text-white text-xs">All Platforms</div>
                 </div>
-                <div class="font-black text-white text-xs">Facebook</div>
-                <span class="inline-block px-2 py-0.5 bg-blue-700 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+                <button onclick="openVerificationModal()" class="w-full py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 text-[10px] font-black rounded-lg transition cursor-pointer">
+                    + Post Ad
+                </button>
             </div>
         </div>
     </section>
@@ -152,16 +182,11 @@
                 <div class="space-y-2">
                     <label class="font-bold text-slate-300">Select Platform</label>
                     <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
-                        {['Telegram', 'YouTube', 'TikTok', 'Instagram', 'Facebook'].map((p) => (
-                            <button
-                                type="button"
-                                key={p}
-                                onclick="selectPlatformModal(this, '${p}')"
-                                class="platform-btn py-2 rounded-xl font-bold border bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500 transition"
-                            >
-                                ${p}
-                            </button>
-                        ))}
+                        <button type="button" onclick="selectPlatformModal(this, 'Telegram')" class="platform-btn py-2 rounded-xl font-bold border bg-amber-500 text-slate-950 border-amber-400 transition">Telegram</button>
+                        <button type="button" onclick="selectPlatformModal(this, 'YouTube')" class="platform-btn py-2 rounded-xl font-bold border bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500 transition">YouTube</button>
+                        <button type="button" onclick="selectPlatformModal(this, 'TikTok')" class="platform-btn py-2 rounded-xl font-bold border bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500 transition">TikTok</button>
+                        <button type="button" onclick="selectPlatformModal(this, 'Instagram')" class="platform-btn py-2 rounded-xl font-bold border bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500 transition">Instagram</button>
+                        <button type="button" onclick="selectPlatformModal(this, 'Facebook')" class="platform-btn py-2 rounded-xl font-bold border bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500 transition">Facebook</button>
                     </div>
                 </div>
 
@@ -220,6 +245,15 @@
             e.preventDefault();
             alert('National ID & First-Time Listing submitted securely. Verification in progress!');
             closeVerificationModal();
+        }
+
+        function selectPlatformModal(btn, platformName) {
+            document.querySelectorAll('.platform-btn').forEach(b => {
+                b.classList.remove('bg-amber-500', 'text-slate-950', 'border-amber-400');
+                b.classList.add('bg-slate-900', 'text-slate-300', 'border-slate-800');
+            });
+            btn.classList.remove('bg-slate-900', 'text-slate-300', 'border-slate-800');
+            btn.classList.add('bg-amber-500', 'text-slate-950', 'border-amber-400');
         }
 
         function filterPlatform(platform) {
