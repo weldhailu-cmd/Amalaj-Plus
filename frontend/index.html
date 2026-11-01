@@ -45,66 +45,100 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <main style="max-width: 1280px; margin: 0 auto; padding: 48px 24px; text-align: center;">
-        <div style="display: inline-block; padding: 6px 16px; background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); border-radius: 50px; font-size: 11px; font-weight: 700; margin-bottom: 16px;">
-            ⚡ Secured Digital Asset & Tool Rental Ecosystem
+    <!-- Main Browse-First Marketplace Section (Directly on Home Page) -->
+    <main id="marketplace" style="max-width: 1280px; margin: 0 auto; padding: 32px 24px; space-y-8;">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <div style="display: inline-block; padding: 6px 16px; background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.2); border-radius: 50px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
+                ⚡ Secured Digital Asset & Tool Rental Ecosystem
+            </div>
+            <h1 style="font-size: 30px; font-weight: 900; margin-bottom: 8px;">
+                Trade Digital Channels & Rent Repair Software with <span style="color: #fbbf24;">Escrow Protection</span>
+            </h1>
+            <p style="font-size: 12px; color: #94a3b8; max-width: 500px; margin: 0 auto;">
+                Browse verified platform listings below freely. Sellers complete One-Time Fayida KYC verification only when posting ads.
+            </p>
         </div>
-        <h1 style="font-size: 34px; font-weight: 900; margin-bottom: 12px;">
-            Trade Digital Channels & Rent Repair Software with <span style="color: #fbbf24;">Escrow Protection</span>
-        </h1>
-        <p style="font-size: 13px; color: #94a3b8; max-width: 550px; margin: 0 auto 32px auto;">
-            Browse verified marketplace listings freely as a buyer or seller. Secure transactions protected by Escrow and mandatory One-Time Fayida KYC verification for sellers.
-        </p>
+
+        {/* Platform Selection Cards */}
+        <div style="margin-bottom: 24px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <h2 style="font-size: 14px; font-weight: 900; color: #fff;">Select Platform to Browse Listings</h2>
+                <span style="font-size: 11px; color: #fbbf24; font-weight: 700;">Verified Channels & Accounts</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+                <div onclick="filterPlatform('ALL')" style="background: #16203a; border: 2px solid #f59e0b; border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 16px; color: #fbbf24; margin-bottom: 4px;"><i class="fa-solid fa-layer-group"></i></div>
+                    <div style="font-weight: 900; color: #fff; font-size: 12px;">All Platforms</div>
+                </div>
+                <div onclick="filterPlatform('Telegram')" style="background: #16203a; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 16px; color: #3b82f6; margin-bottom: 4px;"><i class="fa-brands fa-telegram"></i></div>
+                    <div style="font-weight: 900; color: #fff; font-size: 12px;">Telegram</div>
+                </div>
+                <div onclick="filterPlatform('YouTube')" style="background: #16203a; border: 1px solid rgba(239, 68, 68, 0.4); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 16px; color: #ef4444; margin-bottom: 4px;"><i class="fa-brands fa-youtube"></i></div>
+                    <div style="font-weight: 900; color: #fff; font-size: 12px;">YouTube</div>
+                </div>
+                <div onclick="filterPlatform('TikTok')" style="background: #16203a; border: 1px solid rgba(236, 72, 153, 0.4); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 16px; color: #ec4899; margin-bottom: 4px;"><i class="fa-brands fa-tiktok"></i></div>
+                    <div style="font-weight: 900; color: #fff; font-size: 12px;">TikTok</div>
+                </div>
+                <div onclick="filterPlatform('Instagram')" style="background: #16203a; border: 1px solid rgba(168, 85, 247, 0.4); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 16px; color: #a855f7; margin-bottom: 4px;"><i class="fa-brands fa-instagram"></i></div>
+                    <div style="font-weight: 900; color: #fff; font-size: 12px;">Instagram</div>
+                </div>
+                <div onclick="filterPlatform('Facebook')" style="background: #16203a; border: 1px solid rgba(37, 99, 235, 0.4); border-radius: 16px; padding: 16px; text-align: center; cursor: pointer; transition: 0.2s;">
+                    <div style="font-size: 16px; color: #2563eb; margin-bottom: 4px;"><i class="fa-brands fa-facebook"></i></div>
+                    <div style="font-weight: 900; color: #fff; font-size: 12px;">Facebook</div>
+                </div>
+            </div>
+        </div>
+
+        {/* Listings Cards Grid */}
+        <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid #1e293b; padding-bottom: 12px;">
+                <div>
+                    <span id="activePlatformLabel" style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase;">ALL PLATFORMS ACTIVE</span>
+                    <h2 style="font-size: 16px; font-weight: 900; color: #fff; margin-top: 2px;">Verified Marketplace Listings</h2>
+                </div>
+                <span style="padding: 4px 10px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-radius: 20px; font-size: 10px; font-weight: 700;">Protected by Escrow</span>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+                <div class="listing-card" data-platform="Telegram" style="background: #090d16; border: 1px solid #1e293b; border-radius: 16px; padding: 16px;">
+                    <span style="padding: 2px 8px; background: #2563eb; color: #fff; border-radius: 6px; font-size: 9px; font-weight: 700;">Telegram</span>
+                    <h3 style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 6px;">Crypto Hub</h3>
+                    <p style="font-size: 10px; color: #94a3b8; margin: 2px 0;">50K Subscribers • Crypto</p>
+                    <div style="font-size: 15px; font-weight: 900; color: #fbbf24; margin: 8px 0;">15,000 ETB</div>
+                    <button onclick="alert('Initiating Escrow Purchase')" style="width: 100%; padding: 8px; background: #2563eb; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 11px; cursor: pointer;">Buy Now</button>
+                </div>
+                <div class="listing-card" data-platform="YouTube" style="background: #090d16; border: 1px solid #1e293b; border-radius: 16px; padding: 16px;">
+                    <span style="padding: 2px 8px; background: #dc2626; color: #fff; border-radius: 6px; font-size: 9px; font-weight: 700;">YouTube</span>
+                    <h3 style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 6px;">Sportsphere</h3>
+                    <p style="font-size: 10px; color: #94a3b8; margin: 2px 0;">303K Subs • Monetized</p>
+                    <div style="font-size: 15px; font-weight: 900; color: #fbbf24; margin: 8px 0;">78,000 ETB</div>
+                    <button onclick="alert('Initiating Escrow Purchase')" style="width: 100%; padding: 8px; background: #dc2626; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 11px; cursor: pointer;">Buy Now</button>
+                </div>
+                <div class="listing-card" data-platform="TikTok" style="background: #090d16; border: 1px solid #1e293b; border-radius: 16px; padding: 16px;">
+                    <span style="padding: 2px 8px; background: #db2777; color: #fff; border-radius: 6px; font-size: 9px; font-weight: 700;">TikTok</span>
+                    <h3 style="font-size: 14px; font-weight: 800; color: #fff; margin-top: 6px;">Habesha Trends</h3>
+                    <p style="font-size: 10px; color: #94a3b8; margin: 2px 0;">45K Followers • Education</p>
+                    <div style="font-size: 15px; font-weight: 900; color: #fbbf24; margin: 8px 0;">6,500 ETB</div>
+                    <button onclick="alert('Initiating Escrow Purchase')" style="width: 100%; padding: 8px; background: #db2777; color: #fff; border: none; border-radius: 8px; font-weight: 700; font-size: 11px; cursor: pointer;">Buy Now</button>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <!-- Browse-First Marketplace Section (Front and Center) -->
-    <section id="marketplace" style="max-width: 1280px; margin: 0 auto; padding: 0 24px 48px 24px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px; margin-bottom: 24px;">
-            <div>
-                <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase;">Browse-First Marketplace</span>
-                <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 2px;">Active Verified Listings</h2>
-            </div>
-            <span style="padding: 6px 12px; background: rgba(16, 185, 129, 0.1); color: #34d399; border-radius: 20px; font-size: 11px; font-weight: 700;">Protected by Escrow</span>
-        </div>
-
-        <!-- Marketplace Cards Grid -->
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
-            <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
-                <span style="padding: 2px 8px; background: #2563eb; color: #fff; border-radius: 6px; font-size: 10px; font-weight: 700;">Telegram</span>
-                <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 8px;">Crypto Hub</h3>
-                <p style="font-size: 11px; color: #94a3b8; margin: 4px 0;">50,000 Subscribers • Crypto & NFT</p>
-                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 12px 0;">15,000 ETB</div>
-                <button onclick="alert('Initiating Secure Escrow Purchase')" style="width: 100%; padding: 10px; background: #2563eb; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">Buy Now</button>
-            </div>
-            <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
-                <span style="padding: 2px 8px; background: #db2777; color: #fff; border-radius: 6px; font-size: 10px; font-weight: 700;">TikTok</span>
-                <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 8px;">Habesha Trends</h3>
-                <p style="font-size: 11px; color: #94a3b8; margin: 4px 0;">24,000 Followers • Education</p>
-                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 12px 0;">6,500 ETB</div>
-                <button onclick="alert('Initiating Secure Escrow Purchase')" style="width: 100%; padding: 10px; background: #db2777; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">Buy Now</button>
-            </div>
-            <div style="background: #16203a; border: 1px solid #334155; border-radius: 20px; padding: 20px;">
-                <span style="padding: 2px 8px; background: #dc2626; color: #fff; border-radius: 6px; font-size: 10px; font-weight: 700;">YouTube</span>
-                <h3 style="font-size: 15px; font-weight: 800; color: #fff; margin-top: 8px;">Sportsphere</h3>
-                <p style="font-size: 11px; color: #94a3b8; margin: 4px 0;">120,000 Subscribers • Monetized</p>
-                <div style="font-size: 16px; font-weight: 900; color: #fbbf24; margin: 12px 0;">78,000 ETB</div>
-                <button onclick="alert('Initiating Secure Escrow Purchase')" style="width: 100%; padding: 10px; background: #dc2626; color: #fff; border: none; border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer;">Buy Now</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- STEP 1: One-Time Seller National ID (Fayida) Verification Modal -->
+    <!-- STEP 1: KYC Modal -->
     <div id="kycModal" class="modal-overlay">
         <div class="modal-box">
             <button onclick="closeModal('kycModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-
             <div style="border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px;">
-                <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Step 1: Identity Verification</span>
+                <span style="font-size: 10px; color: #fbbf24; font-weight: 700; text-transform: uppercase;">Step 1: Identity Verification</span>
                 <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 4px;">One-Time Seller National ID Verification</h2>
-                <p style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Enter your details once. Existing sellers bypass this step automatically.</p>
+                <p style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Enter your details once. Existing sellers bypass automatically.</p>
             </div>
-
             <form onsubmit="handleKYCSubmit(event)">
                 <div class="grid-2">
                     <div class="form-group">
@@ -124,42 +158,20 @@
                         <input type="text" id="fayidaNum" maxlength="16" pattern="\d{16}" placeholder="16-digit Fayida number" class="form-input" required />
                     </div>
                 </div>
-
-                <div class="upload-box">
-                    <div style="display: flex; align-items: center; gap: 8px; color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 8px;">
-                        <i class="fa-solid fa-id-card"></i>
-                        <span>National ID / Fayida Photo Verification</span>
-                    </div>
-                    <div class="grid-2">
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label class="form-label">ID Front Side *</label>
-                            <input type="file" required style="font-size: 10px; color: #94a3b8;" />
-                        </div>
-                        <div class="form-group" style="margin-bottom: 0;">
-                            <label class="form-label">ID Back Side *</label>
-                            <input type="file" required style="font-size: 10px; color: #94a3b8;" />
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 12px; font-size: 12px;">
-                    Verify Identity & Continue 🛡️
-                </button>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 16px; padding: 12px; font-size: 12px;">Verify Identity & Continue 🛡️</button>
             </form>
         </div>
     </div>
 
-    <!-- STEP 2: Platform-Specific Channel Listing Modal -->
+    <!-- STEP 2: Listing Modal -->
     <div id="listingModal" class="modal-overlay">
         <div class="modal-box" style="border-color: rgba(16, 185, 129, 0.4);">
             <button onclick="closeModal('listingModal')" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
-
             <div style="border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-bottom: 16px;">
-                <span style="font-size: 10px; color: #34d399; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Step 2: Post Channel Listing</span>
+                <span style="font-size: 10px; color: #34d399; font-weight: 700; text-transform: uppercase;">Step 2: Post Channel Listing</span>
                 <h2 style="font-size: 18px; font-weight: 900; color: #fff; margin-top: 4px;">Post Channel Listing</h2>
                 <p style="font-size: 11px; color: #94a3b8; margin-top: 2px;">Verified Seller Active. Complete your asset listing information.</p>
             </div>
-
             <form onsubmit="handleListingSubmit(event)">
                 <div class="grid-2">
                     <div class="form-group">
@@ -171,30 +183,7 @@
                         <input type="text" placeholder="e.g. 25000 ETB" class="form-input" required />
                     </div>
                 </div>
-
-                <div class="grid-2">
-                    <div class="form-group">
-                        <label class="form-label">Channel Link (URL)</label>
-                        <input type="url" placeholder="https://t.me/..." class="form-input" required />
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Followers Count</label>
-                        <input type="number" placeholder="e.g. 15000" class="form-input" required />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Dashboard Screenshot (Analytics Proof)</label>
-                    <input type="file" required style="font-size: 10px; color: #94a3b8;" />
-                </div>
-
-                <div style="padding: 10px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 12px; font-size: 11px; color: #34d399; margin-bottom: 14px;">
-                    🛡️ <b>Escrow Protection:</b> Funds are held securely to verify credential handover before payout release.
-                </div>
-
-                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 12px; background: linear-gradient(135deg, #059669, #34d399); color: #022c22;">
-                    Publish Channel Ad to Marketplace 🚀
-                </button>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 12px; background: linear-gradient(135deg, #059669, #34d399); color: #022c22;">Publish Channel Ad 🚀</button>
             </form>
         </div>
     </div>
@@ -203,7 +192,6 @@
         let verifiedSellers = ['0911223344', '0912345678']; 
         let isCurrentSessionVerified = false;
 
-        // Browse first: modals are closed by default and triggered ONLY when clicking Post Ad
         function checkAndOpenSellerFlow() {
             if (isCurrentSessionVerified) {
                 openModal('listingModal');
@@ -212,26 +200,25 @@
             }
         }
 
-        function openModal(id) {
-            document.getElementById(id).style.display = 'flex';
-        }
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
+        function filterPlatform(platform) {
+            document.getElementById('activePlatformLabel').innerText = platform + " ACTIVE";
+            let cards = document.querySelectorAll('.listing-card');
+            cards.forEach(card => {
+                if (platform === 'ALL' || card.getAttribute('data-platform') === platform) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
         }
 
         function handleKYCSubmit(e) {
             e.preventDefault();
             const phone = document.getElementById('sellerPhone').value;
-            const fayida = document.getElementById('fayidaNum').value;
-
-            if (verifiedSellers.includes(phone)) {
-                alert(`Welcome back! Phone number ${phone} is already registered. Skipping KYC.`);
-            } else {
-                verifiedSellers.push(phone);
-                alert(`Verification successful! Fayida ID ${fayida} registered securely.`);
-            }
-
+            if (!verifiedSellers.includes(phone)) verifiedSellers.push(phone);
             isCurrentSessionVerified = true;
             closeModal('kycModal');
             openModal('listingModal');
@@ -239,7 +226,7 @@
 
         function handleListingSubmit(e) {
             e.preventDefault();
-            alert('Your channel ad has been submitted successfully under Escrow protection!');
+            alert('Your channel ad has been published successfully!');
             closeModal('listingModal');
         }
     </script>
