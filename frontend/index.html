@@ -155,11 +155,11 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Fayida ID (16 Digits)</label>
-                        <input type="text" id="fayidaNum" maxlength="16" pattern="\d{16}" placeholder="16-digit Fayida number" class="form-input" required />
+                        <input type="text" id="fayidaNum" maxlength="16" placeholder="16-digit Fayida number" class="form-input" required />
                     </div>
                 </div>
 
-                <!-- ID Photo Upload Box with Strict Image Validation -->
+                <!-- ID Photo Upload Box with Strict Validation -->
                 <div class="upload-box">
                     <div style="display: flex; align-items: center; gap: 8px; color: #fbbf24; font-weight: 700; font-size: 11px; margin-bottom: 8px;">
                         <i class="fa-solid fa-id-card"></i>
@@ -208,21 +208,39 @@
     </div>
 
     <script>
-        // Verified Sellers Database (Locked & Tracked by Phone Number)
-        let verifiedSellers = ['0911223344', '0912345678']; 
-        let currentVerifiedPhone = null;
+        // Anti-Fraud Storage Lock using LocalStorage to persist verified records securely
+        function getVerifiedSellers() {
+            let stored = localStorage.getItem('amalaj_verified_sellers');
+            return stored ? JSON.parse(stored) : ['0911223344', '0912345678'];
+        }
+
+        function saveVerifiedSeller(phone, fayida) {
+            let data = getVerifiedSellers();
+            if (!data.some(item => item.phone === phone || item.fayida === fayida)) {
+                data.push({ phone: phone, fayida: fayida });
+                localStorage.setItem('amalaj_verified_sellers', JSON.stringify(data));
+            }
+        }
+
+        function isSellerVerified(phone, fayida) {
+            let data = getVerifiedSellers();
+            return data.some(item => item.phone === phone || item.fayida === fayida);
+        }
 
         function checkAndOpenSellerFlow() {
             const phoneCheck = prompt("እባክዎ የተመዘገቡበትን ስልክ ቁጥር ያስገቡ (+251... / 09...):");
             if (!phoneCheck) return;
 
-            if (verifiedSellers.includes(phoneCheck)) {
-                currentVerifiedPhone = phoneCheck;
+            let data = getVerifiedSellers();
+            let found = data.find(item => item.phone === phoneCheck.trim());
+
+            if (found) {
                 alert("እንኳን ደህና መጡ! ነባር ተጠቃሚ ስለሆኑ ኬዋይሲ በራስ-ሰር አልፏል።");
                 openModal('listingModal');
             } else {
-                currentVerifiedPhone = phoneCheck;
+                // Pre-fill phone if possible or open kyc
                 openModal('kycModal');
+                document.getElementById('sellerPhone').value = phoneCheck.trim();
             }
         }
 
@@ -245,30 +263,47 @@
             e.preventDefault();
             const phone = document.getElementById('sellerPhone').value.trim();
             const fayidaNum = document.getElementById('fayidaNum').value.trim();
+            const father = document.getElementById('fatherName').value.trim();
+            const mother = document.getElementById('motherName').value.trim();
             const frontFile = document.getElementById('idFrontInput').files[0];
             const backFile = document.getElementById('idBackInput').files[0];
 
-            // 1. Strict 16-Digit Fayida Number Validation
+            // 1. Strict Anti-Fraud Duplicate Check (Phone or Fayida already used)
+            let allSellers = getVerifiedSellers();
+            if (allSellers.some(item => item.phone === phone)) {
+                alert("ስህተት: ይህ ስልክ ቁጥር ቀደም ብሎ በሌላ መታወቂያ ተመዝግቧል! ማጭበርበር የተከለከለ ነው።");
+                return;
+            }
+            if (allSellers.some(item => item.fayida === fayidaNum)) {
+                alert("ስህተት: ይህ የፋይዳ መታወቂያ ቁጥር ቀደም ብሎ ተመዝግቧል! አንድ መታወቂያ ለአንድ አካውንት ብቻ ነው።");
+                return;
+            }
+
+            // 2. Strict 16-Digit Fayida Number Validation
             if (fayidaNum.length !== 16 || !/^\d+$/.test(fayidaNum)) {
                 alert("ስህተት: የፋይዳ መታወቂያ ቁጥር በትክክል 16 አሃዝ ቁጥር መሆን አለበት!");
                 return;
             }
 
-            // 2. Strict ID Photo & File Type Validation (ማንኛውም የዘፈቀደ ፋይል እንዳያልፍ መከላከል)
+            // 3. Strict Name and Field Validation (Prevent single word or fake texts like 'Boss')
+            if (father.length < 3 || mother.length < 3) {
+                alert("ስህተት: እባክዎ ትክክለኛ ሙሉ የክብር ስም ያስገቡ!");
+                return;
+            }
+
+            // 4. Strict Image File Type Validation
             if (!frontFile || !backFile) {
                 alert("ስህተት: እባክዎ የመታወቂያዎን ፊት (Front) እና ጀርባ (Back) ፎቶዎች በትክክል ይጫኑ!");
                 return;
             }
 
             if (!frontFile.type.startsWith('image/') || !backFile.type.startsWith('image/')) {
-                alert("ስህተት: እባክዎ ትክክለኛ የፎቶ ፋይል (JPEG/PNG) ብቻ ይጫኑ! ሌላ ፋይል መቀበል አይቻልም።");
+                alert("ስህተት: እባክዎ ትክክለኛ የፎቶ ፋይል (JPEG/PNG) ብቻ ይጫኑ!");
                 return;
             }
 
-            // 3. Lock & Register Seller to Prevent Fraud / Re-editing
-            if (!verifiedSellers.includes(phone)) {
-                verifiedSellers.push(phone);
-            }
+            // Save Permanently to LocalStorage Anti-Fraud Lock
+            saveVerifiedSeller(phone, fayidaNum);
 
             alert("የመታወቂያ ማረጋገጫዎ ተሳክቷል! መረጃዎ በደህንነት ተመዝግቧል።");
             closeModal('kycModal');
