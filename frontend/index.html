@@ -1,30 +1,230 @@
-from typing import List
-from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse
-import os
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amalaj Plus - Secured P2P Marketplace & Tool Rentals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#0b132b] text-slate-100 min-h-screen font-sans selection:bg-amber-500 selection:text-slate-950">
+    <!-- Header -->
+    <nav class="bg-[#16203a]/90 backdrop-blur-md border-b border-slate-700/60 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="text-xl font-black text-white">Amalaj<span class="text-amber-400">Plus</span></span>
+            <div class="hidden md:flex items-center space-x-4 text-xs font-semibold">
+                <a href="/" class="text-amber-400 hover:text-amber-300 transition">Home</a>
+                <a href="#platforms" class="text-slate-300 hover:text-white transition">Platforms</a>
+                <a href="#marketplace" class="text-slate-300 hover:text-white transition">Marketplace</a>
+                <a href="#toolRentals" class="text-slate-300 hover:text-white transition">Tool Rentals</a>
+                <a href="#dashboard" class="text-slate-300 hover:text-white transition">Dashboard</a>
+                
+                <!-- Post Ad / Sell Button -->
+                <button onclick="openVerificationModal()" class="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-400 text-slate-950 font-black rounded-xl shadow-lg hover:brightness-110 transition cursor-pointer">
+                    + Post Ad (Sell)
+                </button>
+                <span class="px-3.5 py-1.5 bg-slate-800 text-amber-400 border border-amber-500/30 font-bold rounded-xl shadow">🛡️ 2% Escrow</span>
+            </div>
+        </div>
+    </nav>
 
-app = FastAPI(title="Amalaj Plus API", version="21.0")
+    <!-- Hero Section -->
+    <header class="max-w-7xl mx-auto px-6 py-8 text-center space-y-3">
+        <div class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold">
+            ⚡ Secured Digital Asset & Tool Rental Ecosystem
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-white tracking-tight">
+            Trade Digital Channels & Rent Repair Software with <span class="text-amber-400">Escrow Protection</span>
+        </h1>
+    </header>
 
-if os.path.exists("static"):
-    app.mount("/static", StaticFiles(directory="static"), name="static")
+    <!-- Platform Selection Cards -->
+    <section id="platforms" class="max-w-7xl mx-auto px-6 py-4 space-y-4">
+        <div class="flex justify-between items-center">
+            <h2 class="text-base font-black text-white">Select Platform to Browse Listings</h2>
+            <span class="text-xs text-amber-400 font-bold">Verified Channels & Accounts</span>
+        </div>
 
-DB_MARKETPLACE_LISTINGS = [
-    {"id": 1, "title": "Crypto Hub", "platform": "Telegram", "subscribers": "12K", "views": "45K", "price": "15,000 ETB"},
-    {"id": 2, "title": "Sportsphere", "platform": "YouTube", "subscribers": "303K", "views": "14M", "price": "78,000 ETB"},
-    {"id": 3, "title": "Habesha Trends", "platform": "TikTok", "subscribers": "45K", "views": "1.2M", "price": "6,500 ETB"},
-    {"id": 4, "title": "thela.stone291", "platform": "Instagram", "subscribers": "1.1K", "views": "1 Avg", "price": "910 ETB"},
-    {"id": 5, "title": "Osama Jami", "platform": "Facebook", "subscribers": "5.1K", "views": "12 Likes", "price": "1,950 ETB"}
-]
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div onclick="filterPlatform('ALL')" class="bg-[#16203a] border-2 border-amber-500 hover:bg-amber-500/10 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-amber-500/20 flex items-center justify-center text-amber-400 text-lg font-bold">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div class="font-black text-white text-xs">All Platforms</div>
+                <span class="inline-block px-2 py-0.5 bg-amber-500 text-slate-950 text-[10px] font-bold rounded-full">Browse Listings</span>
+            </div>
 
-@app.get("/api/v1/marketplace", response_model=List[dict])
-def get_marketplace_listings():
-    return DB_MARKETPLACE_LISTINGS
+            <div onclick="filterPlatform('Telegram')" class="bg-[#16203a] border border-blue-500/40 hover:border-blue-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400 text-lg font-bold">
+                    <i class="fa-brands fa-telegram"></i>
+                </div>
+                <div class="font-black text-white text-xs">Telegram</div>
+                <span class="inline-block px-2 py-0.5 bg-blue-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+            </div>
 
-@app.get("/", response_class=HTMLResponse)
-def read_root():
-    html_path = "frontend/index.html"
-    if os.path.exists(html_path):
-        with open(html_path, "r", encoding="utf-8") as f:
-            return f.read()
-    return "<h3>Frontend index.html not found in frontend folder.</h3>"
+            <div onclick="filterPlatform('YouTube')" class="bg-[#16203a] border border-red-500/40 hover:border-red-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 text-lg font-bold">
+                    <i class="fa-brands fa-youtube"></i>
+                </div>
+                <div class="font-black text-white text-xs">YouTube</div>
+                <span class="inline-block px-2 py-0.5 bg-red-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+            </div>
+
+            <div onclick="filterPlatform('TikTok')" class="bg-[#16203a] border border-pink-500/40 hover:border-pink-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-pink-500/20 flex items-center justify-center text-pink-400 text-lg font-bold">
+                    <i class="fa-brands fa-tiktok"></i>
+                </div>
+                <div class="font-black text-white text-xs">TikTok</div>
+                <span class="inline-block px-2 py-0.5 bg-pink-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+            </div>
+
+            <div onclick="filterPlatform('Instagram')" class="bg-[#16203a] border border-purple-500/40 hover:border-purple-500 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-gradient-to-tr from-amber-500 via-pink-600 to-purple-600 flex items-center justify-center text-white text-lg font-bold">
+                    <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div class="font-black text-white text-xs">Instagram</div>
+                <span class="inline-block px-2 py-0.5 bg-purple-600 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+            </div>
+
+            <div onclick="filterPlatform('Facebook')" class="bg-[#16203a] border border-blue-600/40 hover:border-blue-600 rounded-2xl p-4 text-center space-y-2 cursor-pointer shadow-xl transition transform hover:-translate-y-1">
+                <div class="w-10 h-10 mx-auto rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-500 text-lg font-bold">
+                    <i class="fa-brands fa-facebook"></i>
+                </div>
+                <div class="font-black text-white text-xs">Facebook</div>
+                <span class="inline-block px-2 py-0.5 bg-blue-700 text-white text-[10px] font-bold rounded-full">Browse Listings</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketplace Listings -->
+    <section id="marketplace" class="max-w-7xl mx-auto px-6 py-6 space-y-6">
+        <div class="flex justify-between items-center bg-[#16203a] border border-slate-700/60 rounded-2xl p-6 shadow-xl">
+            <div>
+                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider" id="activeCategoryTitle">All Platforms Active</span>
+                <h2 class="text-xl font-black text-white mt-1">Verified Marketplace Listings</h2>
+            </div>
+            <span class="px-3 py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-xs font-bold">Protected by 2% Escrow</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-5 shadow-xl space-y-3 text-xs">
+                <span class="px-2 py-0.5 bg-blue-600 text-white rounded font-bold text-[9px]">Telegram</span>
+                <h3 class="font-bold text-white text-sm">Crypto Hub</h3>
+                <div class="text-amber-400 font-black text-base">15,000 ETB</div>
+                <button onclick="alert('Initiating Escrow Purchase')" class="w-full py-2 bg-blue-600 text-white font-bold rounded-xl cursor-pointer">Buy Now</button>
+            </div>
+            <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-5 shadow-xl space-y-3 text-xs">
+                <span class="px-2 py-0.5 bg-red-600 text-white rounded font-bold text-[9px]">YouTube</span>
+                <h3 class="font-bold text-white text-sm">Sportsphere</h3>
+                <div class="text-amber-400 font-black text-base">78,000 ETB</div>
+                <button onclick="alert('Initiating Escrow Purchase')" class="w-full py-2 bg-red-600 text-white font-bold rounded-xl cursor-pointer">Buy Now</button>
+            </div>
+            <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-5 shadow-xl space-y-3 text-xs">
+                <span class="px-2 py-0.5 bg-pink-600 text-white rounded font-bold text-[9px]">TikTok</span>
+                <h3 class="font-bold text-white text-sm">Habesha Trends</h3>
+                <div class="text-amber-400 font-black text-base">6,500 ETB</div>
+                <button onclick="alert('Initiating Escrow Purchase')" class="w-full py-2 bg-pink-600 text-white font-bold rounded-xl cursor-pointer">Buy Now</button>
+            </div>
+            <div class="bg-[#16203a] border border-slate-700/60 rounded-3xl p-5 shadow-xl space-y-3 text-xs">
+                <span class="px-2 py-0.5 bg-purple-600 text-white rounded font-bold text-[9px]">Instagram</span>
+                <h3 class="font-bold text-white text-sm">thela.stone291</h3>
+                <div class="text-amber-400 font-black text-base">910 ETB</div>
+                <button onclick="alert('Initiating Escrow Purchase')" class="w-full py-2 bg-purple-600 text-white font-bold rounded-xl cursor-pointer">Buy Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- One-Time Seller National ID Verification Modal -->
+    <div id="sellerModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden items-center justify-center z-50 p-4">
+        <div class="bg-[#16203a] border border-slate-700/80 w-full max-w-3xl rounded-3xl p-6 shadow-2xl relative space-y-6 max-h-[90vh] overflow-y-auto text-slate-100">
+            <button onclick="closeVerificationModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-lg cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="border-b border-slate-800 pb-4">
+                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Anti-Scam Protection</span>
+                <h2 class="text-2xl font-black text-white mt-1">One-Time Seller National ID Verification</h2>
+                <p class="text-xs text-slate-400 mt-1">Required only for your first listing to ensure absolute marketplace trust.</p>
+            </div>
+
+            <form onsubmit="handleVerificationSubmit(event)" class="space-y-6 text-xs">
+                <!-- Platform Selection -->
+                <div class="space-y-2">
+                    <label class="font-bold text-slate-300">Select Platform</label>
+                    <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                        {['Telegram', 'YouTube', 'TikTok', 'Instagram', 'Facebook'].map((p) => (
+                            <button
+                                type="button"
+                                key={p}
+                                onclick="selectPlatformModal(this, '${p}')"
+                                class="platform-btn py-2 rounded-xl font-bold border bg-slate-900 text-slate-300 border-slate-800 hover:border-amber-500 transition"
+                            >
+                                ${p}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <!-- Channel Details -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Channel / Account Name</label>
+                        <input type="text" placeholder="e.g. Sportsphere" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 outline-none" required />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-bold text-slate-300">Asking Price (ETB)</label>
+                        <input type="text" placeholder="e.g. 15000 ETB" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-white focus:border-amber-500 outline-none" required />
+                    </div>
+                </div>
+
+                <!-- National ID Upload Section -->
+                <div class="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center gap-2 text-amber-400 font-bold">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>National ID / Fayida Verification (First-Time Only)</span>
+                    </div>
+                    <p class="text-[11px] text-slate-400">Upload clear images of your official ID to prevent fraud and protect buyers.</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="space-y-1.5">
+                            <label class="font-bold text-slate-300">ID Front Side *</label>
+                            <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+                        </div>
+                        <div class="space-y-1.5">
+                            <label class="font-bold text-slate-300">ID Back Side *</label>
+                            <input type="file" required class="w-full text-slate-400 text-[10px] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow-lg transition cursor-pointer text-sm">
+                    Submit Listing & Verify ID 🛡️
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openVerificationModal() {
+            document.getElementById('sellerModal').classList.remove('hidden');
+            document.getElementById('sellerModal').classList.add('flex');
+        }
+
+        function closeVerificationModal() {
+            document.getElementById('sellerModal').classList.add('hidden');
+            document.getElementById('sellerModal').classList.remove('flex');
+        }
+
+        function handleVerificationSubmit(e) {
+            e.preventDefault();
+            alert('National ID & First-Time Listing submitted securely. Verification in progress!');
+            closeVerificationModal();
+        }
+
+        function filterPlatform(platform) {
+            document.getElementById('activeCategoryTitle').innerText = platform === 'ALL' ? 'All Platforms Active' : platform + ' Listings Active';
+        }
+    </script>
+</body>
+</html>
